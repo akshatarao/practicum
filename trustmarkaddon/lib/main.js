@@ -3,14 +3,25 @@
  Created by: ARao
 */
 var pageloader = require("./pageloadhandler.js");
+var panelviewer = require("./panelviewer.js");
+var { ToggleButton } = require('sdk/ui/button/toggle');
 
-require("sdk/ui/button/action").ActionButton({
+
+var button = ToggleButton({
   id: "show-panel",
   label: "Show Panel",
   icon: {
     "16": "./icon-16.png"
   },
-  onClick: function() {
-    console.log(pageloader.onPageLoad());
-  }
+  onClick: displayTrustmarkPanel
 });
+
+function displayTrustmarkPanel(state)
+{
+	if(state.checked)
+	{
+		panelviewer.displayTrustmarks(button);
+	}
+}
+
+

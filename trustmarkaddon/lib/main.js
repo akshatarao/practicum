@@ -4,6 +4,8 @@
 */
 var pageloader = require("./pageloadhandler.js");
 var panelviewer = require("./panelviewer.js");
+var trustmarkhelper = require("./trustmarkhelper.js");
+
 var { ToggleButton } = require('sdk/ui/button/toggle');
 var self = require("sdk/self");
 var { indexedDB }  = require('sdk/indexed-db');
@@ -78,6 +80,16 @@ function createRecipientStore(db)
 	{
 		console.log("Recipient Object Store - transaction successful");
 	}
+
+}
+
+/**
+ *@Purpose Retrieve Recipient Trustmark Mapping Store Name
+ *@Returns objectStore name
+ */
+function getRecipientTrustmarkMappingStoreName()
+{
+	return "trustmarkrecipientmapping";
 }
 
 /**
@@ -86,8 +98,17 @@ function createRecipientStore(db)
  * Returns: none
  * TODO: Check if object store pointer can be returned and stored globally 
  */
-function createRecipientTrustmarkMappingStore(database_pointer)
+function createRecipientTrustmarkMappingStore(db)
 {
+	const objectStoreLabel = getRecipientTrustmarkMappingStoreName();
+	if(db.objectStoreNames.contains(objectStoreLabel))
+	{
+		db.deleteObjectStore(objectStoreLabel);
+	}
+
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "trustmark_id"});
+	objectStore.createIndex("recipient_id", "recipient_id", {unique: false});
+	objectStore.createIndex("trustmark_def_id", "trustmark_def_id", {unique: false});
 }
 
 /**
@@ -135,7 +156,7 @@ function initDB()
  *	       trustmark_id - Trustmark Identifier
  *	       trustmark - Trustmark JSON
  */
-function loadTrustmarksInCache(recipient_id, trustmark_id, trustmark)
+function loadTrustmarksInCache(recipient_id, trustmark_id, trustmark_def_id, trustmark)
 {
 
 	var request = indexedDB.open("trustmarkDB",2);
@@ -171,6 +192,7 @@ function loadTrustmarksInCache(recipient_id, trustmark_id, trustmark)
 		//************DUMMY CODE ENDS HERE*************
 	}
 
+
 }
 
 /**
@@ -191,26 +213,43 @@ function isEmpty(str)
 function getDefaultTrustmarks()
 {
 	//TODO: Check if file exists
-	var configFile = self.data.load("defaulttrustmarks/configfile");
-	var trustmarks = configFile.split("\n");
-	
-	for( var i in trustmarks)
-	{
-		if(!isEmpty(trustmarks[i]))
+
+	var request = indexedDB.open("trustmarkDB",2);
+        var db;
+
+        request.onerror = function(event)
+        {
+                console.log("DB2 error");
+        }
+
+        request.onsuccess = function(event)
+        {
+		var configFile = self.data.load("defaulttrustmarks/configfile");
+	        var trustmarks = configFile.split("\n");
+
+                console.log("Successfully got a connection to database");
+                db = event.target.result;
+
+		for( var i in trustmarks)
 		{
-			var trustmarkjson = self.data.load(trustmarks[i]);
-			var jsonObj = JSON.parse(trustmarkjson);
+			if(!isEmpty(trustmarks[i]))
+			{
+				var trustmarkjson = self.data.load(trustmarks[i]);
+				var jsonObj = JSON.parse(trustmarkjson);
 			
-			recipient_id = jsonObj.Trustmark.Recipient.Identifier;
-			trustmark_id = jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier;
-		
-			console.log(jsonObj.Trustmark.Recipient.Identifier);	
-			console.log(jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier);
-			loadTrustmarksInCache(recipient_id, trustmark_id, trustmarkjson);
+				recipient_id = jsonObj.Trustmark.Recipient.Identifier;
+				trustmark_def_id = jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier;
+				trustmark_id = jsonObj.Trustmark.Identifier;
+	
+				console.log(jsonObj.Trustmark.Recipient.Identifier);	
+				console.log(jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier);
+				console.log(jsonObj.Trustmark.Identifier);
+
+				trustmarkhelper.addTrustmarkToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmarkjson);
+			}
 		}
 	}
 
 }
-
 initDB();
 getDefaultTrustmarks();

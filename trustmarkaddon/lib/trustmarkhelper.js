@@ -24,6 +24,11 @@ function calculateTrustmarkRating(trustmark_xml)
 	console.log("Inside calculate trustmark rating");
 }
 
+/**
+ *@Purpose - Retrieve recipient name
+ *@Parameter - Trustmark JSON String
+ *@Returns - Recipient Name
+ */
 function getRecipientName(trustmark_json_str)
 {
 	var trustmarkJSON = JSON.parse(trustmark_json_str);
@@ -31,6 +36,14 @@ function getRecipientName(trustmark_json_str)
 	return trustmarkJSON.Trustmark.Recipient.Name;
 }
 
+/**
+ *@Purpose - Add Recipient to Cache
+ *@Parameters
+ *	db - Database
+ *	recipient_id - Recipient Identifier
+ *	trustmark_json - Trustmark JSON string
+ *@Returns none
+ */
 function addRecipientToCache(db, recipient_id, trustmark_json)
 {
 	var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
@@ -59,6 +72,14 @@ function addRecipientToCache(db, recipient_id, trustmark_json)
 
 }
 
+/**
+ * @Purpose - Add trustmark to cache
+ * @Parameters - db - Database
+ * 	       - recipient_id - Recipient ID
+ *	       - trustmark_id - Trustmark ID
+ *	       - trustmark_def_id - Trustmark Definition ID
+ *	       - trustmark_json - Trustmark JSON
+ */
 function addTrustmarkToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmark_json)
 {
 
@@ -67,29 +88,7 @@ function addTrustmarkToCache(db, recipient_id, trustmark_id, trustmark_def_id, t
 	console.log("Trustmark ID: " + trustmark_id);
 	console.log("Trustmark Def ID:" + trustmark_def_id);
 
-	var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
-	
-	var recipientRequest = recipientObjectStore.get(recipient_id);
-	
-	recipientRequest.onerror = function(event)
-	{
-		console.log("An error occurred while accessing the recipient store");
-	}
-
-	recipientRequest.onsuccess = function(event)
-	{
-		if(recipientRequest.result)
-		{	
-	 		console.log("Recipient " + recipientRequest.result.name + " found.");
-		}
-		else
-		{
-			var recipient_name = getRecipientName(trustmark_json);
-        	        var recipientRow = { identifier : recipient_id, name: recipient_name };
-	                recipientObjectStore.add(recipientRow);
-                	console.log("Recipient added : " + recipient_name);
-		}
-	}
+	addRecipientToCache(db, recipient_id, trustmark_json);
 
 	//add trustmark to trustmark store
 	//if not exists, add trustmark def to trustmark def store

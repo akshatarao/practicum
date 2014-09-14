@@ -1,0 +1,31 @@
+{ 
+	"Trustmark" : {
+		"Identifier": "http: //trustmark.gtri.gatech.edu/sampletrustmarks/facebook/access/personaldata/inspect.xml",
+		"TrustmarkDefinitionReference": {
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml",
+				"Name": "Access to inspect personal data",
+				"Version": "1.0",
+				"Description": "Access to inspect personal data"			
+				},
+		"IssueDateTime": "2014-08-21T09:06:00",
+		"StatusURL": "http://trustmark.gtri.gatech.edu/schema/examples/trustmark-status-reports/query?tmid=IDENTIFIER",
+		"Provider": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+				}
+			},
+		"Recipient": {
+			"Identifier": "www.facebook.com",
+			"Name": "Facebook,Inc",
+			"Contact": {
+			
+			}
+			
+		}
+
+		}
+}
+

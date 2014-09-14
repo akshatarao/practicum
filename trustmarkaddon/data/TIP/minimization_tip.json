@@ -1,0 +1,378 @@
+{ "TrustInteroperabilityProfile" : 
+{
+   "@id": "_334057023407234",
+   "Signature": {
+      "SignedInfo": {
+         "CanonicalizationMethod": {
+            "@Algorithm": "algorithm",
+            "#text": "CanonicalizationMethod"
+         },
+         "SignatureMethod": {
+            "@Algorithm": "algorithm",
+            "#text": "SignatureMethod"
+         },
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         }
+      },
+      "SignatureValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n            IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n            dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n            dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n            ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+   },
+   "Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml",
+   "Name": "Minimization of Data Activity",
+   "Version": "1.0",
+   "Description": "Minimization of Data Activity",
+   "PublicationDateTime": "2014-08-21T11:59:59",
+   "LegalNotice": "LegalNoticeText",
+   "LegalNoticeURL": "http://www.gnu.org/copyleft/gpl.html",
+   "Notes": [
+      "Notes1",
+      "Notes2"
+   ],
+   "Issuer": {
+      "Identifier": "http://trustmark.gtri.gatech.edu/",
+      "Name": "GTRI Trustmark Pilot",
+      "Contact": [
+         {
+            "Type": "PRIMARY",
+            "Responder": "John Wandelt",
+            "Email": [
+               "TrustmarkFeedback@gtri.gatech.edu",
+               "TrustmarkFeedback2@gtri.gatech.edu"
+            ],
+            "Telephone": "404-407-8956",
+            "PhysicalAddress": "111 Main St., Atlanta, GA",
+            "MailingAddress": "PO Box 111, Atlanta, GA, 30000",
+            "WebsiteURL": [
+               "http://gtri.org/",
+               "http://trustmark.gtri.gatech.edu/"
+            ],
+            "Notes": "Notes about this contact, such as protocol when they cannot be reached."
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback3@gtri.gatech.edu"
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback4@gtri.gatech.edu",
+            "Notes": "For example purpose only. Do not send email here."
+         }
+      ]
+   },
+   "References": {
+      "TrustmarkDefinitionReference": {
+      "@id": "minimization_datadisclosure_optin",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datadisclosure.xml",
+      "Name": "Minimize Data Disclosure via Opt-in Consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Disclosure via Opt-in Consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+ 	"TrustmarkDefinitionReference": {
+      "@id": "minimization_datadisclosure_optout",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datadisclosure.xml",
+      "Name": "Minimize Data Disclosure via Opt-out Consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Disclosure via Opt-out Consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	"TrustmarkDefinitionReference": {
+      "@id": "minimization_datause_optin",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datause.xml",
+      "Name": "Minimize Data Use via Opt-in consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Use via Opt-in consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  "TrustmarkDefinitionReference": {
+      "@id": "minimization_datause_optout",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datause.xml",
+      "Name": "Minimize Data Use via Opt-out consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Use via Opt-out consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  "TrustmarkDefinitionReference": {
+      "@id": "minimization_datacollection_optin",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datacollection.xml",
+      "Name": "Minimize Data Collection via Opt-in Consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Collection via Opt-in Consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_datacollection_optout",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datacollection.xml",
+      "Name": "Minimize Data Collection via Opt-out Consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Collection via Opt-out Consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_dataretention_optout",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/dataretention.xml",
+      "Name": "Minimize Data Retention via Opt-out Consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Retention via Opt-out Consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_dataretention_optin",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/dataretention.xml",
+      "Name": "Minimize Data Retention via Opt-in Consent",
+      "Version": "1.0",
+      "Description": "Minimize Data Retention via Opt-in Consent",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_datacollection_specifiedpurpose",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datacollection.xml",
+      "Name": "Minimize Data Collection via Specified Purpose",
+      "Version": "1.0",
+      "Description": "Minimize Data Collection via Specified Purpose",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_datause_specifiedpurpose",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datause.xml",
+      "Name": "Minimize Data Use via Specified Purpose",
+      "Version": "1.0",
+      "Description": "Minimize Data Use via Specified Purpose",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_datadisclosure_specifiedpurpose",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datadisclosure.xml",
+      "Name": "Minimize Data Disclosure via Specified Purpose",
+      "Version": "1.0",
+      "Description": "Minimize Data Disclosure via Specified Purpose",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_dataretention_specifiedpurpose",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/dataretention.xml",
+      "Name": "Minimize Data Retention via Specified Purpose",
+      "Version": "1.0",
+      "Description": "Minimize Data Retention via Specified Purpose",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_dataaggregation_linkage",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/dataaggregation.xml",
+      "Name": "Minimize Data Aggregation and Linkages Between Transactions",
+      "Version": "1.0",
+      "Description": "Minimize Data Aggregation and Linkages Between Transactions",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  TrustmarkDefinitionReference": {
+      "@id": "minimization_datadisclosure_destinationproperties",
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/datadisclosure/destinationproperties.xml",
+      "Name": "Minimize Data Disclosure via Destination Properties",
+      "Version": "1.0",
+      "Description": "Minimize Data Disclosure via Destination Properties",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },															
+   },
+   "TrustExpression": "(minimization_datadisclosure_optin OR minimization_datadisclosure_optout OR minimization_datadisclosure_specifiedpurpose) AND (minimization_datause_optin OR minimization_datause_optout OR minimization_datause_specifiedpurpose)AND(minimization_datacollection_optin OR minimization_datacollection_optout OR minimization_datacollection_specifiedpurpose)AND minimization_dataretention_optin OR minimization_dataretention_optout OR minimization_dataretention_specifiedpurpose) AND minimization_dataaggregation_linkage AND minimization_datadisclosure_destinationproperties"
+}
+}

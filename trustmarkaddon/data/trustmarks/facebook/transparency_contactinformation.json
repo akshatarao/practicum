@@ -1,0 +1,116 @@
+{"Trustmark" : 
+{
+   "@id": "_12309847135912347012934",
+   "Signature": {
+      "SignedInfo": {
+         "CanonicalizationMethod": {
+            "@Algorithm": "algorithm",
+            "#text": "CanonicalizationMethod"
+         },
+         "SignatureMethod": {
+            "@Algorithm": "algorithm",
+            "#text": "SignatureMethod"
+         },
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         }
+      },
+      "SignatureValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n            IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n            dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n            dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n            ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+   },
+   "Identifier": "http://trustmark.gtri.gatech.edu/sampletrustmarks/facebook/transparency/contactinfo.xml",
+   "TrustmarkDefinitionReference": {
+      "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/contactinfo.xml",
+      "Name": "Accountability through presentation of contact information",
+      "Version": "1.0",
+      "Description": "Accountability through presentation of contact information",
+      "Reference": {
+         "DigestMethod": {
+            "@Algorithm": "algorithm",
+            "#text": "DigestMethod"
+         },
+         "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+      }
+   },
+   "IssueDateTime": "2014-08-21T09:06:00",
+   "ExpirationDateTime": "2015-08-21T09:06:00",
+   "PolicyPublicationURL": "http://trustmark.gtri.gatech.edu/tm-policy",
+   "RelyingPartyAgreementURL": "http://trustmark.gtri.gatech.edu/RP-agreement",
+   "StatusURL": "http://trustmark.gtri.gatech.edu/schema/examples/trustmark-status-reports/query?tmid=IDENTIFIER",
+   "Provider": {
+      "Identifier": "http://trustmark.gtri.gatech.edu/",
+      "Name": "GTRI Trustmark Pilot",
+      "Contact": [
+         {
+            "Type": "PRIMARY",
+            "Responder": "John Wandelt",
+            "Email": [
+               "TrustmarkFeedback@gtri.gatech.edu",
+               "TrustmarkFeedback2@gtri.gatech.edu"
+            ],
+            "Telephone": "404-407-8956",
+            "PhysicalAddress": "111 Main St., Atlanta, GA",
+            "MailingAddress": "PO Box 111, Atlanta, GA, 30000",
+            "WebsiteURL": [
+               "http://gtri.org/",
+               "http://trustmark.gtri.gatech.edu/"
+            ],
+            "Notes": "Notes about this contact, such as protocol when they cannot be reached."
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback3@gtri.gatech.edu"
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback4@gtri.gatech.edu",
+            "Notes": "For example purpose only. Do not send email here."
+         }
+      ]
+   },
+   "Recipient": {
+      "Identifier": "www.facebook.com",
+      "Name": "Facebook, Inc",
+      "Contact": [
+         {
+            "Type": "PRIMARY",
+            "Responder": "Alice",
+            "Email": [
+               "alice@facebook.com",
+            ],
+            "Telephone": "404-407-8956",
+            "PhysicalAddress": "111 Main St., Atlanta, GA",
+            "MailingAddress": "PO Box 111, Atlanta, GA, 30000",
+            "WebsiteURL": [
+               "http://trustmark.gtri.gatech.edu/",
+               "http://gtri.org/"
+            ],
+            "Notes": "Notes about this contact, such as protocol when they cannot be reached."
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback3@gtri.gatech.edu"
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback4@gtri.gatech.edu",
+            "Notes": "For example purpose only. Do not send email here."
+         }
+      ]
+   },
+   "DefinitionExtension": {
+      "extension-element-1": "Test",
+      "json-example": {
+         "iss": "joe",
+         "exp": 1300819380,
+         "http://example.com/is_root": true
+      }
+   },
+   "ProviderExtension": {
+      "assessment-identifier": "ASSESSMENT_2014-08-21_001"
+   }
+}
+}

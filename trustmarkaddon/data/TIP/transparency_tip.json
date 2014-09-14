@@ -1,0 +1,226 @@
+{ "TrustInteroperabilityProfile" : 
+{
+   "@id": "_334057023407234",
+   "Signature": {
+      "SignedInfo": {
+         "CanonicalizationMethod": {
+            "@Algorithm": "algorithm",
+            "#text": "CanonicalizationMethod"
+         },
+         "SignatureMethod": {
+            "@Algorithm": "algorithm",
+            "#text": "SignatureMethod"
+         },
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         }
+      },
+      "SignatureValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n            IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n            dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n            dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n            ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+   },
+   "Identifier": "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-full.xml",
+   "Name": "Transparency of policies and activities",
+   "Version": "1.0",
+   "Description": "Transparency - Being transparent and open about policies and activities.",
+   "PublicationDateTime": "2014-08-21T11:59:59",
+   "LegalNotice": "LegalNoticeText",
+   "LegalNoticeURL": "http://www.gnu.org/copyleft/gpl.html",
+   "Notes": [
+      "Notes1",
+      "Notes2"
+   ],
+   "Issuer": {
+      "Identifier": "http://trustmark.gtri.gatech.edu/",
+      "Name": "GTRI Trustmark Pilot",
+      "Contact": [
+         {
+            "Type": "PRIMARY",
+            "Responder": "John Wandelt",
+            "Email": [
+               "TrustmarkFeedback@gtri.gatech.edu",
+               "TrustmarkFeedback2@gtri.gatech.edu"
+            ],
+            "Telephone": "404-407-8956",
+            "PhysicalAddress": "111 Main St., Atlanta, GA",
+            "MailingAddress": "PO Box 111, Atlanta, GA, 30000",
+            "WebsiteURL": [
+               "http://gtri.org/",
+               "http://trustmark.gtri.gatech.edu/"
+            ],
+            "Notes": "Notes about this contact, such as protocol when they cannot be reached."
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback3@gtri.gatech.edu"
+         },
+         {
+            "Type": "OTHER",
+            "Email": "TrustmarkFeedback4@gtri.gatech.edu",
+            "Notes": "For example purpose only. Do not send email here."
+         }
+      ]
+   },
+   "References": {
+      "TrustmarkDefinitionReference": {
+         "@id": "transparency_contactinfo",
+         "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/contactinfo.xml",
+      	 "Name": "Accountability through presentation of contact information",
+      	 "Version": "1.0",
+      	 "Description": "Accountability through presentation of contact information",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  "TrustmarkDefinitionReference": {
+         "@id": "transparency_notification_activity",
+      	 "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/dataactivity.xml",
+      	 "Name": "Accountability through notification of data activity",
+      	 "Version": "1.0",
+	     "Description": "Accountability through notification of data activity",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+         n   },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  "TrustmarkDefinitionReference": {
+         "@id": "transparency_notification_collecteddata",
+      	 "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/collecteddata.xml",
+	     "Name": "Accountability through notification of collected data types",
+    	 "Version": "1.0",
+      	 "Description": "Accountability through notification of collected data types",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	  "TrustmarkDefinitionReference": {
+         "@id": "transparency_policy_complexity",
+	     "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/policycomplexity.xml",
+      	 "Name": "Transparency through Minimal Policy and Purpose Complexity and Update Frequency",
+      	 "Version": "1.0",
+      	 "Description": "Transparency through Minimal Policy and Purpose Complexity and Update Frequency",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+   },
+	 "TrustmarkDefinitionReference": {
+        "@id": "transparency_purpose_explicit",
+	    "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/specifiedpurpose/explicit.xml",
+      	"Name": "Accountability through explicit purpose specification",
+      	"Version": "1.0",
+      	"Description": "Accountability through explicit purpose specification",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+   },
+	"TrustmarkDefinitionReference": {
+        "@id": "transparency_legitimacy",
+	    "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/legitimacy.xml",
+      	"Name": "Transparency through specification of legitimacy of data accessor",
+      	"Version": "1.0",
+      	"Description": "Transparency through specification of legitimacy of data accessor",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+	 "TrustmarkDefinitionReference": {
+        "@id": "transparency_policy_nonadherence",
+	    "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/breachdisclosure.xml",
+      	"Name": "Transparency through notification of breach disclosure",
+      	"Version": "1.0",
+      	"Description": "Transparency through specification of legitimacy of data accessor",
+         "Reference": {
+            "DigestMethod": {
+               "@Algorithm": "algorithm",
+               "#text": "DigestMethod"
+            },
+            "DigestValue": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz\n                    IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg\n                    dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu\n                    dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo\n                    ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="
+         },
+         "AcceptableProviders": {
+            "Identifier": [
+               "http://some-agency.org",
+               "http://some-agency1.org",
+               "http://some-agency2.org",
+               "http://some-agency2.org"
+            ]
+         }
+      },
+   },
+   "TrustExpression": "transparency_contactinfo AND transparency_notification_activity AND transparency_notification_collecteddata AND transparency_policy_complexity AND transparency_purpose_explicit AND transparency_legitimacy AND transparency_policy_nonadherence"
+}
+}

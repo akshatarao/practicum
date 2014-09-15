@@ -78,7 +78,7 @@ function addRecipientToCache(db, recipient_id, trustmark_json)
 */
 function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustmark_json_val)
 {
-	var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
+	var trustmarksObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
 
         var trustmarkRequest = trustmarkObjectStore.get(trustmark_id_val);
 

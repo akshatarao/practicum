@@ -101,6 +101,7 @@ function getRecipientTrustmarkMappingStoreName()
 function createRecipientTrustmarkMappingStore(db)
 {
 	const objectStoreLabel = getRecipientTrustmarkMappingStoreName();
+	
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
 		db.deleteObjectStore(objectStoreLabel);
@@ -112,6 +113,33 @@ function createRecipientTrustmarkMappingStore(db)
 }
 
 /**
+ *@Purpose - Get trustmark store name
+ *@Returns - trustmark store name
+ */
+function getTrustmarkStoreName()
+{
+	return "trustmarks";
+}
+
+/**
+ *@Purpose: Create trustmark object store
+ *@Parameters: db - Database pointer
+ *@Returns: none
+ */
+function createTrustmarkStore(db)
+{
+	const objectStoreLabel = getTrustmarkStoreName();
+	
+	if(db.objectStoreNames.contains(objectStoreLabel))
+	{
+		db.deleteObjectStore(objectStoreLabel);
+	}
+
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "trustmark_id"});
+	objectStore.createIndex("trustmark_def_id", "trustmark_def_id", {unique: false});
+	objectStore.createIndex("trustmark_json", "trustmark_json", {unique: true});
+}
+/**
  * Purpose: Create Object Store
  * Parameter: database_pointer - Database pointer
  * Returns: none
@@ -120,6 +148,7 @@ function createObjectStores(database_pointer)
 {
 	createRecipientStore(database_pointer);
 	createRecipientTrustmarkMappingStore(database_pointer);
+	createTrustmarkStore(database_pointer);
 }
 
 /**
@@ -245,7 +274,7 @@ function getDefaultTrustmarks()
 				console.log(jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier);
 				console.log(jsonObj.Trustmark.Identifier);
 
-				trustmarkhelper.addTrustmarkToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmarkjson);
+				trustmarkhelper.addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmarkjson);
 			}
 		}
 	}

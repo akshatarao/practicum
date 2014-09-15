@@ -72,9 +72,12 @@ function addRecipientToCache(db, recipient_id, trustmark_json)
 
 }
 
-/*
- *
- *
+/*@Purpose - Add trustmark to cache
+ *@Parameters - db - Database pointer
+ *	      - trustmark_id_val = Trustmark Identifier
+ *	      - trustmark_def_id_val = Trustmark Definition Identifier
+ *	      - trustmark_json_val = Trustmark JSON
+ *@Returns none
 */
 function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustmark_json_val)
 {
@@ -102,6 +105,42 @@ function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustma
         }
 
 }
+
+/*@Purpose - Add trustmark to cache
+ *@Parameters - db - Database pointer
+ *	      - trustmark_id_val = Trustmark Identifier
+ *	      - trustmark_def_id_val = Trustmark Definition Identifier
+ *	      - trustmark_json_val = Trustmark JSON
+ *@Returns none
+*/
+function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trustmark_def_id_val)
+{
+	var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
+
+        var trustmarkMappingRequest = trustmarkMappingObjectStore.get(trustmark_id_val);
+
+        trustmarkMappingRequest.onerror = function(event)
+        {
+                console.log("An error occurred while accessing the trustmark mapping store");
+        }
+
+        trustmarkMappingRequest.onsuccess = function(event)
+        {
+                if(trustmarkMappingRequest.result)
+                {
+                        console.log("Trustmark " + trustmark_id_val + " found.");
+                }
+                else
+                {
+                        var trustmarkMappingRow = { trustmark_id : trustmark_id_val, trustmark_def_id: trustmark_def_id_val, recipient_id: recipient_id_val };
+                        trustmarkMappingObjectStore.add(trustmarkMappingRow);
+                        console.log("Trustmark mapping added : " + trustmark_id_val);
+                }
+        }
+
+}
+
+
 /**
  * @Purpose - Add trustmark to cache
  * @Parameters - db - Database
@@ -120,9 +159,7 @@ function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_
 
 	addRecipientToCache(db, recipient_id, trustmark_json);
 	addTrustmarkToCache(db, trustmark_id, trustmark_def_id, trustmark_json);
-	//add trustmark to trustmark store
-	//if not exists, add trustmark def to trustmark def store
-	//if not exists, add recipient to recipient store
+	addTrustmarkMappingToCache(db, trustmark_id, recipient_id, trustmark_def_id);
 	//if not exists, add trustmark-recipient mapping to store	
 
 	//TODO: Update existing trustmark

@@ -14,15 +14,6 @@ function retrieveTrustmarks(website_url)
 	console.log("Inside retrieve trustmarks");
 }
 
-/**
- * Calculate Privacy Rating based on trustmarks
- * Params: trustmark_xml - Trustmarks XML
- * Return : Trustmark Rating
- */
-function calculateTrustmarkRating(trustmark_xml)
-{
-	console.log("Inside calculate trustmark rating");
-}
 
 /**
  *@Purpose - Retrieve recipient name
@@ -106,7 +97,7 @@ function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustma
 
 }
 
-/*@Purpose - Add trustmark to cache
+/*@Purpose - Add trustmark mapping to cache
  *@Parameters - db - Database pointer
  *	      - trustmark_id_val = Trustmark Identifier
  *	      - trustmark_def_id_val = Trustmark Definition Identifier
@@ -140,6 +131,31 @@ function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trus
 
 }
 
+function retrieveRecipientTrustmarks(db, recipient_id)
+{
+
+        var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
+
+	var index = trustmarkMappingObjectStore.index("recipient_id");
+	var request = index.openCursor(recipient_id);
+
+	request.onsuccess = function(event)
+	{
+		var cursor = event.target.result;
+
+		if(cursor)
+		{
+			var results = cursor.value;
+
+			console.log("Results: " + cursor.trustmark_def_id);
+			var jsonStr = JSON.stringify(results);
+			console.log("JSON String: " + jsonStr);
+			cursor.continue();
+		}
+
+	}
+
+}
 
 /**
  * @Purpose - Add trustmark to cache
@@ -184,8 +200,8 @@ function retrieveTrustmarkFromCache(website_url)
 	console.log("Inside retrieve trustmark from cache");
 }
 
+exports.retrieveRecipientTrustmarks = retrieveRecipientTrustmarks;
 exports.retrieveTrustmarks = retrieveTrustmarks;
-exports.calculateTrustmarkRating = calculateTrustmarkRating;
 exports.storeTrustmarkInCache = storeTrustmarkInCache;
 exports.retrieveTrustmarkFromCache = retrieveTrustmarkFromCache;
 exports.addTrustmarkRelationsToCache = addTrustmarkRelationsToCache;

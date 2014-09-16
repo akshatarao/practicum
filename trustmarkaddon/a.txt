@@ -1,0 +1,45 @@
+Using binary at '/usr/bin/firefox'.
+
+(process:6585): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+Using profile at '/tmp/tmpbqttDb.mozrunner'.
+
+(process:6589): GLib-CRITICAL **: g_slice_set_config: assertion 'sys_page_size == 0' failed
+[6589] WARNING: Attempt to add property GnomeProgram::sm-connect after class was initialised: 'glib warning', file /build/buildd/firefox-32.0+build1/toolkit/xre/nsSigHandlers.cpp, line 127
+
+(firefox:6589): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::sm-connect after class was initialised
+[6589] WARNING: Attempt to add property GnomeProgram::show-crash-dialog after class was initialised: 'glib warning', file /build/buildd/firefox-32.0+build1/toolkit/xre/nsSigHandlers.cpp, line 127
+
+(firefox:6589): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::show-crash-dialog after class was initialised
+[6589] WARNING: Attempt to add property GnomeProgram::display after class was initialised: 'glib warning', file /build/buildd/firefox-32.0+build1/toolkit/xre/nsSigHandlers.cpp, line 127
+
+(firefox:6589): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::display after class was initialised
+[6589] WARNING: Attempt to add property GnomeProgram::default-icon after class was initialised: 'glib warning', file /build/buildd/firefox-32.0+build1/toolkit/xre/nsSigHandlers.cpp, line 127
+
+(firefox:6589): GLib-GObject-WARNING **: Attempt to add property GnomeProgram::default-icon after class was initialised
+console.log: trustmarkaddon: Successfully added
+console.log: trustmarkaddon: Success
+console.log: trustmarkaddon: Successfully got a connection to database
+console.log: trustmarkaddon: www.facebook.com
+console.log: trustmarkaddon: http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml
+console.log: trustmarkaddon: http: //trustmark.gtri.gatech.edu/sampletrustmarks/facebook/access/personaldata/inspect.xml
+console.log: trustmarkaddon: Add trustmark to cache
+console.log: trustmarkaddon: Recipient ID: www.facebook.com
+console.log: trustmarkaddon: Trustmark ID: http: //trustmark.gtri.gatech.edu/sampletrustmarks/facebook/access/personaldata/inspect.xml
+console.log: trustmarkaddon: Trustmark Def ID:http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml
+console.log: trustmarkaddon: www.amazon.com
+console.log: trustmarkaddon: http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml
+console.log: trustmarkaddon: http: //trustmark.gtri.gatech.edu/sampletrustmarks/amazon/access/personaldata/inspect.xml
+console.log: trustmarkaddon: Add trustmark to cache
+console.log: trustmarkaddon: Recipient ID: www.amazon.com
+console.log: trustmarkaddon: Trustmark ID: http: //trustmark.gtri.gatech.edu/sampletrustmarks/amazon/access/personaldata/inspect.xml
+console.log: trustmarkaddon: Trustmark Def ID:http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml
+System JS : ERROR resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///tmp/tmpbqttDb.mozrunner/extensions/jid1-GrCZ6h12Zvg3ZA@jetpack.xpi!/bootstrap.js -> resource://gre/modules/commonjs/toolkit/loader.js -> resource://jid1-grcz6h12zvg3za-at-jetpack/trustmarkaddon/lib/trustmarkhelper.js:140 - ReferenceError: webkitIDBKeyRange is not defined
+console.log: trustmarkaddon: Recipient Facebook, Inc found.
+console.log: trustmarkaddon: Trustmark added : http: //trustmark.gtri.gatech.edu/sampletrustmarks/facebook/access/personaldata/inspect.xml
+console.log: trustmarkaddon: Trustmark mapping added : http: //trustmark.gtri.gatech.edu/sampletrustmarks/facebook/access/personaldata/inspect.xml
+console.log: trustmarkaddon: Recipient added : Amazon, Inc
+console.log: trustmarkaddon: Trustmark added : http: //trustmark.gtri.gatech.edu/sampletrustmarks/amazon/access/personaldata/inspect.xml
+console.log: trustmarkaddon: Trustmark mapping added : http: //trustmark.gtri.gatech.edu/sampletrustmarks/amazon/access/personaldata/inspect.xml
+JavaScript error: chrome://browser/content/urlbarBindings.xml, line 677: aUrl is undefined
+Total time: 6.249999 seconds
+Program terminated successfully.

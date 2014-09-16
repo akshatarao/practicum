@@ -9,7 +9,6 @@ var trustmarkhelper = require("./trustmarkhelper.js");
 var { ToggleButton } = require('sdk/ui/button/toggle');
 var self = require("sdk/self");
 var { indexedDB }  = require('sdk/indexed-db');
-
 var button = ToggleButton({
   id: "show-panel",
   label: "Show Panel",
@@ -246,6 +245,7 @@ function getDefaultTrustmarks()
 	var request = indexedDB.open("trustmarkDB",2);
         var db;
 
+
         request.onerror = function(event)
         {
                 console.log("DB2 error");
@@ -277,7 +277,10 @@ function getDefaultTrustmarks()
 				trustmarkhelper.addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmarkjson);
 			}
 		}
+
+		trustmarkhelper.retrieveRecipientTrustmarks(db, "www.facebook.com");
 	}
+
 
 }
 initDB();

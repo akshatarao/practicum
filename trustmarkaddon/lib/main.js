@@ -278,7 +278,6 @@ function getDefaultTrustmarks()
 			}
 		}
 
-		trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");
 	}
 
 
@@ -286,4 +285,4 @@ function getDefaultTrustmarks()
 
 initDB();
 getDefaultTrustmarks();
-
+trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");

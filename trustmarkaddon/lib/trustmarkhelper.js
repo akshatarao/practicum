@@ -140,6 +140,11 @@ function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trus
 
 }
 
+/**
+ *@Purpose - Retrieve Recipient Trustmarks from Cache
+ *@Parameter - Recipient Identifier
+ *@Returns - Array of trustmark IDs?
+ */
 function retrieveRecipientTrustmarks(recipient_id)
 {
 
@@ -157,50 +162,59 @@ function retrieveRecipientTrustmarks(recipient_id)
 
 		db = event.target.result;
 	
-        var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
+	        var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
 
-	var index = trustmarkMappingObjectStore.index("recipient_id");
-	var request = index.openCursor(recipient_id);
+		var index = trustmarkMappingObjectStore.index("recipient_id");
+		var request = index.openCursor(recipient_id);
 
-	request.onsuccess = function(event)
-	{
-		var cursor = event.target.result;
-
-		if(cursor)
+		var test = [];
+		var i = 0;
+		request.onsuccess = function(event)
 		{
-			var results = cursor.value;
+			var cursor = event.target.result;
 
-			var trustmark_id = results.trustmark_id;
+			if(cursor)
+			{
+				var results = cursor.value;
+
+				var trustmark_id = results.trustmark_id;
 
 		
-			var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
+				var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
 
-			var trustmarkRequest = trustmarkObjectStore.get(trustmark_id);
+				var trustmarkRequest = trustmarkObjectStore.get(trustmark_id);
 
-			trustmarkRequest.onsuccess = function(event)
-			{
-				if(trustmarkRequest.result)
-				{
-					var trustmark_json = trustmarkRequest.result.trustmark_json;
-					var trustmark_json_obj = JSON.parse(trustmark_json);
-					var trustmarkname = trustmark_json_obj.Trustmark.TrustmarkDefinitionReference.Name
-					console.log("Trustmark: " + trustmarkname);
-				}
-				else
-				{
-					//TODO: Handle
-				}
-			}
-
-			trustmarkRequest.onerror = function(event)
-			{
-				console.log("An error occurred while retrieving the trustmarks");
-			}
 			
-			cursor.continue();
+	
+				trustmarkRequest.onsuccess = function(event)
+				{
+					if(trustmarkRequest.result)
+					{
+						var trustmark_json = trustmarkRequest.result.trustmark_json;
+						var trustmark_json_obj = JSON.parse(trustmark_json);
+						var trustmarkname = trustmark_json_obj.Trustmark.TrustmarkDefinitionReference.Name
+						console.log("Trustmark: " + trustmarkname);
+						test[i] = trustmarkname;
+						i = i+1;
+					}
+					else
+					{
+						console.log("Test: " + test);
+						//TODO: Handle
+					}
+				}
+
+				trustmarkRequest.onerror = function(event)
+				{
+					console.log("An error occurred while retrieving the trustmarks");
+				}
+		
+				cursor.continue();
+			}
+		
+
 		}
 
-	}
 
 	}
 
@@ -254,3 +268,12 @@ exports.retrieveTrustmarks = retrieveTrustmarks;
 exports.storeTrustmarkInCache = storeTrustmarkInCache;
 exports.retrieveTrustmarkFromCache = retrieveTrustmarkFromCache;
 exports.addTrustmarkRelationsToCache = addTrustmarkRelationsToCache;
+
+
+/*****
+ TODO 1. Return trustmark array - See how to return a value upon success - See how to check if cursor ends
+      2. Trustmark Definition Cache
+      3. Provider Cache
+      4. Code comments
+      5. Signed trustmarks
+****/

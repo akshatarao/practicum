@@ -63,6 +63,13 @@ function addRecipientToCache(db, recipient_id, trustmark_json)
 
 }
 
+function addTrustmarkDefToCache(db, trustmark_def_id_val, trustmark_def_name_val, trustmark_provider_name_val)
+{
+	var trustmarkDefObjectStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+
+
+}
+
 /*@Purpose - Add trustmark to cache
  *@Parameters - db - Database pointer
  *	      - trustmark_id_val = Trustmark Identifier
@@ -147,9 +154,31 @@ function retrieveRecipientTrustmarks(db, recipient_id)
 		{
 			var results = cursor.value;
 
-			console.log("Results: " + cursor.trustmark_def_id);
+			var trustmark_id = results.trustmark_id;
+
+		
+			var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
+
+			var trustmarkRequest = trustmarkObjectStore.get(trustmark_id);
+
+			trustmarkRequest.onsuccess = function(event)
+			{
+				if(trustmarkRequest.result)
+				{
+					var trustmark_json = trustmarkRequest.result.trustmark_json;
+					var trustmark_json_obj = JSON.parse(trustmark_json);
+					var trustmarkname = trustmark_json_obj.Trustmark.TrustmarkDefinitionReference.Name
+					console.log("Trustmark: " + trustmarkname);
+				}
+				else
+				{
+					//TODO: Handle
+				}
+			}
+/*			var trustmarkrequest = trustmarkObjectStore.get(trustmark_def_id);
+			console.log("Results: " + results.trustmark_def_id);
 			var jsonStr = JSON.stringify(results);
-			console.log("JSON String: " + jsonStr);
+			console.log("JSON String: " + jsonStr);*/
 			cursor.continue();
 		}
 

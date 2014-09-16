@@ -65,9 +65,9 @@ function createRecipientStore(db)
               var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
               
 	     //Adding dummy data
-	      var facebookstore = { identifier : "www.facebook.com", name: "Facebook, Inc"};
-              recipientObjectStore.add(facebookstore);
-	      console.log("Successfully added");
+	      //var facebookstore = { identifier : "www.facebook.com", name: "Facebook, Inc"};
+              //recipientObjectStore.add(facebookstore);
+	      //console.log("Successfully added");
          }
 
 	objectStore.transaction.onerror = function(event)
@@ -166,7 +166,7 @@ function initDB()
 	};
 
 	request.onsuccess = function(event) {
-		console.log("Success");
+		console.log("DB successfully initialized.");
 	}
 
 	request.onupgradeneeded = function(event) {
@@ -192,7 +192,7 @@ function loadTrustmarksInCache(recipient_id, trustmark_id, trustmark_def_id, tru
 
 	request.onerror = function(event)
 	{
-		console.log("DB2 error");
+		console.log("An error occurred while opening the database");
 	}
 
 	request.onsuccess = function(event)
@@ -204,7 +204,7 @@ function loadTrustmarksInCache(recipient_id, trustmark_id, trustmark_def_id, tru
 
 		//************DUMMY CODE STARTS HERE*******************
 		//Access dummy data inserted earlier
-		var objectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
+/*		var objectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
 		var fbrequest = objectStore.get("www.facebook.com");
 		
 		fbrequest.onerror = function(event)
@@ -216,7 +216,7 @@ function loadTrustmarksInCache(recipient_id, trustmark_id, trustmark_def_id, tru
 		{
 			console.log("Success accessing FB data");
 			console.log("Recipient Name: " + fbrequest.result.name);
-		}	
+		}	*/
 		//************DUMMY CODE ENDS HERE*************
 	}
 
@@ -248,7 +248,7 @@ function getDefaultTrustmarks()
 
         request.onerror = function(event)
         {
-                console.log("DB2 error");
+                console.log("An error occurred while opening the database.");
         }
 
         request.onsuccess = function(event)
@@ -256,7 +256,7 @@ function getDefaultTrustmarks()
 		var configFile = self.data.load("defaulttrustmarks/configfile");
 	        var trustmarks = configFile.split("\n");
 
-                console.log("Successfully got a connection to database");
+                console.log("Successfully got a connection to database.");
                 db = event.target.result;
 
 		for( var i in trustmarks)

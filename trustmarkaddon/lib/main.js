@@ -270,18 +270,20 @@ function getDefaultTrustmarks()
 				trustmark_def_id = jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier;
 				trustmark_id = jsonObj.Trustmark.Identifier;
 	
-				console.log(jsonObj.Trustmark.Recipient.Identifier);	
+				/*console.log(jsonObj.Trustmark.Recipient.Identifier);	
 				console.log(jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier);
-				console.log(jsonObj.Trustmark.Identifier);
+				console.log(jsonObj.Trustmark.Identifier);*/
 
 				trustmarkhelper.addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmarkjson);
 			}
 		}
 
-		trustmarkhelper.retrieveRecipientTrustmarks(db, "www.facebook.com");
+		trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");
 	}
 
 
 }
+
 initDB();
 getDefaultTrustmarks();
+

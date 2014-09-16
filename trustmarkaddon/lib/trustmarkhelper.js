@@ -1,3 +1,5 @@
+var { indexedDB }  = require('sdk/indexed-db');
+
 /**
  Filename: trustmarkhelper.js
  Purpose: Retrieves trustmarks from trustmark registry server
@@ -138,9 +140,23 @@ function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trus
 
 }
 
-function retrieveRecipientTrustmarks(db, recipient_id)
+function retrieveRecipientTrustmarks(recipient_id)
 {
 
+	var dbOpenRequest = indexedDB.open("trustmarkDB",2);
+        var db;
+
+
+        dbOpenRequest.onerror = function(event)
+        {
+                console.log("An error occurred while opening the database.");
+        }
+
+        dbOpenRequest.onsuccess = function(event)
+        {
+
+		db = event.target.result;
+	
         var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
 
 	var index = trustmarkMappingObjectStore.index("recipient_id");
@@ -175,12 +191,16 @@ function retrieveRecipientTrustmarks(db, recipient_id)
 					//TODO: Handle
 				}
 			}
-/*			var trustmarkrequest = trustmarkObjectStore.get(trustmark_def_id);
-			console.log("Results: " + results.trustmark_def_id);
-			var jsonStr = JSON.stringify(results);
-			console.log("JSON String: " + jsonStr);*/
+
+			trustmarkRequest.onerror = function(event)
+			{
+				console.log("An error occurred while retrieving the trustmarks");
+			}
+			
 			cursor.continue();
 		}
+
+	}
 
 	}
 
@@ -197,11 +217,11 @@ function retrieveRecipientTrustmarks(db, recipient_id)
 function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmark_json)
 {
 
-	console.log("Add trustmark to cache");
+/*	console.log("Add trustmark to cache");
 	console.log("Recipient ID: " + recipient_id);
 	console.log("Trustmark ID: " + trustmark_id);
 	console.log("Trustmark Def ID:" + trustmark_def_id);
-
+*/
 	addRecipientToCache(db, recipient_id, trustmark_json);
 	addTrustmarkToCache(db, trustmark_id, trustmark_def_id, trustmark_json);
 	addTrustmarkMappingToCache(db, trustmark_id, recipient_id, trustmark_def_id);

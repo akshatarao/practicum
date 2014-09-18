@@ -138,6 +138,44 @@ function createTrustmarkStore(db)
 	objectStore.createIndex("trustmark_def_id", "trustmark_def_id", {unique: false});
 	objectStore.createIndex("trustmark_json", "trustmark_json", {unique: true});
 }
+
+/**
+ *@Purpose - Get the TIP store name
+ *@Returns none
+ */
+function getTIPStoreName()
+{
+	return "tip";
+}
+
+/**
+ *@Purpose: Create TIP Store
+ *@Parameters: db - Database pointer
+ *@Returns: None
+ */
+function createTIPStore(db)
+{
+
+	const objectStoreLabel = getTIPStoreName();
+	
+	if(db.objectStoreNames.contains(objectStoreLabel))
+	{
+		db.deleteObjectStore(objectStoreLabel);
+	}
+
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
+	objectStore.createIndex("tipjson", "tipjson", {unique:true});
+
+	objectStore.transaction.onerror  = function(event)
+	{
+		console.log("Creation of TIP object store was unsuccessful");
+	}
+
+	objectStore.transaction.onsuccess = function(event)
+	{
+		console.log("Successful creation of TIP object store");
+	}
+}
 /**
  * Purpose: Create Object Store
  * Parameter: database_pointer - Database pointer
@@ -148,6 +186,7 @@ function createObjectStores(database_pointer)
 	createRecipientStore(database_pointer);
 	createRecipientTrustmarkMappingStore(database_pointer);
 	createTrustmarkStore(database_pointer);
+	createTIPStore(database_pointer);
 }
 
 /**
@@ -240,6 +279,11 @@ function isEmpty(str)
  */
 function getDefaultTrustmarks()
 {
+	var tipfile = self.data.load("defaultTIP/trial2.json");
+	var TipObj = JSON.parse(tipfile);
+
+	console.log("TIP Obj: " + TipObj);
+
 	//TODO: Check if file exists
 
 	var request = indexedDB.open("trustmarkDB",2);

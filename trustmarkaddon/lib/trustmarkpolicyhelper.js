@@ -31,6 +31,11 @@ function addTIPtoCache(db, tip_id_val, tip_json_val)
 	{
 		console.log("Successfully added: " + event.target.result);
 	}
+
+	addrequest.onerror = function(event)
+	{
+		console.log("An error occurred while adding the TIP : " + event.target.errorCode);
+	}
 			
 }
 
@@ -56,7 +61,7 @@ function retrieveReferencedTrustmarksFromTIP(tip_id, trustmark_list)
 		db = event.target.result;
 
 		var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
-		var tipRequest = TIPObjectStore.get("test");
+		var tipRequest = TIPObjectStore.get(tip_id);
 
 		tipRequest.onsuccess = function(event)
 		{
@@ -67,10 +72,10 @@ function retrieveReferencedTrustmarksFromTIP(tip_id, trustmark_list)
 				var tip_name = tip_json_obj.TrustInteroperabilityProfile.Name;
 				console.log("TIP Name: " + tip_name);	
 			}
-			//else
-		//	{
-		//		console.log("Did not find TIP: " + tip_id);
-		//	}
+			else
+			{
+				console.log("Did not find TIP: " + tip_id);
+			}
 		}	
 	}
 

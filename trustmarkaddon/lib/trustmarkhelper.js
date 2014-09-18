@@ -13,7 +13,7 @@ var { indexedDB }  = require('sdk/indexed-db');
  */
 function retrieveTrustmarks(website_url)
 {
-	console.log("Inside retrieve trustmarks");
+	//console.log("Inside retrieve trustmarks");
 }
 
 
@@ -45,21 +45,21 @@ function addRecipientToCache(db, recipient_id, trustmark_json)
 
         recipientRequest.onerror = function(event)
         {
-                console.log("An error occurred while accessing the recipient store");
+                //console.log("An error occurred while accessing the recipient store");
         }
 
         recipientRequest.onsuccess = function(event)
         {
                 if(recipientRequest.result)
                 {
-                        console.log("Recipient " + recipientRequest.result.name + " found.");
+                        //console.log("Recipient " + recipientRequest.result.name + " found.");
                 }
                 else
                 {
                         var recipient_name = getRecipientName(trustmark_json);
                         var recipientRow = { identifier : recipient_id, name: recipient_name };
                         recipientObjectStore.add(recipientRow);
-                        console.log("Recipient added : " + recipient_name);
+                        //console.log("Recipient added : " + recipient_name);
                 }
         }
 
@@ -87,20 +87,20 @@ function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustma
 
         trustmarkRequest.onerror = function(event)
         {
-                console.log("An error occurred while accessing the trustmarks store");
+                //console.log("An error occurred while accessing the trustmarks store");
         }
 
         trustmarkRequest.onsuccess = function(event)
         {
                 if(trustmarkRequest.result)
                 {
-                        console.log("Trustmark " + trustmark_id_val + " found.");
+                        //console.log("Trustmark " + trustmark_id_val + " found.");
                 }
                 else
                 {
                         var trustmarkRow = { trustmark_id : trustmark_id_val, trustmark_def_id: trustmark_def_id_val, trustmark_json: trustmark_json_val };
                         trustmarkObjectStore.add(trustmarkRow);
-                        console.log("Trustmark added : " + trustmark_id_val);
+                        //console.log("Trustmark added : " + trustmark_id_val);
                 }
         }
 
@@ -121,20 +121,20 @@ function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trus
 
         trustmarkMappingRequest.onerror = function(event)
         {
-                console.log("An error occurred while accessing the trustmark mapping store");
+                //console.log("An error occurred while accessing the trustmark mapping store");
         }
 
         trustmarkMappingRequest.onsuccess = function(event)
         {
                 if(trustmarkMappingRequest.result)
                 {
-                        console.log("Trustmark " + trustmark_id_val + " found.");
+                        //console.log("Trustmark " + trustmark_id_val + " found.");
                 }
                 else
                 {
                         var trustmarkMappingRow = { trustmark_id : trustmark_id_val, trustmark_def_id: trustmark_def_id_val, recipient_id: recipient_id_val };
                         trustmarkMappingObjectStore.add(trustmarkMappingRow);
-                        console.log("Trustmark mapping added : " + trustmark_id_val);
+                        //console.log("Trustmark mapping added : " + trustmark_id_val);
                 }
         }
 
@@ -154,7 +154,7 @@ function retrieveRecipientTrustmarks(recipient_id)
 
         dbOpenRequest.onerror = function(event)
         {
-                console.log("An error occurred while opening the database.");
+                //console.log("An error occurred while opening the database.");
         }
 
         dbOpenRequest.onsuccess = function(event)
@@ -193,20 +193,20 @@ function retrieveRecipientTrustmarks(recipient_id)
 						var trustmark_json = trustmarkRequest.result.trustmark_json;
 						var trustmark_json_obj = JSON.parse(trustmark_json);
 						var trustmarkname = trustmark_json_obj.Trustmark.TrustmarkDefinitionReference.Name
-						console.log("Trustmark: " + trustmarkname);
+						//console.log("Trustmark: " + trustmarkname);
 						test[i] = trustmarkname;
 						i = i+1;
 					}
 					else
 					{
-						console.log("Test: " + test);
+						//console.log("Test: " + test);
 						//TODO: Handle
 					}
 				}
 
 				trustmarkRequest.onerror = function(event)
 				{
-					console.log("An error occurred while retrieving the trustmarks");
+					//console.log("An error occurred while retrieving the trustmarks");
 				}
 		
 				cursor.continue();
@@ -231,10 +231,10 @@ function retrieveRecipientTrustmarks(recipient_id)
 function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmark_json)
 {
 
-/*	console.log("Add trustmark to cache");
-	console.log("Recipient ID: " + recipient_id);
-	console.log("Trustmark ID: " + trustmark_id);
-	console.log("Trustmark Def ID:" + trustmark_def_id);
+/*	//console.log("Add trustmark to cache");
+	//console.log("Recipient ID: " + recipient_id);
+	//console.log("Trustmark ID: " + trustmark_id);
+	//console.log("Trustmark Def ID:" + trustmark_def_id);
 */
 	addRecipientToCache(db, recipient_id, trustmark_json);
 	addTrustmarkToCache(db, trustmark_id, trustmark_def_id, trustmark_json);
@@ -251,7 +251,7 @@ function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_
  */
 function storeTrustmarkInCache(website_url, trustmark_xml)
 {
-	console.log("Inside store trustmark in cache");
+	//console.log("Inside store trustmark in cache");
 }
 
 /**
@@ -260,7 +260,7 @@ function storeTrustmarkInCache(website_url, trustmark_xml)
  */ 
 function retrieveTrustmarkFromCache(website_url)
 {
-	console.log("Inside retrieve trustmark from cache");
+	//console.log("Inside retrieve trustmark from cache");
 }
 
 exports.retrieveRecipientTrustmarks = retrieveRecipientTrustmarks;

@@ -169,15 +169,13 @@ function createTIPStore(db)
 	
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
-		console.log("Deleted object store name");
+		console.log("Deleted tip object store");
 		db.deleteObjectStore(objectStoreLabel);
 	}
 
-	console.log("TIP Object Store: " + objectStoreLabel);
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "tip_id"});
 	objectStore.createIndex("tip_json", "tip_json", {unique:true});
 
-	console.log("TIP Store exists:" + db.objectStoreNames.contains(objectStoreLabel));
 }
 /**
  * Purpose: Create Object Store
@@ -254,7 +252,6 @@ function getDefaultTIP()
 				var tipjson = self.data.load(tips[i]);
 				var jsonObj = JSON.parse(tipjson);	
 				var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
-				tip_id = "test";
 				trustmarkpolicyhelper.addTIPtoCache(db, tip_id, tipjson);
 			}
 		}
@@ -350,7 +347,6 @@ function testFunction()
 	}
 }
 initDB();
-testFunction();
 loadPrepackagedData();
 
 //trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");

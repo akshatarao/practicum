@@ -45,7 +45,7 @@ function addTIPtoCache(db, tip_id_val, tip_json_val)
 	       trustmark_list - Set of trustmarks	
  *@Returns: List of referenced trustmarks
  */
-function retrieveReferencedTrustmarksFromTIP(tip_id, trustmark_list)
+function getTIPJSON(tip_id)
 {
 	
 	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
@@ -70,7 +70,9 @@ function retrieveReferencedTrustmarksFromTIP(tip_id, trustmark_list)
 				var tip_json = event.target.result.tip_json;
 				var tip_json_obj = JSON.parse(tip_json);
 				var tip_name = tip_json_obj.TrustInteroperabilityProfile.Name;
-				console.log("TIP Name: " + tip_name);	
+				console.log("TIP Name: " + tip_name);
+
+				retrieveReferencedTrustmarksFromTIP(tip_json);	
 			}
 			else
 			{
@@ -89,9 +91,10 @@ function retrieveReferencedTrustmarksFromTIP(tip_id, trustmark_list)
 
 }
 /**
- * Verify if trustmark adheres to policy
- * policy_xml - Policy XML
- * trustmark_xml - Trustmark XML
+ * @Purpose - Verify if trustmark adheres to policy
+ * @Parameters - policy_xml - Policy XML
+ * 	 	 trustmark_xml - Trustmark XML
+ * @Returns - none
  */
 function verifyIfTrustmarkAdheresToPolicy(policy_xml, trustmark_xml)
 {
@@ -99,19 +102,34 @@ function verifyIfTrustmarkAdheresToPolicy(policy_xml, trustmark_xml)
 }
 
 /**
- * Take the action of the policy adherence/non-adherence on the site
- * policy_xml - Policy XML
- * trustmark_xml - Trustmark XML
+ * @Purpose - Take the action of the policy adherence/non-adherence on the site
+ * @Parameters - policy_xml - Policy XML
+ * 	       - trustmark_xml - Trustmark XML
+ * @Returns None
  */
 function effectPolicyActionOnSite(policy_xml, trustmark_xml)
 {
 	console.log("Inside effect policy action on site");
 }
 
+function retrieveReferencedTrustmarksFromTIP(tip_json)
+{
+
+	var JSONObj = JSON.parse(tip_json);
+	var trustmarkreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustmarkDefinitionReferenceList;
+
+	console.log("Length: " + trustmarkreferencearray.length);		
+
+}
+
 exports.addTIPtoCache = addTIPtoCache
 exports.retrieveReferencedTrustmarksFromTIP = retrieveReferencedTrustmarksFromTIP
+exports.getTIPJSON = getTIPJSON
 /**
 1. Load default TIPS
 2. Retrieve TIP
-3. Send TIP
+3. Return TIP JSON
+4. Read Referenced trustmarks from TIP
+5. Read Referenced TIP from TIP
+6. Read referenced trustmarks from referenced TIP
 **/

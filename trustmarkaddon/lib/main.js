@@ -353,4 +353,4 @@ loadPrepackagedData();
 var trustmarklist = "";
 var tip_id = "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml";
 tip_id = "test"; 
-trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(tip_id, trustmarklist);
+trustmarkpolicyhelper.getTIPJSON(tip_id);

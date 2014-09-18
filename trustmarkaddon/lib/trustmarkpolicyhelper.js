@@ -117,9 +117,19 @@ function retrieveReferencedTrustmarksFromTIP(tip_json)
 
 	var JSONObj = JSON.parse(tip_json);
 	var trustmarkreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustmarkDefinitionReferenceList;
+	var trustmarkset  = new Set();
 
-	console.log("Length: " + trustmarkreferencearray.length);		
+	console.log("Length: " + trustmarkreferencearray.length);
 
+	for(var index in trustmarkreferencearray)
+	{
+		var reference = trustmarkreferencearray[index];
+		var referenceID = reference.TrustmarkDefinitionReference.Identifier;
+		console.log("Trustmark ID: " + referenceID);
+		trustmarkset.add(referenceID);
+	}
+			
+	return trustmarkset;
 }
 
 exports.addTIPtoCache = addTIPtoCache

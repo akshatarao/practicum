@@ -5,6 +5,7 @@
 var pageloader = require("./pageloadhandler.js");
 var panelviewer = require("./panelviewer.js");
 var trustmarkhelper = require("./trustmarkhelper.js");
+var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
 
 var { ToggleButton } = require('sdk/ui/button/toggle');
 var self = require("sdk/self");
@@ -48,27 +49,35 @@ function getDBName()
 	return "trustmarkDB";
 }
 
+/** 
+ *@Purpose: Get Recipient Store Name
+ *@Parameters: none
+ *@Returns: Recipient object store name.
+ */
+function getRecipientStoreName()
+{
+	return "recipients";
+}
+
 /**
- *Create Recipient Store
- * db - Database pointer
- * Returns none
+ *@Purpose: Create Recipient Store
+ *@Parameters: db - Database pointer
+ *@Returns: none
  *TODO: Check if can return a global recipient Object Store variable 
  */
 function createRecipientStore(db)
 {
-	var objectStore = db.createObjectStore("recipients", { keyPath: "identifier" });
+
+	var objectStoreLabel = getRecipientStoreName();
+
+	if(db.objectStoreNames.contains(objectStoreLabel))
+        {
+                db.deleteObjectStore(objectStoreLabel);
+        }
+
+	var objectStore = db.createObjectStore(objectStoreLabel, { keyPath: "identifier" });
         objectStore.createIndex("name", "name", {unique:true});
 
-         //Insert dummy data     
-         objectStore.transaction.oncomplete = function(event)
-         {
-              var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
-              
-	     //Adding dummy data
-	      //var facebookstore = { identifier : "www.facebook.com", name: "Facebook, Inc"};
-              //recipientObjectStore.add(facebookstore);
-	      //console.log("Successfully added");
-         }
 
 	objectStore.transaction.onerror = function(event)
 	{
@@ -160,21 +169,15 @@ function createTIPStore(db)
 	
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
+		console.log("Deleted object store name");
 		db.deleteObjectStore(objectStoreLabel);
 	}
 
-	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
-	objectStore.createIndex("tipjson", "tipjson", {unique:true});
+	console.log("TIP Object Store: " + objectStoreLabel);
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "tip_id"});
+	objectStore.createIndex("tip_json", "tip_json", {unique:true});
 
-	objectStore.transaction.onerror  = function(event)
-	{
-		console.log("Creation of TIP object store was unsuccessful");
-	}
-
-	objectStore.transaction.onsuccess = function(event)
-	{
-		console.log("Successful creation of TIP object store");
-	}
+	console.log("TIP Store exists:" + db.objectStoreNames.contains(objectStoreLabel));
 }
 /**
  * Purpose: Create Object Store
@@ -212,52 +215,7 @@ function initDB()
 		var db  = event.target.result;
 
 		createObjectStores(db);
- 	} 	
-
-}
-
-
-/**
- * Purpose: Load trustmarks in cache
- * Parameters: recipient_id - Recipient Identifier
- *	       trustmark_id - Trustmark Identifier
- *	       trustmark - Trustmark JSON
- */
-function loadTrustmarksInCache(recipient_id, trustmark_id, trustmark_def_id, trustmark)
-{
-
-	var request = indexedDB.open("trustmarkDB",2);
-	var db;
-
-	request.onerror = function(event)
-	{
-		console.log("An error occurred while opening the database");
-	}
-
-	request.onsuccess = function(event)
-	{
-		console.log("Successfully got a connection to database");
-		db = event.target.result;
-
-
-
-		//************DUMMY CODE STARTS HERE*******************
-		//Access dummy data inserted earlier
-/*		var objectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
-		var fbrequest = objectStore.get("www.facebook.com");
-		
-		fbrequest.onerror = function(event)
-		{
-			console.log("Error accessing FB data");
-		}
-
-		fbrequest.onsuccess = function(event)
-		{
-			console.log("Success accessing FB data");
-			console.log("Recipient Name: " + fbrequest.result.name);
-		}	*/
-		//************DUMMY CODE ENDS HERE*************
-	}
+ 	}
 
 
 }
@@ -272,6 +230,38 @@ function isEmpty(str)
     return (!str || 0 === str.length);
 }
 
+function getDefaultTIP()
+{
+	var request = indexedDB.open("trustmarkDB", 2);
+	var db;
+
+	request.onerror = function(event)
+	{
+		console.log("An error occurred while opening the database.");
+	}
+
+	request.onsuccess = function(event)
+	{
+		var configFile = self.data.load("defaultTIP/configfile");
+		var tips = configFile.split("\n");
+
+		db = event.target.result;
+
+		for( var i in tips)
+		{
+			if(!isEmpty(tips[i]))
+			{
+				var tipjson = self.data.load(tips[i]);
+				var jsonObj = JSON.parse(tipjson);	
+				var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
+				tip_id = "test";
+				trustmarkpolicyhelper.addTIPtoCache(db, tip_id, tipjson);
+			}
+		}
+	
+	
+	}
+}
 /**
  *@Purpose: Read pre packaged trustmarks and load in database
  *@Parameters: None
@@ -279,11 +269,6 @@ function isEmpty(str)
  */
 function getDefaultTrustmarks()
 {
-	var tipfile = self.data.load("defaultTIP/trial2.json");
-	var TipObj = JSON.parse(tipfile);
-
-	console.log("TIP Obj: " + TipObj);
-
 	//TODO: Check if file exists
 
 	var request = indexedDB.open("trustmarkDB",2);
@@ -327,6 +312,49 @@ function getDefaultTrustmarks()
 
 }
 
+/**
+ *@Purpose: Load Prepackaged data (trustmarks, TIPs)
+ *@Parameters: none
+ *@Returns: none
+ */
+function loadPrepackagedData()
+{
+	getDefaultTrustmarks();
+	getDefaultTIP();	
+}
+
+function testFunction()
+{
+
+	var request = indexedDB.open(getDBName(),2);
+	
+	request.onsuccess = function(event) {
+
+	db = event.target.result;	
+	var tipStore = db.transaction("tip", "readwrite").objectStore("tip");
+	const data = {tip_id : "pleasegod", tip_json : "ok"}
+
+	var addrequest = tipStore.add(data);		
+
+	addrequest.onsuccess = function(event)
+	{
+			console.log("Add Request added: " + event.target.result); 
+	}
+
+	var getrequest  = tipStore.get("pleasegod");
+
+	getrequest.onsuccess = function(event)
+	{
+		console.log("Get Request: " + getrequest.result.tip_id);
+	}
+	}
+}
 initDB();
-getDefaultTrustmarks();
-trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");
+testFunction();
+loadPrepackagedData();
+
+//trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");
+var trustmarklist = "";
+var tip_id = "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml";
+tip_id = "test"; 
+trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(tip_id, trustmarklist);

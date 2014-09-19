@@ -3,6 +3,7 @@
 	{
 		"id": "123",
 		"Identifier": "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml",
+		"Name" : "My name is Anthony Gonsalves!",
 		"PublicationDateTime": "2014-08-21T11:59:59",
 		"Issuer": {
 			"Identifier": "http://trustmark.gtri.gatech.edu/",
@@ -16,13 +17,14 @@
 		"TrustmarkDefinitionReference": {
 				"@id": "TDRef1",
 				"Identifier": "https://trustmark.gtri.gatech.edu/Some_TD_Identifier"
+		},
+		"TrustmarkDefinitionReference": {
+				"@id": "TDRef2",
+				"Identifier" : "trustmark2"
 		}
-,	
-	"TrustInteroperabilityProfileReference": {
-		"Identifier": "https://trustmark.gtri.gatech.edu/Some_TIP_Identifier"
-	      }
-	},
+
+	}	
 	
-	"TrustExpression": "TDRef1 and TDRef2",
+	"TrustExpression": "TDRef1 and TDRef2"
 	}
 }

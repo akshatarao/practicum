@@ -1,0 +1,31 @@
+{
+  "TrustInteroperabilityProfile" : 
+	{
+		"id": "accountability_tip",
+		"Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml",
+		"Name" : "Accountability through policy compliance and handling violations",
+		"PublicationDateTime": "2014-08-21T11:59:59",
+		"Issuer": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+			}
+		},
+	"References": {
+
+		"TrustmarkDefinitionReferenceList":
+		[
+		{"TrustmarkDefinitionReference": {
+				"@id": "accountability_technicalcontrol_access",
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/access.xml"
+		}},
+		{"TrustmarkDefinitionReference": {
+				"@id": "accountability_technicalcontrol_activity",
+				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/activity.xml"
+		}}],
+	},	
+	"TrustExpression": "accountability_technicalcontrol_access and accountability_technicalcontrol_activity"
+	}
+}

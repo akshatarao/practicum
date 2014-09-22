@@ -2,14 +2,19 @@
  Filename: main.js
  Created by: ARao
 */
+
+//Load all related components
 var pageloader = require("./pageloadhandler.js");
 var panelviewer = require("./panelviewer.js");
 var trustmarkhelper = require("./trustmarkhelper.js");
 var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
 
+//Load objects
 var { ToggleButton } = require('sdk/ui/button/toggle');
 var self = require("sdk/self");
 var { indexedDB }  = require('sdk/indexed-db');
+
+//Trustmark Button
 var button = ToggleButton({
   id: "show-panel",
   label: "Show Panel",
@@ -20,7 +25,8 @@ var button = ToggleButton({
 });
 
 /**
- *Display trustmarks in the panel
+ *@Purpose: Display trustmarks in the panel
+ *@
  */
 function displayTrustmarkPanel(state)
 {
@@ -68,12 +74,14 @@ function getTempStoreName()
 function createTempStore(db)
 {
 	var objectStoreLabel = getTempStoreName();
-	
+
+	//Check if table exists	
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
 		db.deleteObjectStore(objectStoreLabel);
 	}
 	
+	//Delete if it doesn't exist
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
 
 	objectStore.createIndex("value", "value", {unique:true});
@@ -100,11 +108,13 @@ function createRecipientStore(db)
 
 	var objectStoreLabel = getRecipientStoreName();
 
+	//Delete table if it exists
 	if(db.objectStoreNames.contains(objectStoreLabel))
         {
                 db.deleteObjectStore(objectStoreLabel);
         }
 
+	//Create recipient object store
 	var objectStore = db.createObjectStore(objectStoreLabel, { keyPath: "identifier" });
         objectStore.createIndex("name", "name", {unique:true});
 
@@ -140,11 +150,13 @@ function createRecipientTrustmarkMappingStore(db)
 {
 	const objectStoreLabel = getRecipientTrustmarkMappingStoreName();
 	
+	//Delete table if exists
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
 		db.deleteObjectStore(objectStoreLabel);
 	}
 
+	//Create table
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "trustmark_id"});
 	objectStore.createIndex("recipient_id", "recipient_id", {unique: false});
 	objectStore.createIndex("trustmark_def_id", "trustmark_def_id", {unique: false});
@@ -168,11 +180,13 @@ function createTrustmarkStore(db)
 {
 	const objectStoreLabel = getTrustmarkStoreName();
 	
+	//Delete table if exists
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
 		db.deleteObjectStore(objectStoreLabel);
 	}
 
+	//Create table
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "trustmark_id"});
 	objectStore.createIndex("trustmark_def_id", "trustmark_def_id", {unique: false});
 	objectStore.createIndex("trustmark_json", "trustmark_json", {unique: true});
@@ -197,14 +211,17 @@ function createTIPStore(db)
 
 	const objectStoreLabel = getTIPStoreName();
 	
+	//Delete table if exists
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
 		console.log("Deleted tip object store");
 		db.deleteObjectStore(objectStoreLabel);
 	}
 
+	//Create table 
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "tip_id"});
-	objectStore.createIndex("tip_json", "tip_json", {unique:true});
+	objectStore.createIndex("tip_json", "tip_json", {unique:false});
+	objectStore.createIndex("trustmark_list", "trustmark_list", {unique: false});
 
 }
 /**
@@ -214,6 +231,7 @@ function createTIPStore(db)
  */
 function createObjectStores(database_pointer)
 {
+	//Create all the object stores
 	createRecipientStore(database_pointer);
 	createRecipientTrustmarkMappingStore(database_pointer);
 	createTrustmarkStore(database_pointer);
@@ -256,9 +274,15 @@ function initDB()
 */
 function isEmpty(str) 
 {
-    return (!str || 0 === str.length);
+    	//If string is NULL or string length is 0
+	return (!str || 0 === str.length);
 }
 
+/**
+ *@Purpose: Load Default TIPS
+ *@Parameters: none
+ *@Returns: none
+ */
 function getDefaultTIP()
 {
 	var request = indexedDB.open("trustmarkDB", 2);
@@ -271,29 +295,36 @@ function getDefaultTIP()
 
 	request.onsuccess = function(event)
 	{
+		//Read list of tips to be loaded from config file
 		var configFile = self.data.load("defaultTIP/configfile");
 		var tips = configFile.split("\n");
 
 		db = event.target.result;
 
+		//Iterate through list of tips
 		for( var i in tips)
 		{
+			//If line is not empty
 			if(!isEmpty(tips[i]))
 			{
+				//Parse TIP
+				console.log("Parsing " + tips[i]);
 				var tipjson = self.data.load(tips[i]);
 				var jsonObj = JSON.parse(tipjson);	
 				var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
-				trustmarkpolicyhelper.addTIPtoCache(db, tip_id, tipjson);
+				trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP2(db, tip_id, tipjson);
+				//TODO: Use Retrieve trustmarks from TIP to get the trustmarks at this stage
 			}
 		}
 	
 	
 	}
 }
+
 /**
  *@Purpose: Read pre packaged trustmarks and load in database
  *@Parameters: None
- *Returns: None
+ *@Returns: None
  */
 function getDefaultTrustmarks()
 {
@@ -393,11 +424,4 @@ function createFile()
   console.log(file.path);
 } 
 initDB();
-createFile();
-//loadPrepackagedData();
-//testFunction();
-//trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");
-var trustmarklist = "";
-var tip_id = "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml";
-//trustmarkpolicyhelper.getTIPJSON(tip_id, "fake_id");
-//trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(tip_id);
+loadPrepackagedData();

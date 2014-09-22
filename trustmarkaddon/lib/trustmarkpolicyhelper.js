@@ -23,7 +23,7 @@ function createPolicy()
 function addTIPtoCache(db, tip_id_val, tip_json_val)
 {
 	var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
-	var tipRow = { tip_id: tip_id_val, tip_json: tip_json_val};
+	var tipRow = { tip_id: tip_id_val, tip_json: tip_json_val, trustmark_list: ""};
 	
 	var addrequest = tipObjectStore.add(tipRow);
 
@@ -140,46 +140,144 @@ function getTrustmarkList(tip_json)
     return trustmarkList;
 
 }
+
+function appendValueInTempStore(tipObjectStore, tip_id, tip_json, trustmark, tipreferencearray, currentindex)
+{
+	var getRequest = tipObjectStore.get(tip_id);
+
+	getRequest.onsuccess = function(event)
+	{
+		if(event.target.result)
+		{
+			console.log("Trustmark to append: " + trustmark);
+			var trustmarklist = event.target.result.trustmark_list;
+			trustmarklist += "##TRUSTMARK##";
+			trustmarklist += trustmark;
+	
+			console.log("Updated list: " + trustmarklist);		
+			var newRow = { "tip_id" : tip_id, "tip_json": tip_json , "trustmark_list": trustmarklist};
+			
+			var updateRequest = tipObjectStore.put(newRow);	
+
+			updateRequest.onsuccess = function(event)
+			{
+				console.log("The trustmark list was updated successfully for " + tip_id);
+
+				var getRequest = tipObjectStore.get(tip_id);
+
+                                getRequest.onsuccess = function(event)
+                                {
+                                        console.log(event.target.result.trustmark_list);
+					appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, tip_json, tipObjectStore);
+                                }
+
+			}
+
+			updateRequest.onerror = function(event)
+			{
+				console.log("The trustmark list could not be updated for " + tip_id);
+			}
+		}
+		else
+		{
+			var newRow  = { "tip_id" : tip_id, "tip_json": tip_json, "trustmark_list": trustmark};
+
+			var addRequest = tipObjectStore.add(newRow);
+			
+			addRequest.onsuccess = function(event)
+			{
+				console.log("The trustmark list was successfully added for " + tip_id);
+			}
+
+			addRequest.onerror = function(event)
+			{
+				console.log("The tip could not be added for " + tip_id);
+			}	 
+		}	
+		
+	}
+
+}
+
+function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, tip_json, TIPObjectStore)
+{
+	if(!tipreferencearray || (currentindex === tipreferencearray.length))
+	{
+		return;
+	}
+
+        var tipreference = tipreferencearray[currentindex];
+           var referenced_tip_ID = tipreference.TrustInteroperabilityProfileReference.Identifier;
+           console.log("Referenced TIP ID: " + referenced_tip_ID);
+           var referencedTIPRequest = TIPObjectStore.get(referenced_tip_ID);
+
+           referencedTIPRequest.onsuccess = function(event)
+           {
+                if(event.target.result)
+                {
+                        var referenced_tip_json = event.target.result.tip_json;
+                        var referenced_trustmark_list = getTrustmarkList(referenced_tip_json);
+
+			currentindex = currentindex+1;
+                        appendValueInTempStore(TIPObjectStore, tip_id, tip_json, referenced_trustmark_list, tipreferencearray, currentindex); 
+		}
+		else
+                {
+                        console.log("ERROR: Referenced TIP is not in cache " + referenced_tip_ID);
+                }
+	
+	   }	  
+			
+}
+
 /**
  * @Purpose - Retrieve Referenced Trustmarks from DB
  *
  */
-function retrieveReferencedTrustmarksFromTIP2(db, tip_id, purpose)
+function retrieveReferencedTrustmarksFromTIP2(db, tip_id, tip_json)
 {
     var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
-    var tipRequest = TIPObjectStore.get(tip_id);
 
-    tipRequest.onsuccess = function(event)
+    var trustmarklist = getTrustmarkList(tip_json);
+    appendValueInTempStore(TIPObjectStore, tip_id, tip_json, trustmarklist);
+
+    var JSONObj = JSON.parse(tip_json);	
+    var tipreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustInteroperabilityProfileReferenceList;
+   
+    console.log("TIP REf array" + tipreferencearray); 
+    appendTrustmarksRecursively(tipreferencearray, 0, tip_id, tip_json, TIPObjectStore); 
+                
+   /* for(var index in tipreferencearray)
     {
-          if(event.target.result)
-          {
-              if(event.target.result)
-              {
-                    var tip_json = event.target.result.tip_json;
-                    var trustmarklist = getTrustmarkList(tip_json);
-                    //Insert into temp store
-                    var tempObjectStore = db.transaction("trustmark-temp", "readwrite").objectStore("trustmark-temp");
-                    var temp_tip_trustmark_list = tip_id;//TODO: Change to include time
-                    var tipTrustmarkRow = {  "identifier" : tip_id, "value" : temp_tip_trustmark_list };    
-                    
-                    //Get tip_id as Identifier
-                    //If does not exist
+           var tipreference = tipreferencearray[index];
+	   var referenced_tip_ID = tipreference.TrustInteroperabilityProfileReference.Identifier;
+	   console.log("Referenced TIP ID: " + referenced_tip_ID);
+	   var referencedTIPRequest = TIPObjectStore.get(referenced_tip_ID);	
+		
+	   referencedTIPRequest.onsuccess = function(event)
+	   {
+		if(event.target.result)
+		{
+			var referenced_tip_json = event.target.result.tip_json;
+			var referenced_trustmark_list = getTrustmarkList(referenced_tip_json);
 
-                    var tipreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustInteroperabilityProfileReferenceList;
-                    
-                    for(var index in tipreferencearray)
-                    {
-                       var tipreference = tipreferencearray[index];
-                       var tipID = tipreference.Identifier;
-
-                        
-                    }
+			appendValueInTempStore(TIPObjectStore, tip_id, tip_json, referenced_trustmark_list);		
+		}
+		else
+		{
+			console.log("ERROR: Referenced TIP is not in cache " + referenced_tip_ID);
+		}
+	   }
+		
+    }*/
 
 
-              }
-          }
-	}
-     
+
+    TIPObjectStore.transaction.oncomplete = function(event)
+    {
+	
+		//TODO: Depending on purpose, trigger action
+    }
 
 }
 /**
@@ -228,6 +326,7 @@ function retrieveReferencedTrustmarksFromTIP(db, tip_id, return_val_temp_id)
 
 exports.addTIPtoCache = addTIPtoCache
 exports.retrieveReferencedTrustmarksFromTIP = retrieveReferencedTrustmarksFromTIP
+exports.retrieveReferencedTrustmarksFromTIP2 = retrieveReferencedTrustmarksFromTIP2
 exports.getTIPJSON = getTIPJSON
 /**
 1. Load default TIPS

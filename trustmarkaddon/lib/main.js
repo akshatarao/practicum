@@ -312,7 +312,7 @@ function getDefaultTIP()
 				var tipjson = self.data.load(tips[i]);
 				var jsonObj = JSON.parse(tipjson);	
 				var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
-				trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP2(db, tip_id, tipjson);
+				trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(db, tip_id, tipjson);
 				//TODO: Use Retrieve trustmarks from TIP to get the trustmarks at this stage
 			}
 		}
@@ -380,37 +380,6 @@ function loadPrepackagedData()
 {
 	getDefaultTrustmarks();
 	getDefaultTIP();	
-}
-
-function testFunction()
-{
-
-	var request = indexedDB.open(getDBName(),2);
-	
-	request.onsuccess = function(event) {
-
-	db = event.target.result;	
-/*	var tipStore = db.transaction("tip", "readwrite").objectStore("tip");
-	const data = {tip_id : "pleasegod", tip_json : "ok"}
-
-	var addrequest = tipStore.add(data);		
-
-	addrequest.onsuccess = function(event)
-	{
-			console.log("Add Request added: " + event.target.result); 
-	}
-
-	var getrequest  = tipStore.get("pleasegod");
-
-	getrequest.onsuccess = function(event)
-	{
-		console.log("Get Request: " + getrequest.result.tip_id);
-	}*/
-
-	var tip_id = "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml";
-	trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(db, tip_id, "fake_tip_id");
-
-	}
 }
 
 function createFile()

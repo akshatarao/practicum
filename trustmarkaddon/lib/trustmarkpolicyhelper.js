@@ -23,7 +23,7 @@ function createPolicy()
 function addTIPtoCache(db, tip_id_val, tip_json_val)
 {
 	var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
-	var tipRow = { tip_id: "test", tip_json: tip_json_val};
+	var tipRow = { tip_id: tip_id_val, tip_json: tip_json_val};
 	
 	var addrequest = tipObjectStore.add(tipRow);
 
@@ -45,49 +45,55 @@ function addTIPtoCache(db, tip_id_val, tip_json_val)
 	       trustmark_list - Set of trustmarks	
  *@Returns: List of referenced trustmarks
  */
-function getTIPJSON(tip_id)
+function getTIPJSON(db, tip_id, temp_store_id)
 {
 	
 	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
-	var db;
 
-	dbOpenRequest.onerror  = function(event)
-	{
-		console.log("An error occurred while opening the database");
-	}
-
-	dbOpenRequest.onsuccess = function(event)
-	{
-		db = event.target.result;
 
 		var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
 		var tipRequest = TIPObjectStore.get(tip_id);
 
 		tipRequest.onsuccess = function(event)
-		{
-			if(event.target.result)
-			{
-				var tip_json = event.target.result.tip_json;
-				var tip_json_obj = JSON.parse(tip_json);
-				var tip_name = tip_json_obj.TrustInteroperabilityProfile.Name;
-				console.log("TIP Name: " + tip_name);
+                {
+                        if(event.target.result)
+                        {
+                                tip_json = event.target.result.tip_json;
+                                var tip_json_obj = JSON.parse(tip_json);
+                                var tip_name = tip_json_obj.TrustInteroperabilityProfile.Name;
+                                console.log("TIP Name: " + tip_name);
 
-				retrieveReferencedTrustmarksFromTIP(tip_json);	
-			}
-			else
-			{
-				console.log("Did not find TIP: " + tip_id);
-			}
-		}	
-	}
+				var tempObjectStore = db.transaction("trustmark-temp","readwrite").objectStore("trustmark-temp");
+				var tempRow = {"identifier": temp_store_id, "value": tip_json }
+				var tempAddRequest = tempObjectStore.add(tempRow);
+			
+				tempAddRequest.onsuccess = function(event)
+				{
+					console.log("Successfully added to temp store:" + event.target.result);
+				}
+
+				tempAddRequest.onerror = function(event)
+				{
+					console.log("An error occurred while adding temp variable " + temp_store_id + " to tempstore: " + event.target.errorCode);
+				}
+
+				var tempRequest = tempObjectStore.get("fake_id");
+
+			        tempRequest.onsuccess = function(event)
+			        {
+       					 var tip_json = event.target.result.value;
+        				 console.log("TIP JSON1: " + tip_json);
+				}
+
+                        }
+                        else
+                        {
+                                console.log("Did not find TIP: " + tip_id);
+                        }
+			
+		}
 
 
-	
-	//Get the TIP JSON
-	//Get the TIP identifiers in reference of another TIP.
-	//Write to trustmark list -> Create a set?
-	//Get the Trustmark identifiers referenced
-	//Check if the trustmarks are added
 
 }
 /**
@@ -112,9 +118,89 @@ function effectPolicyActionOnSite(policy_xml, trustmark_xml)
 	console.log("Inside effect policy action on site");
 }
 
-function retrieveReferencedTrustmarksFromTIP(tip_json)
+function getTrustmarkList(tip_json)
 {
 
+    var trustmarkList = "";
+    var trustmarkseparator = "##TRUSTMARK##";
+
+    var JSONObj = JSON.parse(tip_json);
+    var trustmarkreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustmarkDefinitionReferenceList;
+    var trustmarkset = new Set();
+
+    for(var index in trustmarkreferencearray)
+    {
+        var reference = trustmarkreferencearray[index];
+        var referenceID = reference.TrustmarkDefinitionReference.Identifier;
+        trustmarkList += referenceID;
+        trustmarkList += trustmarkseparator;
+
+    } 
+
+    return trustmarkList;
+
+}
+/**
+ * @Purpose - Retrieve Referenced Trustmarks from DB
+ *
+ */
+function retrieveReferencedTrustmarksFromTIP2(db, tip_id, purpose)
+{
+    var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+    var tipRequest = TIPObjectStore.get(tip_id);
+
+    tipRequest.onsuccess = function(event)
+    {
+          if(event.target.result)
+          {
+              if(event.target.result)
+              {
+                    var tip_json = event.target.result.tip_json;
+                    var trustmarklist = getTrustmarkList(tip_json);
+                    //Insert into temp store
+                    var tempObjectStore = db.transaction("trustmark-temp", "readwrite").objectStore("trustmark-temp");
+                    var temp_tip_trustmark_list = tip_id;//TODO: Change to include time
+                    var tipTrustmarkRow = {  "identifier" : tip_id, "value" : temp_tip_trustmark_list };    
+                    
+                    //Get tip_id as Identifier
+                    //If does not exist
+
+                    var tipreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustInteroperabilityProfileReferenceList;
+                    
+                    for(var index in tipreferencearray)
+                    {
+                       var tipreference = tipreferencearray[index];
+                       var tipID = tipreference.Identifier;
+
+                        
+                    }
+
+
+              }
+          }
+	}
+     
+
+}
+/**
+ *@Purpose: Retrieve Referenced Trustmarks from TIP
+ *@Parameters: tip_id
+ *@Returns: List of trustmarks
+ */
+function retrieveReferencedTrustmarksFromTIP(db, tip_id, return_val_temp_id)
+{
+
+	var temp_tip_json_id = "fake_id";
+	getTIPJSON(db, tip_id, temp_tip_json_id);
+
+	var tempObjectStore = db.transaction("trustmark-temp", "readwrite").objectStore("trustmark-temp");
+	var tempRequest = tempObjectStore.get("fake_id");
+		
+	tempRequest.onsuccess = function(event)
+	{
+		
+	var tip_json = event.target.result.value;
+	console.log("TIP JSON: " + tip_json);	
 	var JSONObj = JSON.parse(tip_json);
 	var trustmarkreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustmarkDefinitionReferenceList;
 	var trustmarkset  = new Set();
@@ -128,8 +214,16 @@ function retrieveReferencedTrustmarksFromTIP(tip_json)
 		console.log("Trustmark ID: " + referenceID);
 		trustmarkset.add(referenceID);
 	}
-			
-	return trustmarkset;
+
+	var tipreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustInteroperabilityProfileReferenceList;
+	for(var index in tipreferencearray)
+	{
+		var tipreference = tipreferencearray[index];
+		var tipID = tipreference = tipreferencearray[index];
+
+		
+	}
+	}		
 }
 
 exports.addTIPtoCache = addTIPtoCache

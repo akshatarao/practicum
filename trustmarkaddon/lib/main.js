@@ -49,6 +49,36 @@ function getDBName()
 	return "trustmarkDB";
 }
 
+/**
+ *@Purpose: Get Temp Store Name
+ *@Parameters: none
+ *@Returns: Temp Store Name
+ */
+
+function getTempStoreName()
+{
+	return "trustmark-temp";
+}
+
+/**
+ *@Purpose: Create Temp Store
+ *@Params: db - Database pointer
+ *@Returns: none
+ */
+function createTempStore(db)
+{
+	var objectStoreLabel = getTempStoreName();
+	
+	if(db.objectStoreNames.contains(objectStoreLabel))
+	{
+		db.deleteObjectStore(objectStoreLabel);
+	}
+	
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
+
+	objectStore.createIndex("value", "value", {unique:true});
+
+}
 /** 
  *@Purpose: Get Recipient Store Name
  *@Parameters: none
@@ -188,6 +218,7 @@ function createObjectStores(database_pointer)
 	createRecipientTrustmarkMappingStore(database_pointer);
 	createTrustmarkStore(database_pointer);
 	createTIPStore(database_pointer);
+	createTempStore(database_pointer);
 }
 
 /**
@@ -328,7 +359,7 @@ function testFunction()
 	request.onsuccess = function(event) {
 
 	db = event.target.result;	
-	var tipStore = db.transaction("tip", "readwrite").objectStore("tip");
+/*	var tipStore = db.transaction("tip", "readwrite").objectStore("tip");
 	const data = {tip_id : "pleasegod", tip_json : "ok"}
 
 	var addrequest = tipStore.add(data);		
@@ -343,14 +374,30 @@ function testFunction()
 	getrequest.onsuccess = function(event)
 	{
 		console.log("Get Request: " + getrequest.result.tip_id);
-	}
+	}*/
+
+	var tip_id = "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml";
+	trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(db, tip_id, "fake_tip_id");
+
 	}
 }
-initDB();
-loadPrepackagedData();
 
+function createFile()
+{
+  const {Ci,Cu} = require("chrome");
+  Cu.import("resource://gre/modules/FileUtils.jsm");
+
+  var file = FileUtils.getFile("TmpD", ["suggestedName.tmp"]); 
+  file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
+	// do whatever you need to the created file
+  console.log(file.path);
+} 
+initDB();
+createFile();
+//loadPrepackagedData();
+//testFunction();
 //trustmarkhelper.retrieveRecipientTrustmarks("www.facebook.com");
 var trustmarklist = "";
 var tip_id = "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml";
-tip_id = "test"; 
-trustmarkpolicyhelper.getTIPJSON(tip_id);
+//trustmarkpolicyhelper.getTIPJSON(tip_id, "fake_id");
+//trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(tip_id);

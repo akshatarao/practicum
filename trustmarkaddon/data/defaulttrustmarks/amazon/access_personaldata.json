@@ -1,6 +1,6 @@
 { 
 	"Trustmark" : {
-		"Identifier": "http: //trustmark.gtri.gatech.edu/sampletrustmarks/amazon/access/personaldata/inspect.xml",
+		"Identifier": "http://trustmark.gtri.gatech.edu/sampletrustmarks/amazon/access/personaldata/inspect.xml",
 		"TrustmarkDefinitionReference": {
 				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml",
 				"Name": "Access to inspect personal data",

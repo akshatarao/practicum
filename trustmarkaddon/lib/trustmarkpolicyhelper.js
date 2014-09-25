@@ -107,7 +107,9 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id)
 						console.log("Item: " + item);
 						trust_expression = trust_expression.replace(item, 1);
 					}	
-					
+			
+					console.log("Before Updation: " + trust_expression);	
+					trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");	
 					console.log("Trust Expression Updated:" + trust_expression);
 				}
 			}

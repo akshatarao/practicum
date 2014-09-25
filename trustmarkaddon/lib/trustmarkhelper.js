@@ -245,7 +245,7 @@ function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_
 	//console.log("Trustmark ID: " + trustmark_id);
 	//console.log("Trustmark Def ID:" + trustmark_def_id);
 */
-	addRecipientToCache(db, recipient_id, trustmark_id, trustmark_json);
+	addRecipientToCache(db, recipient_id, trustmark_def_id, trustmark_json);
 	addTrustmarkToCache(db, trustmark_id, trustmark_def_id, trustmark_json);
 	addTrustmarkMappingToCache(db, trustmark_id, recipient_id, trustmark_def_id);
 	//if not exists, add trustmark-recipient mapping to store	

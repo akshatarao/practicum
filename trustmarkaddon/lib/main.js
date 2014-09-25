@@ -318,6 +318,8 @@ function getDefaultTIP()
 				trustmarkpolicyhelper.insertTIPInCache(db, tip_id, tipjson);
 			}
 		}
+
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml"); 
 	}
 }
 

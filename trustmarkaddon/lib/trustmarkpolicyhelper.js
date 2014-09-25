@@ -49,11 +49,32 @@ function writeDataToFile(data, file)
   	
 }
 
+function isEmpty(str)
+{
+        //If string is NULL or string length is 0 
+        return (!str || 0 === str.length);
+}
+
+function getRecipientTrustmarkSet(trustmark_list)
+{
+	var trustmarkarray = trustmark_list.split("##TRUSTMARK##");
+	var trustmarkSet = new Set();
+
+	for(var index in trustmarkarray)
+	{
+		if(!isEmpty(trustmarkarray[index]))
+		{
+			trustmarkSet.add(trustmarkarray[index]);	
+		}	
+	}
+
+	return trustmarkSet;
+}
 	
 function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id)
 {
 
-	var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
+	var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
 	var recipientRequest = recipientObjectStore.get(recipient_id);
 
 	recipientRequest.onerror = function(event)
@@ -65,8 +86,36 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id)
 		if(event.target.result)
 		{
 			var trustmark_list = event.target.result.trustmark_list;
-			
+		
+			var tipObjectStore = db.transaction("tip").objectStore("tip");
+			var tipRequest = tipObjectStore.get(tip_id);
+
+			tipRequest.onerror  = function(event)
+			{
+				console.log("An error occurred while accessing the tip store");
+			}
+	
+			tipRequest.onsuccess = function(event)
+			{
+
+				if(event.target.result)
+				{
+					var trust_expression = event.target.result.trust_expression;
+					var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);			
+					for(let item of trustmarkSet)
+					{
+						console.log("Item: " + item);
+						trust_expression = trust_expression.replace(item, 1);
+					}	
+					
+					console.log("Trust Expression Updated:" + trust_expression);
+				}
+			}
+
 			//Get TIP expr
+			//Replace all the trustmarks in TIP with trustmark_list
+			//Replace and/AND with &&, or/OR with ||
+			//Evaluate expression
 		
 	
 		}
@@ -141,6 +190,13 @@ function getTrustmarkList(tip_json)
 
 }
 
+
+function updateExpression(existing_condition, referenced_tip_id, referenced_tip_condition)
+{
+
+	existing_condition = existing_condition.replace(referenced_tip_id, "(" + referenced_tip_condition + ")");
+	return existing_condition;
+}
 /**
  *@Purpose: Append the trustmark to trustmark list recursively
  *@Parameters: tipObjectStore - TIP Object Store
@@ -173,9 +229,12 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustex
 		    	var referenced_tip_expression = trustexpression;
 			var existing_expression = event.target.result.trust_expression;
 			var referenced_tip_ID = tipreferencearray[currentindex-1].TrustInteroperabilityProfileReference.Identifier;
-			
-			console.log("Found referenced tip condition: " + referenced_tip_expression);
-			console.log("Existing condition: " + existing_expression);		
+
+			existing_expression = updateExpression(existing_expression, referenced_tip_ID, referenced_tip_expression);		
+			//TODO: Update existing expression
+		
+			//console.log("Found referenced tip condition: " + referenced_tip_expression);
+			//console.log("Existing condition: " + existing_expression);		
 	
 			//Update tip with new trustmark list
 			var newRow = { "tip_id" : tip_id, "tip_json": tip_json , "trustmark_list": trustmarklist, "trust_expression" : existing_expression};
@@ -305,6 +364,7 @@ function insertTIPInCache(db, tip_id, tip_json)
 }
 
 exports.insertTIPInCache = insertTIPInCache
+exports.checkIfRecipientSatisfiesPolicy = checkIfRecipientSatisfiesPolicy
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

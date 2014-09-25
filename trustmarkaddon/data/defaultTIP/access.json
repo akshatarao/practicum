@@ -25,6 +25,6 @@
 				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml"
 		}}]
 	},
-	"TrustExpression": "TDRef1 and TDRef2"
+	"TrustExpression": "http://trustmark.gtri.gatech.edu/sampletds/access/activitydata/inspect.xml and http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml"
 	}
 }

@@ -26,6 +26,6 @@
 				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/activity.xml"
 		}}]
 	},	
-	"TrustExpression": "accountability_technicalcontrol_access and accountability_technicalcontrol_activity"
+	"TrustExpression": "http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/access.xml and http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/activity.xml"
 	}
 }

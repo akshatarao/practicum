@@ -117,6 +117,7 @@ function createRecipientStore(db)
 	//Create recipient object store
 	var objectStore = db.createObjectStore(objectStoreLabel, { keyPath: "identifier" });
         objectStore.createIndex("name", "name", {unique:true});
+      	objectStore.createIndex("trustmark_list", "trustmark_list", {unique:false});
 
 
 	objectStore.transaction.onerror = function(event)
@@ -222,6 +223,7 @@ function createTIPStore(db)
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "tip_id"});
 	objectStore.createIndex("tip_json", "tip_json", {unique:false});
 	objectStore.createIndex("trustmark_list", "trustmark_list", {unique: false});
+	objectStore.createIndex("trust_expression", "trust_expression", {unique: false});
 
 }
 /**
@@ -308,16 +310,14 @@ function getDefaultTIP()
 			if(!isEmpty(tips[i]))
 			{
 				//Parse TIP
-				console.log("Parsing " + tips[i]);
 				var tipjson = self.data.load(tips[i]);
 				var jsonObj = JSON.parse(tipjson);	
 				var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
-				trustmarkpolicyhelper.retrieveReferencedTrustmarksFromTIP(db, tip_id, tipjson);
-				//TODO: Use Retrieve trustmarks from TIP to get the trustmarks at this stage
+			
+				//Insert TIP In Cache	
+				trustmarkpolicyhelper.insertTIPInCache(db, tip_id, tipjson);
 			}
 		}
-	
-	
 	}
 }
 
@@ -347,6 +347,7 @@ function getDefaultTrustmarks()
                 console.log("Successfully got a connection to database.");
                 db = event.target.result;
 
+		//Iterate through config file to get trustmarks
 		for( var i in trustmarks)
 		{
 			if(!isEmpty(trustmarks[i]))
@@ -362,6 +363,7 @@ function getDefaultTrustmarks()
 				console.log(jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier);
 				console.log(jsonObj.Trustmark.Identifier);*/
 
+				//Insert trustmark to cache
 				trustmarkhelper.addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmarkjson);
 			}
 		}
@@ -380,17 +382,40 @@ function loadPrepackagedData()
 {
 	getDefaultTrustmarks();
 	getDefaultTIP();	
+	
+	var evalString = "1 || 1";
+	
+	var a=	eval(evalString);
+	console.log("Result" + a);
 }
 
 function createFile()
 {
-  const {Ci,Cu} = require("chrome");
+  const {Ci,Cu,Cc,components} = require("chrome");
   Cu.import("resource://gre/modules/FileUtils.jsm");
+  Cu.import("resource://gre/modules/NetUtil.jsm");
 
+  var data = "Hi";
   var file = FileUtils.getFile("TmpD", ["suggestedName.tmp"]); 
   file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 	// do whatever you need to the created file
   console.log(file.path);
-} 
+
+  var ostream = FileUtils.openSafeFileOutputStream(file);
+  var converter = Cc["@mozilla.org/intl/scriptableunicodeconverter"].createInstance(Ci.nsIScriptableUnicodeConverter);
+  
+  converter.charset = "UTF-8";
+  var istream = converter.convertToInputStream(data);
+
+	// The last argument (the callback) is optional.
+  NetUtil.asyncCopy(istream, ostream, function(status) {
+  if (!components.isSuccessCode(status)) {
+    // Handle error!
+    return;
+  }});
+
+}
+ 
 initDB();
+//createFile();
 loadPrepackagedData();

@@ -37,7 +37,7 @@ function getRecipientName(trustmark_json_str)
  *	trustmark_json - Trustmark JSON string
  *@Returns none
  */
-function addRecipientToCache(db, recipient_id, trustmark_json)
+function addRecipientToCache(db, recipient_id, trustmark_id_val, trustmark_json)
 {
 	var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
 
@@ -45,19 +45,28 @@ function addRecipientToCache(db, recipient_id, trustmark_json)
 
         recipientRequest.onerror = function(event)
         {
-                //console.log("An error occurred while accessing the recipient store");
+                console.log("An error occurred while accessing the recipient store");
         }
 
         recipientRequest.onsuccess = function(event)
         {
                 if(recipientRequest.result)
                 {
-                        //console.log("Recipient " + recipientRequest.result.name + " found.");
+		       //Update trustmark id to existing list
+                       //console.log("Recipient " + recipientRequest.result.name + " found.");
+                       var trustmark_list_val =  recipientRequest.result.trustmark_list;
+                       trustmark_list_val += "##TRUSTMARK##";
+                       trustmark_list_val += trustmark_id_val;
+
+                       var newRow = { identifier : recipient_id, trustmark_list : trustmark_list_val, name: recipient_name };  
+                      recipientObjectStore.put(newRow);    
+                      //console.log("Trustmark List: " + trustmark_list_val); 
                 }
                 else
                 {
+                  	//Update trustmark id to list
                         var recipient_name = getRecipientName(trustmark_json);
-                        var recipientRow = { identifier : recipient_id, name: recipient_name };
+                        var recipientRow = { identifier : recipient_id, trustmark_list : trustmark_id_val,name: recipient_name };
                         recipientObjectStore.add(recipientRow);
                         //console.log("Recipient added : " + recipient_name);
                 }
@@ -236,7 +245,7 @@ function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_
 	//console.log("Trustmark ID: " + trustmark_id);
 	//console.log("Trustmark Def ID:" + trustmark_def_id);
 */
-	addRecipientToCache(db, recipient_id, trustmark_json);
+	addRecipientToCache(db, recipient_id, trustmark_id, trustmark_json);
 	addTrustmarkToCache(db, trustmark_id, trustmark_def_id, trustmark_json);
 	addTrustmarkMappingToCache(db, trustmark_id, recipient_id, trustmark_def_id);
 	//if not exists, add trustmark-recipient mapping to store	

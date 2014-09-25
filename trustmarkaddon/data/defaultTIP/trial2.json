@@ -37,6 +37,6 @@
 		]
 
 	},	
-	"TrustExpression": "TDRef1 and TDRef2"
+	"TrustExpression": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml and http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml"
 	}
 }

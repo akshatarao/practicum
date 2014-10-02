@@ -71,7 +71,7 @@ function getRecipientTrustmarkSet(trustmark_list)
 	return trustmarkSet;
 }
 	
-function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id)
+function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpanel)
 {
 
 	var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
@@ -115,31 +115,24 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id)
 					console.log("Trust Expression Updated:" + trust_expression);
 
 					var result = eval("(" + trust_expression + ")");
-					console.log("Result: " + result);
+
+					if(result)
+					{
+						trustmarkpanel.port.emit("matched", "minimization");
+						console.log("The recipient has matched policy");
+					}
+					else
+					{
+						trustmarkpanel.port.emit("notmatched", "minimization");
+						console.log("The recipient has not matched policy");
+					}
 				}
 			}
-
-			//Get TIP expr
-			//Replace all the trustmarks in TIP with trustmark_list
-			//Replace and/AND with &&, or/OR with ||
-			//Evaluate expression
-		
 	
 		}
 	}
 				
 
-}
-
-/**
- * @Purpose - Verify if trustmark adheres to policy
- * @Parameters - policy_xml - Policy XML
- * 	 	 trustmark_xml - Trustmark XML
- * @Returns - none
- */
-function verifyIfTrustmarkAdheresToPolicy(policy_xml, trustmark_xml)
-{
-	console.log("Inside verify if trustmark adheres to policy");
 }
 
 /**
@@ -197,13 +190,21 @@ function getTrustmarkList(tip_json)
 
 }
 
-
+/**
+ *@Purpose: Update expression
+ *@Parameters: existing_condition - Existing condition
+ *	       referenced_tip_id - Referenced TIP Identifier
+ *	       referenced_tip_condition - Referenced TIP Condition
+ *@Returns: none
+ */
 function updateExpression(existing_condition, referenced_tip_id, referenced_tip_condition)
 {
-
 	existing_condition = existing_condition.replace(referenced_tip_id, "(" + referenced_tip_condition + ")");
+	
 	return existing_condition;
 }
+
+
 /**
  *@Purpose: Append the trustmark to trustmark list recursively
  *@Parameters: tipObjectStore - TIP Object Store
@@ -238,7 +239,6 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustex
 			var referenced_tip_ID = tipreferencearray[currentindex-1].TrustInteroperabilityProfileReference.Identifier;
 
 			existing_expression = updateExpression(existing_expression, referenced_tip_ID, referenced_tip_expression);		
-			//TODO: Update existing expression
 		
 			//console.log("Found referenced tip condition: " + referenced_tip_expression);
 			//console.log("Existing condition: " + existing_expression);		
@@ -365,7 +365,7 @@ function insertTIPInCache(db, tip_id, tip_json)
     TIPObjectStore.transaction.oncomplete = function(event)
     {
 	
-		//TODO: Depending on purpose, trigger action
+	//TODO: Depending on purpose, trigger action
     }
 
 }

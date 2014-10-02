@@ -32,18 +32,8 @@ function displayTrustmarkPanel(state)
 {
 	if(state.checked)
 	{
-		
-		//Dummy code
-		var jsondata = self.data.load("trial2.json");
-		jsonObj = JSON.parse(jsondata);
-		console.log(jsonObj.name);
 		panelviewer.displayTrustmarks(button);
 
-		//Get tab URL
-		//Check if it exists in recipients
-		//Get recipient ID
-		//Get trustmark IDs for that recipient
-		//Get trustmark name per recipient
 	}
 }
 
@@ -319,7 +309,7 @@ function getDefaultTIP()
 			}
 		}
 
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml"); 
+		//trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml"); 
 	}
 }
 
@@ -384,11 +374,6 @@ function loadPrepackagedData()
 {
 	getDefaultTrustmarks();
 	getDefaultTIP();	
-	
-	var evalString = "1 || 1";
-	
-	var a=	eval(evalString);
-	console.log("Result" + a);
 }
 
 function createFile()
@@ -417,7 +402,11 @@ function createFile()
   }});
 
 }
- 
+
+function test()
+{
+	alert("hi");
+} 
 initDB();
 //createFile();
 loadPrepackagedData();

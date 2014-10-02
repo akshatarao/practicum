@@ -41,7 +41,15 @@ function iterateThroughTIPs(recipient_id)
 	request.onsuccess = function(event)
 	{
 		var db = event.target.result;
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml", trustmarkpanel);		
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml", trustmarkpanel, "access");
+
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml", trustmarkpanel, "accountability");
+
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/transparency.xml", trustmarkpanel, "transparency");		
+		
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/dataquality.xml", trustmarkpanel, "dataquality");
+
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", trustmarkpanel, "minimization");	
 
 	}	
 

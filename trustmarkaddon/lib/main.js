@@ -403,10 +403,11 @@ function createFile()
 
 }
 
-function test()
-{
-	alert("hi");
-} 
 initDB();
-//createFile();
 loadPrepackagedData();
+
+/*TODO
+ 1. ICONs for each TIP
+ 2. Case insensitive replace for AND
+
+*/

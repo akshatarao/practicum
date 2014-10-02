@@ -71,7 +71,7 @@ function getRecipientTrustmarkSet(trustmark_list)
 	return trustmarkSet;
 }
 	
-function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpanel)
+function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpanel, tip_divname)
 {
 
 	var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
@@ -110,6 +110,7 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpane
 			
 					console.log("Before Updation: " + trust_expression);	
 					trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
+					//TODO: Case insensitive replace
 					trust_expression = trust_expression.replace(/and/g, "&&");
 					trust_expression = trust_expression.replace(/or/g, "||");	
 					console.log("Trust Expression Updated:" + trust_expression);
@@ -118,12 +119,12 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpane
 
 					if(result)
 					{
-						trustmarkpanel.port.emit("matched", "minimization");
+						trustmarkpanel.port.emit("passedtip", tip_divname);
 						console.log("The recipient has matched policy");
 					}
 					else
 					{
-						trustmarkpanel.port.emit("notmatched", "minimization");
+						trustmarkpanel.port.emit("failedtip", tip_divname);
 						console.log("The recipient has not matched policy");
 					}
 				}

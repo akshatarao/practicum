@@ -6,8 +6,23 @@
 
 var self = require("sdk/self");
 var tabs = require("sdk/tabs");
+var urls = require("sdk/url");
+
 var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
 var { indexedDB }  = require('sdk/indexed-db');
+var sidebar = require("sdk/ui/sidebar").Sidebar({
+        id: 'trustmark-sidebar',
+        title: 'Trustmarks',
+        url: self.data.url("sidebar.html"),
+	onReady: function(worker)
+	{
+		worker.port.emit("trustmark", "minimization");
+		worker.port.on("trustmarksshown", function()
+		{
+			console.log("addon script got the reply");
+		});
+	}
+});
 
 var trustmarkpanel = require("sdk/panel").Panel({
 
@@ -15,26 +30,23 @@ var trustmarkpanel = require("sdk/panel").Panel({
 	height:	420,
         contentURL: self.data.url("panel.html"),
 	contentScriptFile: self.data.url("test.js"),
-  	onHide: hideTrustmarks, 
+  	onHide: hideTrustmarks,
+	onMessage: function(message)
+	{
+		console.log("Got content script" + message);
+		sidebar.show();
+	} 
 });
 
-var sidebar = require("sdk/ui/sidebar").Sidebar({
-        id: 'trustmark-sidebar',
-        title: 'Trustmarks',
-        url: self.data.url("sidebar.html")
+sidebar.on("show", function()
+{
+	console.log( "Message:" + message);
 });
-
 trustmarkpanel.on("show", function()
 {
-	//TODO: Get domain name
-/*	const {Ci,Cu,Cc,components} = require("chrome");
-	var eTLDService = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService);
 
-	var basedomain = eTLDService.getBaseDomain("https://www.facebook.com");
-
-	var url = tabs.activeTab.url;
-	console.log(url);*/
-	iterateThroughTIPs("test");
+	var url = urls.URL(tabs.activeTab.url);
+	iterateThroughTIPs(url.host);
 
 
 });
@@ -47,15 +59,15 @@ function iterateThroughTIPs(recipient_id)
 	request.onsuccess = function(event)
 	{
 		var db = event.target.result;
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml", trustmarkpanel, "access");
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml", trustmarkpanel, "access");
 
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml", trustmarkpanel, "accountability");
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml", trustmarkpanel, "accountability");
 
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/transparency.xml", trustmarkpanel, "transparency");		
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/transparency.xml", trustmarkpanel, "transparency");		
 		
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/dataquality.xml", trustmarkpanel, "dataquality");
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/dataquality.xml", trustmarkpanel, "dataquality");
 
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", trustmarkpanel, "minimization");	
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", trustmarkpanel, "minimization");	
 
 	}	
 

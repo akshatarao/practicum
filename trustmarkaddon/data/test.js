@@ -21,7 +21,6 @@ var minimizationDiv = document.getElementById("minimization");
 
 minimizationDiv.addEventListener("click", function(event)
 {
-	window.alert("Minimization");
 	self.postMessage("minimization");
 }, false);
 
@@ -40,3 +39,4 @@ transparencyDiv.addEventListener("click", function(event)
 {
         self.postMessage("transparency");
 }, false);
+

@@ -10,12 +10,16 @@ var urls = require("sdk/url");
 
 var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
 var { indexedDB }  = require('sdk/indexed-db');
+
+
 var sidebar = require("sdk/ui/sidebar").Sidebar({
         id: 'trustmark-sidebar',
         title: 'Trustmarks',
         url: self.data.url("sidebar.html"),
 	onReady: function(worker)
 	{
+
+		trustmarkpolicyhelper.displayTIPTrustmarks(worker, "minimization");
 		worker.port.emit("trustmark", "minimization");
 		worker.port.on("trustmarksshown", function()
 		{

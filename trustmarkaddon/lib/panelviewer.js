@@ -18,6 +18,12 @@ var trustmarkpanel = require("sdk/panel").Panel({
   	onHide: hideTrustmarks, 
 });
 
+var sidebar = require("sdk/ui/sidebar").Sidebar({
+        id: 'trustmark-sidebar',
+        title: 'Trustmarks',
+        url: self.data.url("sidebar.html")
+});
+
 trustmarkpanel.on("show", function()
 {
 	//TODO: Get domain name

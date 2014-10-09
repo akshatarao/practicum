@@ -396,7 +396,7 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 		{
 			if(event.target.result)
 			{
-				var tipjson = event.target.result.tip_json;
+				var tip_trustmark_list = event.target.result.trustmark_list;
 
 				var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
 
@@ -409,9 +409,14 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 
 				recipientRequest.onsuccess = function(event)
 				{
-					var recipient_trustmarklist = event.target.result.trustmark_list;
-					console.log("TIP JSON: " + tipjson);
-					console.log("Recipient Trustmark List: " + recipient_trustmarklist);
+					var recipient_trustmark_list = event.target.result.trustmark_list;
+
+					var recipient_trustmarkset = getRecipientTrustmarkSet(recipient_trustmark_list);	
+					var tip_trustmarkset = getRecipientTrustmarkSet(tip_trustmark_list);
+
+					worker.port.emit("trustmark", recipient_trustmark_list, tip_trustmark_list);	
+//					console.log("TIP trustmark list: " + tip_trustmark_list);
+//					console.log("Recipient Trustmark List: " + recipient_trustmarklist);
 				}	
 			}
 		}	

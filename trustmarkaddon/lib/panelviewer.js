@@ -20,7 +20,6 @@ var sidebar = require("sdk/ui/sidebar").Sidebar({
 	{
 
 		trustmarkpolicyhelper.displayTIPTrustmarks(worker, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", "www.facebook.com");
-		worker.port.emit("trustmark", "minimization");
 		worker.port.on("trustmarksshown", function()
 		{
 			console.log("addon script got the reply");

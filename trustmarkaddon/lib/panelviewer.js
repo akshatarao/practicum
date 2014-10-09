@@ -66,7 +66,9 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		onHide: function()
 		{
 			console.log("Sidebar hidden");
+			
 			sidebar.dispose();
+			trustmarkpanel.port.emit("hi");
 		}
 		});
 

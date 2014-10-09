@@ -18,83 +18,60 @@ self.port.on("passedtip", function onPassedTIP(tip)
 });
 
 var minimizationDiv = document.getElementById("minimization");
-
-minimizationDiv.addEventListener("click", function(event)
-{
-	self.postMessage("minimization");
-}, false);
-
-minimizationDiv.addEventListener("mouseover", function(event)
-{
-	minimizationDiv.style.border = "thin solid black";
-}, false);
-
-minimizationDiv.addEventListener("mouseout", function(event)
-{
-	minimizationDiv.style.border = "";
-}, false);
-
 var transparencyDiv = document.getElementById("transparency");
-transparencyDiv.addEventListener("click", function(event)
-{
-        self.postMessage("transparency");
-}, false);
-
-transparencyDiv.addEventListener("mouseover", function(event)
-{
-        transparencyDiv.style.border = "thin solid black";
-}, false);
-
-transparencyDiv.addEventListener("mouseout", function(event)
-{
-        transparencyDiv.style.border = "";
-}, false);
-
 var accessDiv = document.getElementById("access");
-accessDiv.addEventListener("click", function(event)
-{
-        self.postMessage("access");
-}, false);
-
-accessDiv.addEventListener("mouseover", function(event)
-{
-       accessDiv.style.border = "thin solid black";
-}, false);
-
-accessDiv.addEventListener("mouseout", function(event)
-{
-        accessDiv.style.border = "";
-}, false);
-
 var accountabilityDiv = document.getElementById("accountability");
-accountabilityDiv.addEventListener("click", function(event)
-{
-        self.postMessage("accountability");
-}, false);
-
-accountabilityDiv.addEventListener("mouseover", function(event)
-{
-        accountabilityDiv.style.border = "thin solid black";
-}, false);
-
-accountabilityDiv.addEventListener("mouseout", function(event)
-{
-        accountabilityDiv.style.border = "";
-}, false);
-
 var dataqualityDiv = document.getElementById("dataquality");
-dataqualityDiv.addEventListener("click", function(event)
-{
-        self.postMessage("dataquality");
-}, false);
 
-dataqualityDiv.addEventListener("mouseover", function(event)
+function onMouseOverListener(event)
 {
-        dataqualityDiv.style.border = "thin solid black";
-}, false);
+        var targetDiv = event.target;
+        targetDiv.style.border = "thin solid black";
+}
 
-dataqualityDiv.addEventListener("mouseout", function(event)
+function onMouseOutListener(event)
 {
-        dataqualityDiv.style.border = "";
-}, false);
+        var targetDiv = event.target;
+        targetDiv.style.border = "";
+}
+
+
+function onClickListener(event)
+{
+	self.postMessage(event.target.id);
+
+	var tipdivs = document.getElementsByClassName('tip')
+
+	for(index = 0; index < tipdivs.length; index++)
+	{
+		var divelement = tipdivs[index];
+		
+		if(divelement.id != event.target.id)
+		{
+			divelement.removeEventListener("click", onClickListener, false);
+			divelement.removeEventListener("mouseover", onMouseOverListener, false);
+			divelement.removeEventListener("mouseout", onMouseOutListener, false);
+			divelement.style.background = "gray";
+		}
+
+	}
+		
+}
+function reset()
+{
+	var tipdivs = document.getElementsByClassName('tip');
+
+	for(index = 0; index < tipdivs.length; index++)
+	{
+		tipdivs[index].addEventListener("click", onClickListener, false);
+		tipdivs[index].addEventListener("mouseover", onMouseOverListener, false);
+		tipdivs[index].addEventListener("mouseout", onMouseOutListener, false);
+	}
+}
+reset();
+
+self.port.on("hi", function onHi()
+{
+        reset();
+});
 

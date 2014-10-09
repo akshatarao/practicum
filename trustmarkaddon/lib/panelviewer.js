@@ -12,7 +12,7 @@ var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
 var { indexedDB }  = require('sdk/indexed-db');
 
 
-var sidebar = require("sdk/ui/sidebar").Sidebar({
+/*var sidebar = require("sdk/ui/sidebar").Sidebar({
         id: 'trustmark-sidebar',
         title: 'Trustmarks',
         url: self.data.url("sidebar.html"),
@@ -25,7 +25,7 @@ var sidebar = require("sdk/ui/sidebar").Sidebar({
 			console.log("addon script got the reply");
 		});
 	}
-});
+});*/
 
 var trustmarkpanel = require("sdk/panel").Panel({
 
@@ -37,12 +37,26 @@ var trustmarkpanel = require("sdk/panel").Panel({
 	onMessage: function(message)
 	{
 		console.log("Got content script" + message);
+
+		var sidebar = require("sdk/ui/sidebar").Sidebar({
+	        id: 'trustmark-sidebar',
+	        title: 'Trustmarks',
+	        url: self.data.url("sidebar.html"),
+	        onReady: function(worker)
+	        {
+
+        	        trustmarkpolicyhelper.displayTIPTrustmarks(worker, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", "www.facebook.com");
+               		 worker.port.on("trustmarksshown", function()
+               		 {
+                        	console.log("addon script got the reply");
+               		 });
+        	}
+		});
+
 		sidebar.show();
 	} 
 });
 
-sidebar.on("show", function(){
-});
 trustmarkpanel.on("show", function()
 {
 

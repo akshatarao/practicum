@@ -75,7 +75,7 @@ function getTIPTrustmarkJSONString(trustmark_list)
 {
 	var removeLeadingComma = trustmark_list.substring(1);
 	var jsonString = "{ \"trustmarks\" : [" + removeLeadingComma + "]}";
-	console.log("JSON String: " + jsonString);
+	//console.log("JSON String: " + jsonString);
 	JSON.parse(jsonString);
 	return jsonString;
 }

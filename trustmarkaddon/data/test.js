@@ -1,9 +1,3 @@
-self.port.on("show", function onShow()
-{
-	self.port.emit("whatsup");
-	window.alert("hey");
-});
-
 self.port.on("failedtip", function onFailedTIP(tip)
 {
 	var d = document.getElementById(tip);
@@ -51,7 +45,7 @@ function onClickListener(event)
 			divelement.removeEventListener("click", onClickListener, false);
 			divelement.removeEventListener("mouseover", onMouseOverListener, false);
 			divelement.removeEventListener("mouseout", onMouseOutListener, false);
-			divelement.style.background = "gray";
+			divelement.style.background = "#B8B894";
 		}
 
 	}

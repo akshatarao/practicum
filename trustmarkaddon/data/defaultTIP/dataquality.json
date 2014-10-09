@@ -28,7 +28,7 @@
 		}},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "dataquality_freshness",
-                                "Identifier" : "Maintain Data Quality through Data Freshness",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/dataquality/dataaccuracy/datafreshness.xml",
 				"Name": "Maintain Data Quality through Data Freshness"
                 }}]
 	},

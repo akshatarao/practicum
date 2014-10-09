@@ -25,6 +25,8 @@ addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list
 	var recipient_trustmark_set = getTrustmarkSet(recipient_trustmark_list);
 	var tipJSONObj = JSON.parse(tip_trustmark_list);
 	var trustmarkarray = tipJSONObj.trustmarks;
+	var trustmarks_received_set = [];
+	var trustmarks_not_received_set = [];
 
 	for(var index in trustmarkarray)
 	{
@@ -34,11 +36,30 @@ addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list
 
 		if(recipient_trustmark_set.has(trustmarkid))
 		{
-			var element = document.createElement('div');
-        	        document.body.appendChild(element);
-                        element.appendChild(document.createTextNode(trustmarkname));
-
+			trustmarks_received_set[trustmarks_received_set.length] = trustmarkname;
 		}
+		else
+		{
+			trustmarks_not_received_set[trustmarks_not_received_set.length] = trustmarkname;
+		}
+	}
+
+	for(var index in trustmarks_received_set)
+	{
+		var trustmarkname = trustmarks_received_set[index];
+		var element = document.createElement('div');
+		element.className = "received_trustmark";
+                document.body.appendChild(element);
+                element.appendChild(document.createTextNode(trustmarkname));
+	}
+
+	for(var index in trustmarks_not_received_set)
+	{
+		var trustmarkname = trustmarks_not_received_set[index];
+                var element = document.createElement('div');
+		element.className = "notreceived_trustmark";
+                document.body.appendChild(element);
+                element.appendChild(document.createTextNode(trustmarkname));
 	}
 
 	addon.port.emit("trustmarksshown");

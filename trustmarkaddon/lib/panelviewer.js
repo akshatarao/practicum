@@ -19,7 +19,7 @@ var sidebar = require("sdk/ui/sidebar").Sidebar({
 	onReady: function(worker)
 	{
 
-		trustmarkpolicyhelper.displayTIPTrustmarks(worker, "minimization");
+		trustmarkpolicyhelper.displayTIPTrustmarks(worker, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", "www.facebook.com");
 		worker.port.emit("trustmark", "minimization");
 		worker.port.on("trustmarksshown", function()
 		{
@@ -42,9 +42,7 @@ var trustmarkpanel = require("sdk/panel").Panel({
 	} 
 });
 
-sidebar.on("show", function()
-{
-	console.log( "Message:" + message);
+sidebar.on("show", function(){
 });
 trustmarkpanel.on("show", function()
 {

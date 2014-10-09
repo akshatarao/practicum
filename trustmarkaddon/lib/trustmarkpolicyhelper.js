@@ -371,8 +371,64 @@ function insertTIPInCache(db, tip_id, tip_json)
 
 }
 
+function displayTIPTrustmarks(worker, tip_key, recipient_id)
+{
+	var request  = indexedDB.open("trustmarkDB", 2);
+	var db;
+
+	request.onerror = function(event)
+	{
+		console.log("An error occurred while opening the database.");	
+	}
+
+	request.onsuccess = function(event)
+	{
+		db = event.target.result;
+		var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+		var tipRequest = TIPObjectStore.get(tip_key);
+
+		tipRequest.onerror = function(event)
+		{
+			console.log("An error occurred while accesssing the tip store");
+		}
+
+		tipRequest.onsuccess = function(event)
+		{
+			if(event.target.result)
+			{
+				var tipjson = event.target.result.tip_json;
+
+				var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
+
+				var recipientRequest = recipientObjectStore.get(recipient_id);
+
+				recipientRequest.onerror = function(event)
+				{
+					console.log("An error occurred while accessing the recipient store");
+				}
+
+				recipientRequest.onsuccess = function(event)
+				{
+					var recipient_trustmarklist = event.target.result.trustmark_list;
+					console.log("TIP JSON: " + tipjson);
+					console.log("Recipient Trustmark List: " + recipient_trustmarklist);
+				}	
+			}
+		}	
+	}
+
+	
+	//TODO: Do I want to generalize
+	//TODO: Do I want to use tip-id
+	if(tip_key === "minimization")
+	{
+			
+	}
+}
+
 exports.insertTIPInCache = insertTIPInCache
 exports.checkIfRecipientSatisfiesPolicy = checkIfRecipientSatisfiesPolicy
+exports.displayTIPTrustmarks = displayTIPTrustmarks
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

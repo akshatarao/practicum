@@ -12,21 +12,6 @@ var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
 var { indexedDB }  = require('sdk/indexed-db');
 
 
-/*var sidebar = require("sdk/ui/sidebar").Sidebar({
-        id: 'trustmark-sidebar',
-        title: 'Trustmarks',
-        url: self.data.url("sidebar.html"),
-	onReady: function(worker)
-	{
-
-		trustmarkpolicyhelper.displayTIPTrustmarks(worker, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", "www.facebook.com");
-		worker.port.on("trustmarksshown", function()
-		{
-			console.log("addon script got the reply");
-		});
-	}
-});*/
-
 var trustmarkpanel = require("sdk/panel").Panel({
 
 	width: 360,
@@ -38,19 +23,51 @@ var trustmarkpanel = require("sdk/panel").Panel({
 	{
 		console.log("Got content script" + message);
 
+		var sidebarid = "trustmark-sidebar-" + message; 
+		var sidebartitle = message + " trustmarks";
 		var sidebar = require("sdk/ui/sidebar").Sidebar({
-	        id: 'trustmark-sidebar',
-	        title: 'Trustmarks',
+	        id: sidebarid,
+	        title: sidebartitle,
 	        url: self.data.url("sidebar.html"),
 	        onReady: function(worker)
 	        {
 
-        	        trustmarkpolicyhelper.displayTIPTrustmarks(worker, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", "www.facebook.com");
+			var url = urls.URL(tabs.activeTab.url);
+			var site = url.host;
+			var tip_id = "";
+			if(message === "minimization")
+			{
+				tip_id = trustmarkpolicyhelper.getCurrentMinimizationPolicy();
+			 
+			}
+			else if(message === "transparency")
+			{
+				tip_id = trustmarkpolicyhelper.getCurrentTransparencyPolicy();
+			}
+			else if(message === "access")
+			{
+				tip_id = trustmarkpolicyhelper.getCurrentAccessPolicy();
+			}
+			else if(message === "accountability")
+			{
+				tip_id = trustmarkpolicyhelper.getCurrentAccountabilityPolicy();
+			}
+			else if(message === "dataquality")
+			{
+				tip_id = trustmarkpolicyhelper.getCurrentDataQualityPolicy();
+			}
+
+        	        trustmarkpolicyhelper.displayTIPTrustmarks(worker, tip_id, site);
                		 worker.port.on("trustmarksshown", function()
                		 {
                         	console.log("addon script got the reply");
                		 });
-        	}
+        	},
+		onHide: function()
+		{
+			console.log("Sidebar hidden");
+			sidebar.dispose();
+		}
 		});
 
 		sidebar.show();

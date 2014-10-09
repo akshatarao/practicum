@@ -113,16 +113,13 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpane
 					var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);			
 					for(let item of trustmarkSet)
 					{
-						console.log("Item: " + item);
 						trust_expression = trust_expression.replace(item, 1);
 					}	
 			
-					console.log("Before Updation: " + trust_expression);	
 					trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
 					//TODO: Case insensitive replace
 					trust_expression = trust_expression.replace(/and/g, "&&");
 					trust_expression = trust_expression.replace(/or/g, "||");	
-					console.log("Trust Expression Updated:" + trust_expression);
 
 					var result = eval("(" + trust_expression + ")");
 
@@ -432,18 +429,48 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 		}	
 	}
 
+}
+
+function getCurrentMinimizationPolicy()
+{
+	var minimization_tip = "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml";
+	return minimization_tip;
+}
+
+function getCurrentTransparencyPolicy()
+{
+	var transparency_tip = "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/transparency.xml";
+	return transparency_tip;
+}
+
+function getCurrentAccessPolicy()
+{
+	var access_tip = "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml";
 	
-	//TODO: Do I want to generalize
-	//TODO: Do I want to use tip-id
-	if(tip_key === "minimization")
-	{
-			
-	}
+	return access_tip;	
+}
+
+function getCurrentAccountabilityPolicy()
+{
+	var accountability_tip = "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml"
+
+	return accountability_tip; 
+}
+
+function getCurrentDataQualityPolicy()
+{
+	var dataquality_tip = "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/dataquality.xml";
+	return dataquality_tip;
 }
 
 exports.insertTIPInCache = insertTIPInCache
 exports.checkIfRecipientSatisfiesPolicy = checkIfRecipientSatisfiesPolicy
 exports.displayTIPTrustmarks = displayTIPTrustmarks
+exports.getCurrentMinimizationPolicy = getCurrentMinimizationPolicy
+exports.getCurrentTransparencyPolicy = getCurrentTransparencyPolicy
+exports.getCurrentDataQualityPolicy = getCurrentDataQualityPolicy
+exports.getCurrentAccessPolicy = getCurrentAccessPolicy
+exports.getCurrentAccountabilityPolicy = getCurrentAccountabilityPolicy 
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

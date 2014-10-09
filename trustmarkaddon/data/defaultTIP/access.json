@@ -18,11 +18,13 @@
 		[
 		{"TrustmarkDefinitionReference": {
 				"@id": "activity_inspect_activitydata",
-				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/access/activitydata/inspect.xml"
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/access/activitydata/inspect.xml",
+				"Name" : "Access to inspect activity data"
 		}},
 		{"TrustmarkDefinitionReference": {
 				"@id": "activity_inspect_personaldata",
-				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml"
+				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml",
+				"Name" : "Access to inspect personal data"
 		}},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "activity_modify_personaldata",

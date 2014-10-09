@@ -70,6 +70,15 @@ function getRecipientTrustmarkSet(trustmark_list)
 
 	return trustmarkSet;
 }
+
+function getTIPTrustmarkJSONString(trustmark_list)
+{
+	var removeLeadingComma = trustmark_list.substring(1);
+	var jsonString = "{ \"trustmarks\" : [" + removeLeadingComma + "]}";
+	console.log("JSON String: " + jsonString);
+	JSON.parse(jsonString);
+	return jsonString;
+}
 	
 function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpanel, tip_divname)
 {
@@ -169,7 +178,7 @@ function getTrustmarkList(tip_json)
 {
 
     var trustmarkList = "";
-    var trustmarkseparator = "##TRUSTMARK##";
+    var trustmarkseparator = ",";
 
     var JSONObj = JSON.parse(tip_json);
     var trustmarkreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustmarkDefinitionReferenceList;
@@ -181,10 +190,11 @@ function getTrustmarkList(tip_json)
 	
 	//Append Trustmark ID
         var referenceID = reference.TrustmarkDefinitionReference.Identifier;
-       
+	var referenceName = reference.TrustmarkDefinitionReference.Name      
+	var trustmarkSet = "{ \"trustmark_id\": \"" + referenceID + "\"" + "," + "\"trustmark_name\": \"" + referenceName + "\"}" 
+ 
 	trustmarkList += trustmarkseparator;
-	trustmarkList += referenceID;
-
+	trustmarkList += trustmarkSet;
     } 
 
     return trustmarkList;
@@ -397,6 +407,7 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 			if(event.target.result)
 			{
 				var tip_trustmark_list = event.target.result.trustmark_list;
+				var tip_json = event.target.result.tip_json;
 
 				var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
 
@@ -411,10 +422,9 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 				{
 					var recipient_trustmark_list = event.target.result.trustmark_list;
 
-					var recipient_trustmarkset = getRecipientTrustmarkSet(recipient_trustmark_list);	
-					var tip_trustmarkset = getRecipientTrustmarkSet(tip_trustmark_list);
 
-					worker.port.emit("trustmark", recipient_trustmark_list, tip_trustmark_list);	
+					var tip_trustmark_json  = getTIPTrustmarkJSONString(tip_trustmark_list);
+					worker.port.emit("trustmark", tip_trustmark_json, recipient_trustmark_list, tip_json);	
 //					console.log("TIP trustmark list: " + tip_trustmark_list);
 //					console.log("Recipient Trustmark List: " + recipient_trustmarklist);
 				}	

@@ -44,21 +44,23 @@ addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list
 		}
 	}
 
+        var trustmark_externaldiv = document.getElementById("trustmark_wrapper");
 	for(var index in trustmarks_received_set)
 	{
 		var trustmarkname = trustmarks_received_set[index];
 		var element = document.createElement('div');
 		element.className = "received_trustmark";
-                document.body.appendChild(element);
+                trustmark_externaldiv.appendChild(element);
                 element.appendChild(document.createTextNode(trustmarkname));
 	}
 
+        var notrustmark_externaldiv = document.getElementById("notrustmark_wrapper");
 	for(var index in trustmarks_not_received_set)
 	{
 		var trustmarkname = trustmarks_not_received_set[index];
                 var element = document.createElement('div');
 		element.className = "notreceived_trustmark";
-                document.body.appendChild(element);
+		notrustmark_externaldiv.appendChild(element);
                 element.appendChild(document.createTextNode(trustmarkname));
 	}
 

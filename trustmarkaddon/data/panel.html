@@ -10,78 +10,102 @@ body
 
 #panel-header
 {
-	background-color: #ffcc00;
-	color: black;
+	background-color: #0066CC;
+	color: white;
 	text-align: center;
 	padding: 5px;
+	line-height:40px;
 	height: 40px;
-	width: 330px;
+	width: 325px;
 	margin-bottom: 10px;
+	font-size:20px;
+	font-weight: bold;
+	font-family: Tahoma, Geneva, sans-serif;
+        border: 1px solid black;
 }
 
 .tip
 {
     background : url("rotating.gif") no-repeat;
-    color: black;
-    text-align: center;
+    border: 1px solid gray;
     padding: 5px;
     height: 40px;
-    width: 330px;
-    margin-bottom: 7px;		
-}
-
-.tip-pass
-{
-	background-color: #a3dab5;
-	color: black;
-        text-align: center;
-    	padding: 5px;
-	height: 40px;
-   	width: 330px;
-   	margin-bottom: 7px;
-}
-
-.tip-failure
-{
-    background-color: #ff9999;
-    color: black;
-    text-align: center;
-    padding: 5px;
-    height: 40px;
-    width: 330px;
-    margin-bottom: 7px;
+    margin-top: 3.5px;	
+    margin-bottom: 3.5px;
+    margin-left: 0.12cm;
+    margin-right: 0.12cm;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;		
 }
 
 #panel-footer
 {
-	background-color: #ffcc00;
-	color: black;
+	background-color: #0066CC;
+	color: white;
 	text-align: center;
 	padding: 5px;
 	height: 40px;
 	width: 330px;
 	margin-top: 10px;
+        border: 1px solid black;
+}
+
+#tip-wrapper
+{
+	background-color: white;
+	border: 2px solid gray;
+	padding: 2px;
+	border-bottom-left-radius: 0.3em;
+    	border-bottom-right-radius: 0.3em;
+	border-top-left-radius: 0.3em;
+   	border-top-right-radius: 0.3em;
+}
+
+.tip-heading
+{
+	word-wrap: break-word;
+	width: 270px;
+	color: black;
+        text-align: left;
+	font-family: "Tahoma", Geneva, sans-serif;
+ 	font-size: 14px;
+	font-weight: bold;
+
 }
 </style>
 </head>
 <body>
 <div id="panel-header">
-Privacy Profile
+Privacy Advisor
 </div>
-<div class = "tip" id="minimization">
+<div id="tip-wrapper" style="background:#003264">
+<div class = "tip" id="minimization-wrapper">
+<div class = "tip-heading" id="minimization">
 Minimizes site activity on personal data
 </div>
-<div class = "tip" id="transparency">
+</div>
+<div class = "tip" id="transparency-wrapper">
+<div class="tip-heading" id="transparency">
 Transparent about privacy practices
 </div>
-<div class = "tip" id="access">
-Allows users to view and correct personal data
 </div>
-<div class = "tip" id="accountability">
-Accountable for non-compliance of privacy policy 
+<div class = "tip" id="access-wrapper">
+<div class="tip-heading" id="access">
+Allows users to view/edit personal data
 </div>
-<div class = "tip" id="dataquality">
-Maintains the quality of collected user data
+</div>
+<div class = "tip" id="accountability-wrapper" align="left">
+<div class="tip-heading" id="accountability">
+Accountable for non-compliance to privacy policy
+</div>
+</div>
+<div class = "tip" id="dataquality-wrapper">
+<div class = "tip-heading" id="dataquality">
+Maintains quality of collected user data
+</div>
+</div>
 </div>
 <div id="panel-footer">
 Edit Settings here

@@ -65,6 +65,9 @@ function reset()
 		tipdivs[index].addEventListener("mouseover", onMouseOverListener, false);
 		tipdivs[index].addEventListener("mouseout", onMouseOutListener, false);
 		tipdivs[index].style.color = "black";
+		var wrapperid = tipdivs[index].id+"-wrapper";
+		var wrapper = document.getElementById(wrapperid);
+		wrapper.style.background  = "url('rotating.gif') no-repeat";
 	}
 }
 reset();

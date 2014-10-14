@@ -94,6 +94,7 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpane
 	{
 		if(event.target.result)
 		{
+			console.log("Row found for recipient id:" + recipient_id);
 			var trustmark_list = event.target.result.trustmark_list;
 		
 			var tipObjectStore = db.transaction("tip").objectStore("tip");
@@ -187,7 +188,7 @@ function getTrustmarkList(tip_json)
 	
 	//Append Trustmark ID
         var referenceID = reference.TrustmarkDefinitionReference.Identifier;
-	var referenceName = reference.TrustmarkDefinitionReference.Name      
+	var referenceName = reference.TrustmarkDefinitionReference.Description;      
 	var trustmarkSet = "{ \"trustmark_id\": \"" + referenceID + "\"" + "," + "\"trustmark_name\": \"" + referenceName + "\"}" 
  
 	trustmarkList += trustmarkseparator;
@@ -421,7 +422,7 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 
 
 					var tip_trustmark_json  = getTIPTrustmarkJSONString(tip_trustmark_list);
-					worker.port.emit("trustmark", tip_trustmark_json, recipient_trustmark_list, tip_json);	
+					worker.port.emit("trustmark", tip_trustmark_json, recipient_trustmark_list, tip_json, recipient_id);	
 //					console.log("TIP trustmark list: " + tip_trustmark_list);
 //					console.log("Recipient Trustmark List: " + recipient_trustmarklist);
 				}	

@@ -15,7 +15,7 @@ var { indexedDB }  = require('sdk/indexed-db');
 var trustmarkpanel = require("sdk/panel").Panel({
 
 	width: 360,
-	height:	420,
+	height:	440,
         contentURL: self.data.url("panel.html"),
 	contentScriptFile: self.data.url("test.js"),
   	onHide: hideTrustmarks,
@@ -80,6 +80,7 @@ trustmarkpanel.on("show", function()
 {
 
 	var url = urls.URL(tabs.activeTab.url);
+	console.log("URL is: " + url);
 	iterateThroughTIPs(url.host);
 
 
@@ -92,6 +93,7 @@ function iterateThroughTIPs(recipient_id)
 	
 	request.onsuccess = function(event)
 	{
+		console.log("Recipient is " + recipient_id);
 		var db = event.target.result;
 		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml", trustmarkpanel, "access");
 

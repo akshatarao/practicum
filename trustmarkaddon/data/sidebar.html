@@ -1,6 +1,24 @@
 <!DOCTYPE HTML>
 <html>
   <style>
+
+	.good_principle
+	{
+		height: 40px;
+		font-family: Tahoma,Geneva,sans-serif;
+		font-size: 15px;
+		font-weight: bold;
+		background: url("green-check-principle.png");
+	}
+
+	.bad_principle
+	{
+		height: 40px;
+		font-family: Tahoma,Geneva,sans-serif;
+		font-size: 15px;
+		font-weight: bold;
+		background: url("red-cross-principle.png") no-repeat;
+	}
 	.received_trustmark
 	{
 		background : #002966;
@@ -9,7 +27,7 @@
 		width: 227px;
 		margin-bottom: 7px;
 		padding: 5px;
-		font-size: 14px;
+		font-size: 12px;
 		font-weight: bold;
 		font-family: Tahoma, Geneva, sans-serif; 
 		
@@ -22,7 +40,7 @@
 		height: 50px;
 		width:	227px;
 		margin-bottom: 7px;
-		font-size: 14px;
+		font-size: 12px;
 		font-family: Tahoma, Geneva, sans-serif;
 	}
 
@@ -44,13 +62,16 @@
   <script type="text/javascript" src="sidebar.js"></script>
   <body>
     <div id="trustmarkheader" class="trustmark_header">
-	www.facebook.com
     </div>	
     <div id="trustmark_wrapper" class="wrapper">
-	<div style="height:40px;font-family:Tahoma,Geneva,sans-serif;font-size:16px;font-weight:bold">Privacy principles satisfied</div>
+	<div class="good_principle">
+		<div style="width:200px">Privacy principles satisfied</div>
+	</div>
     </div>
     <div id="notrustmark_wrapper" class="wrapper">
-	<div style="height:40px;font-family:Tahoma,Geneva,sans-serif;font-size:16px;font-weight:bold">Privacy principles failed</div>
+	<div class="bad_principle">
+		<div style="width:200px">Privacy principles failed</div>
+	</div>
     </div>	
   </body>
 </html>

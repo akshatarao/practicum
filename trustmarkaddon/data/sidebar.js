@@ -1,3 +1,4 @@
+
 function isEmpty(str)
 {
 	return (!str || 0 === str.length);
@@ -19,7 +20,7 @@ function getTrustmarkSet(trustmark_list)
 	return trustmarkSet;
 }
 
-addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list, tip_json) {
+addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list, tip_json, site_url) {
 
 	var tip_trustmark_set = tip_trustmark_list;
 	var recipient_trustmark_set = getTrustmarkSet(recipient_trustmark_list);
@@ -28,6 +29,8 @@ addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list
 	var trustmarks_received_set = [];
 	var trustmarks_not_received_set = [];
 
+	var trustmarkheader = document.getElementById("trustmarkheader");
+	trustmarkheader.appendChild(document.createTextNode(site_url));
 	for(var index in trustmarkarray)
 	{
 		var trustmark = trustmarkarray[index];

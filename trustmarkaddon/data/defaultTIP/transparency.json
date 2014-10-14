@@ -20,37 +20,44 @@
 		{"TrustmarkDefinitionReference": {
 				"@id": "transparency_contactinfo",
 				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/contactinfo.xml",
-				"Name": "Accountability through presentation of contact information"
+				"Name": "Accountability through presentation of contact information",
+				"Description" : "Presents contact information for handling grievances"
 		}},
 		{"TrustmarkDefinitionReference": {
 				"@id": "transparency_notification_activity",
 				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/dataactivity.xml",
-				"Name" : "Accountability through notification of data activity" 
+				"Name" : "Accountability through notification of data activity",
+				"Description" : "Notifies users of activity performed on their data" 
 		}},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "transparency_notification_collecteddata",
                                 "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/collecteddata.xml",
-                                "Name" : "Accountability through notification of collected data types"
+                                "Name" : "Accountability through notification of collected data types",
+				"Description" : "Notifies users of types of data collected"
                 }}		,
 		{"TrustmarkDefinitionReference": {
                                 "@id": "transparency_policy_complexity",
                                 "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/policycomplexity.xml",
-                                "Name" : "Transparency through Minimal Policy and Purpose Complexity and Update Frequency"
+                                "Name" : "Transparency through Minimal Policy and Purpose Complexity and Update Frequency",
+				"Description" : "Has an easy-to-understand, rarely updated privacy policy" 
 		}},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "transparency_purpose_explicit",
                                 "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/specifiedpurpose/explicit.xml",
-                                "Name" : "Accountability through explicit purpose specification"
+                                "Name" : "Accountability through explicit purpose specification",
+				"Description" : "Explicitly specifies the purpose of data collection and use"
                 }},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "transparency_legitimacy",
                                 "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/legitimacy.xml",
-                                "Name" : "Transparency through specification of legitimacy of data accessor"
+                                "Name" : "Transparency through specification of legitimacy of data accessor",
+				"Description" : "Specifies the legitimacy of data access by affliations and third parties"
                 }},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "transparency_policy_nonadherence",
                                 "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/breachdisclosure.xml",
-                                "Name" : "Transparency through notification of breach disclosure"
+                                "Name" : "Transparency through notification of breach disclosure",
+				"Description" : "Notifies users of data breachesimmediately"
                 }}
 		]
 	},	

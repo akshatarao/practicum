@@ -21,63 +21,80 @@ var trustmarkpanel = require("sdk/panel").Panel({
   	onHide: hideTrustmarks,
 	onMessage: function(message)
 	{
-		console.log("Got content script" + message);
 
-		var sidebarid = "trustmark-sidebar-" + message; 
-		var sidebartitle = message + " trustmarks";
-		
-
-		var sidebar = require("sdk/ui/sidebar").Sidebar({
-	        id: sidebarid,
-	        title: sidebartitle,
-	        url: self.data.url("sidebar.html"),
-	        onReady: function(worker)
-	        {
-
-			var url = urls.URL(tabs.activeTab.url);
-			var site = url.host;
-			var tip_id = "";
-			if(message === "minimization")
-			{
-				tip_id = trustmarkpolicyhelper.getCurrentMinimizationPolicy();
-			 
-			}
-			else if(message === "transparency")
-			{
-				tip_id = trustmarkpolicyhelper.getCurrentTransparencyPolicy();
-			}
-			else if(message === "access")
-			{
-				tip_id = trustmarkpolicyhelper.getCurrentAccessPolicy();
-			}
-			else if(message === "accountability")
-			{
-				tip_id = trustmarkpolicyhelper.getCurrentAccountabilityPolicy();
-			}
-			else if(message === "dataquality")
-			{
-				tip_id = trustmarkpolicyhelper.getCurrentDataQualityPolicy();
-			}
-
-        	        trustmarkpolicyhelper.displayTIPTrustmarks(worker, tip_id, site);
-               		 worker.port.on("trustmarksshown", function()
-               		 {
-                        	console.log("addon script got the reply");
-               		 });
-        	},
-		onHide: function()
+		if(message === "settings")
 		{
-			console.log("Sidebar hidden");
-			
-			sidebar.dispose();
-			trustmarkpanel.port.emit("hi");
-		}
-		});
+			var sidebarid = "settings";
+			var sidebartitle = "Settings";
 
-
+			var sidebar = require("sdk/ui/sidebar").Sidebar({
+			id: sidebarid,
+			title: sidebartitle,
+			url: self.data.url("settings.html"),
+			onReady: function(worker)
+			{
+			},
+			onHide : function(worker)
+			{
+				sidebar.dispose();
+			}
+		      });
 		
+			sidebar.show();
 
-		sidebar.show();
+		}
+		else
+		{
+			console.log("Got content script" + message);
+
+			var sidebarid = "trustmark-sidebar-" + message; 
+			//TODO: Capitalize first letter
+			var sidebartitle = message + " trustmarks";
+
+			var sidebar = require("sdk/ui/sidebar").Sidebar({
+		        id: sidebarid,
+	        	title: sidebartitle,
+		        url: self.data.url("sidebar.html"),
+		        onReady: function(worker)
+	        	{
+
+				var url = urls.URL(tabs.activeTab.url);
+				var site = url.host;
+				var tip_id = "";
+		
+				if(message === "minimization")
+				{
+					tip_id = trustmarkpolicyhelper.getCurrentMinimizationPolicy();
+				}
+				else if(message === "transparency")
+				{
+					tip_id = trustmarkpolicyhelper.getCurrentTransparencyPolicy();
+				}		
+				else if(message === "access")
+				{
+					tip_id = trustmarkpolicyhelper.getCurrentAccessPolicy();
+				}
+				else if(message === "accountability")
+				{
+					tip_id = trustmarkpolicyhelper.getCurrentAccountabilityPolicy();
+				}
+				else if(message === "dataquality")
+				{
+					tip_id = trustmarkpolicyhelper.getCurrentDataQualityPolicy();
+				}
+
+	        	        trustmarkpolicyhelper.displayTIPTrustmarks(worker, tip_id, site);
+        	       	
+        		},
+			onHide: function()
+			{
+				sidebar.dispose();
+				trustmarkpanel.port.emit("hi");
+			}
+			});
+
+			sidebar.show();
+		}
 	} 
 });
 

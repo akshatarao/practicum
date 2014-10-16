@@ -15,6 +15,61 @@ function createPolicy()
 	console.log("Inside create policy");
 }
 
+function applyUserPolicy(tip_nickname, tip_type)
+{
+	var request = indexedDB.open("trustmarkDB", 2);
+	var db;
+
+	request.onsuccess = function(event)
+	{
+		db = event.target.result;
+
+		var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+
+		var policyIndex = tipObjectStore.index("type");
+		var policyRequest = policyIndex.openCursor(tip_type);
+
+		policyRequest.onsuccess = function(event)
+		{
+			var cursor = event.target.result;
+
+			if(cursor)
+			{
+				var tip = cursor.value;
+				var nickname = tip.nickname;
+				var isActive;
+				if(nickname === tip_nickname)
+				{
+					isActive = "1";
+					
+					console.log("Update to active:" + tip.tip_id);
+				}
+				else
+				{
+					isActive = "0";
+					console.log("Update to inActive: " + tip.tip_id);
+				}
+
+				var newRow = { "tip_id" : tip.tip_id, "tip_json" : tip.tip_json, "trustmark_list" : tip.trustmark_list, "trust_expression" : tip.trust_expression, "type" : tip.type, "isActive" : isActive, "nickname" : tip.nickname};
+				var updateRequest = tipObjectStore.put(newRow);
+
+				updateRequest.onsuccess = function(event)
+				{
+					console.log("Active policy changed successfully");
+				}
+
+				updateRequest.onerror = function(event)
+				{
+					console.log("An error occurred while applying active policy");
+				}
+
+				cursor.continue();
+	
+			}
+		}
+		
+	}
+}
 /**
  *@Purpose - Uploads user defined policy from file path
  *@Param - filepath - User defined TIP file path
@@ -375,6 +430,14 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 				{
     					appendTrustmarksRecursively(tipreferencearray, 0, tip_id, tip_json, tip_type, tip_nickname, isActive, tipObjectStore);
 				}
+
+				/********TESTCODE Starts here*********/
+				if(tip_nickname === "Custom Access")
+				{
+					console.log("Im here");
+					applyUserPolicy(tip_nickname, tip_type);
+				}
+				/******TESTCODE Ends here************/
 			}
 
 
@@ -552,6 +615,7 @@ exports.getCurrentDataQualityPolicy = getCurrentDataQualityPolicy
 exports.getCurrentAccessPolicy = getCurrentAccessPolicy
 exports.getCurrentAccountabilityPolicy = getCurrentAccountabilityPolicy 
 exports.uploadUserPolicy = uploadUserPolicy
+exports.applyUserPolicy = applyUserPolicy
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

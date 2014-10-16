@@ -21,6 +21,7 @@ var transparencyDiv = document.getElementById("transparency");
 var accessDiv = document.getElementById("access");
 var accountabilityDiv = document.getElementById("accountability");
 var dataqualityDiv = document.getElementById("dataquality");
+var settingsButton = document.getElementById("settings");
 
 function onMouseOverListener(event)
 {
@@ -34,6 +35,10 @@ function onMouseOutListener(event)
 	targetDiv.style.color = "black";
 }
 
+function onClickListenerForSettings(event)
+{
+	self.postMessage("settings");
+}
 
 function onClickListener(event)
 {
@@ -70,6 +75,8 @@ function reset()
 		var wrapper = document.getElementById(wrapperid);
 		wrapper.style.background  = "url('rotating.gif') no-repeat";
 	}
+
+	settingsButton.addEventListener("click", onClickListenerForSettings, false);
 }
 reset();
 

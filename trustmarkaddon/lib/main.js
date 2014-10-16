@@ -412,6 +412,7 @@ function createFile()
 initDB();
 loadPrepackagedData();
 trustmarkpolicyhelper.uploadUserPolicy("/home/justinekays/access.json", "Custom Access", "access");
+//trustmarkpolicyhelper.applyUserPolicy("Custom Access", "access");
 /*TODO
  1. ICONs for each TIP
  2. Case insensitive replace for AND

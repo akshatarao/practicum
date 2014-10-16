@@ -26,7 +26,7 @@
                                         "Path": "defaultTIP/transparency.json"
                         }},
 			{ "TIP" : {
-                                        "Type" : "Data Quality",
+                                        "Type" : "dataquality",
                                         "Nickname" : "Default Data Quality",
                                         "Path": "defaultTIP/dataquality.json"
                         }}]

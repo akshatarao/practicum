@@ -100,15 +100,16 @@ function iterateThroughTIPs(recipient_id)
 	{
 		console.log("Recipient is " + recipient_id);
 		var db = event.target.result;
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml", trustmarkpanel, "access");
 
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml", trustmarkpanel, "accountability");
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "access", trustmarkpanel);
 
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/transparency.xml", trustmarkpanel, "transparency");		
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "accountability", trustmarkpanel);
+
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "transparency", trustmarkpanel);		
 		
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/dataquality.xml", trustmarkpanel, "dataquality");
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "dataquality", trustmarkpanel);
 
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml", trustmarkpanel, "minimization");	
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, recipient_id, "minimization", trustmarkpanel);	
 
 	}	
 

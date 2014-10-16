@@ -120,8 +120,9 @@ function getTIPTrustmarkJSONString(trustmark_list)
 	return jsonString;
 }
 	
-function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpanel, tip_divname)
+function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpanel)
 {
+	var tip_divname = tip_type;
 
 	var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
 	var recipientRequest = recipientObjectStore.get(recipient_id);
@@ -138,45 +139,53 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_id, trustmarkpane
 			var trustmark_list = event.target.result.trustmark_list;
 		
 			var tipObjectStore = db.transaction("tip").objectStore("tip");
-			var tipRequest = tipObjectStore.get(tip_id);
 
-			tipRequest.onerror  = function(event)
+			var policyIndex = tipObjectStore.index("type");
+			var policyRequest = policyIndex.openCursor(tip_type);
+
+			policyRequest.onsuccess = function(event)
 			{
-				console.log("An error occurred while accessing the tip store");
-			}
-	
-			tipRequest.onsuccess = function(event)
-			{
+				var cursor = event.target.result;
+				if(cursor)
+        		        {
+                       			 var results = cursor.value;
+		                         var isActive = results.isActive;
 
-				if(event.target.result)
-				{
-					var trust_expression = event.target.result.trust_expression;
-					var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);			
-					for(let item of trustmarkSet)
-					{
-						trust_expression = trust_expression.replace(item, 1);
-					}	
-			
-					trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
-					//TODO: Case insensitive replace
-					trust_expression = trust_expression.replace(/and/g, "&&");
-					trust_expression = trust_expression.replace(/or/g, "||");	
+                 		         if(isActive === "1")
+                       			 {
+		                                console.log("Active tip id: " + results.tip_id);
 
-					var result = eval("(" + trust_expression + ")");
+						var trust_expression = results.trust_expression;
+	                                        var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);                   
+        	                                for(let item of trustmarkSet)
+                	                        {
+                        	                        trust_expression = trust_expression.replace(item, 1);
+                                	        }
 
-					if(result)
-					{
-						trustmarkpanel.port.emit("passedtip", tip_divname);
-						console.log("The recipient has matched policy");
-					}
-					else
-					{
-						trustmarkpanel.port.emit("failedtip", tip_divname);
-						console.log("The recipient has not matched policy");
-					}
-				}
-			}
-	
+                                        	trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
+                                        	//TODO: Case insensitive replace
+	                                        trust_expression = trust_expression.replace(/and/g, "&&");
+        	                                trust_expression = trust_expression.replace(/or/g, "||");
+
+                	                        var result = eval("(" + trust_expression + ")");
+
+                        	                if(result)
+                                	        {
+                                        	        trustmarkpanel.port.emit("passedtip", tip_divname);
+                                                	console.log("The recipient has matched policy");
+                                        	}
+	                                        else
+        	                                {
+                	                                trustmarkpanel.port.emit("failedtip", tip_divname);
+                        	                        console.log("The recipient has not matched policy");
+                                	        }
+
+					 }
+				
+					cursor.continue();
+                	        }
+                	}
+
 		}
 	}
 				

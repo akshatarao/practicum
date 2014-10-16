@@ -216,7 +216,7 @@ function createTIPStore(db)
 	objectStore.createIndex("trust_expression", "trust_expression", {unique: false});
 	objectStore.createIndex("type", "type", {unique: false});
 	objectStore.createIndex("isActive", "isActive", {unique: false});
-	objectStore.createIndex("nickname", "nickname", {unique: false});
+	objectStore.createIndex("nickname", "nickname", {unique: true});
 
 }
 /**
@@ -411,7 +411,7 @@ function createFile()
 
 initDB();
 loadPrepackagedData();
-trustmarkpolicyhelper.readFileFromPath("abc");
+trustmarkpolicyhelper.uploadUserPolicy("/home/justinekays/access.json", "Custom Access", "access");
 /*TODO
  1. ICONs for each TIP
  2. Case insensitive replace for AND

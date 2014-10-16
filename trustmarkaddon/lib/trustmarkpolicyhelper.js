@@ -15,22 +15,38 @@ function createPolicy()
 	console.log("Inside create policy");
 }
 
-function uploadUserPolicy(filePath, tipNickname, tip_type)
+/**
+ *@Purpose - Uploads user defined policy from file path
+ *@Param - filepath - User defined TIP file path
+ *@Param - tip_nickname - TIP Nickname
+ *@Param - tip_type - TIP Type (minimization, transparency etc.)
+ */
+function uploadUserPolicy(filePath, tip_nickname, tip_type)
 {
-	
-}
-
-function readFileFromPath(filePath, nickname, type)
-{
-	let promise = OS.File.read("/home/justinekays/access.json");
+	let promise = OS.File.read(filePath);
 	promise = promise.then(function onSuccess(value)
 	{
-		let decoder = new TextDecoder();
-		var jsonData = decoder.decode(value);
-		var tip_json = JSON.parse(jsonData);
 
-			
-	
+		var request = indexedDB.open("trustmarkDB", 2);
+		var db;
+
+		request.onerror = function(event)
+		{
+			console.log("An error occurred while opening the database.");
+		}
+
+		request.onsuccess = function(event)
+		{
+			db = event.target.result;
+
+			let decoder = new TextDecoder();
+			var jsonData = decoder.decode(value);
+			var tip_json = JSON.parse(jsonData);
+			var tip_id = tip_json.TrustInteroperabilityProfile.Identifier;
+			var isActive = "0";
+
+			insertTIPInCache(db, tip_id, jsonData, tip_nickname, tip_type, isActive)		
+		}
 	});
 	
 }
@@ -431,12 +447,6 @@ function insertTIPInCache(db, tip_id, tip_json, tip_nickname, tip_type, isActive
     var trust_expression = getTIPTrustExpression(tip_json);	
     addTIPDetailsToTIP(TIPObjectStore, tip_id, tip_json, tip_type, tip_nickname, isActive, trustmarklist, trust_expression);
 
-    TIPObjectStore.transaction.oncomplete = function(event)
-    {
-	
-	//TODO: Depending on purpose, trigger action
-    }
-
 }
 
 function displayTIPTrustmarks(worker, tip_key, recipient_id)
@@ -532,7 +542,7 @@ exports.getCurrentTransparencyPolicy = getCurrentTransparencyPolicy
 exports.getCurrentDataQualityPolicy = getCurrentDataQualityPolicy
 exports.getCurrentAccessPolicy = getCurrentAccessPolicy
 exports.getCurrentAccountabilityPolicy = getCurrentAccountabilityPolicy 
-exports.readFileFromPath = readFileFromPath
+exports.uploadUserPolicy = uploadUserPolicy
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

@@ -55,6 +55,7 @@ function onClickListener(event)
 	}
 		
 }
+
 function reset()
 {
 	var tipdivs = document.getElementsByClassName('tip-heading');

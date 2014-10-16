@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="settings.js"></script>
 <style>
 body
 {
@@ -46,7 +46,7 @@ body
 	color: white;
 	text-align: center;
 	padding: 5px;
-	height: 40px;
+	height: 70px;
 	width: 330px;
 	margin-top: 10px;
         border: 1px solid black;
@@ -74,42 +74,96 @@ body
 	font-weight: bold;
 
 }
+
+.submit-button
+{
+	width: 50px;
+	height: 20px;
+}
+.settings-button
+{
+	width: 30px;
+	height: 30px;
+}
+
+.reset-button
+{
+	width: 30px;
+	height: 30px;
+}
+
+.reset-button:hover
+{
+	background-color: blue;
+}
+.settings-button:hover
+{
+	background-color: red;
+}
+
 </style>
 </head>
 <body>
-<div id="panel-header">
-Privacy Advisor
-</div>
-<div id="tip-wrapper" style="background:#003264">
-<div class = "tip" id="minimization-wrapper">
-<div class = "tip-heading" id="minimization">
-Minimizes site activity on personal data
-</div>
-</div>
-<div class = "tip" id="transparency-wrapper">
-<div class="tip-heading" id="transparency">
-Transparent about privacy practices
-</div>
-</div>
-<div class = "tip" id="access-wrapper">
-<div class="tip-heading" id="access">
-Allows users to view/edit personal data
-</div>
-</div>
-<div class = "tip" id="accountability-wrapper" align="left">
-<div class="tip-heading" id="accountability">
-Accountable for non-compliance to privacy policy
-</div>
-</div>
-<div class = "tip" id="dataquality-wrapper">
-<div class = "tip-heading" id="dataquality">
-Maintains quality of collected user data
-</div>
-</div>
-</div>
-<div id="panel-footer">
-Edit Settings here
-</div>
-
+	<div id="panel-header">
+		Privacy Advisor
+	</div>
+	<div id="tip-wrapper" style="background:#003264">
+		<div class = "tip" id="minimization-wrapper">
+			<div class = "tip-heading" id="minimization">
+				Minimizes site activity on personal data
+			</div>
+		</div>
+		<div class = "tip" id="transparency-wrapper">
+			<div class="tip-heading" id="transparency">
+				Transparent about privacy practices
+			</div>
+		</div>
+		<div class = "tip" id="access-wrapper">
+			<div class="tip-heading" id="access">
+				Allows users to view/edit personal data
+			</div>
+		</div>
+		<div class = "tip" id="accountability-wrapper" align="left">
+			<div class="tip-heading" id="accountability">
+				Accountable for non-compliance to privacy policy
+			</div>
+		</div>
+		<div class = "tip" id="dataquality-wrapper">
+			<div class = "tip-heading" id="dataquality">
+				Maintains quality of collected user data
+			</div>
+		</div>
+	</div>
+	<div id="panel-footer">
+		<div style="display: table-row;">
+			<div style="display: table-cell; width: 30px">
+				<button class="settings-button" onclick="changeSettings();" onmouseover="showToolTip();" onmouseout="hideToolTip();"/>
+			</div>
+			<div style="display: table-cell; width: 30px">
+				<button class="reset-button" onmouseover="showToolTip();" onmouseout="hideToolTip();"/> 
+			</div>
+			<div style="display: table-cell; width: 30px">
+				<button class="change-button" onmouseover="showToolTip();" onmouseout="hideToolTip();"
+			</div>
+			<div style="display: table-cell" id="tooltip">
+			</div>
+		</div>	
+		<div id="filesettings" style="display:none;vertical-align:center;">
+			<div style="display: table-row;">
+                                        <input type="text" id="policyname" style="width: 100px;" placeholder="Policy Name">   </input>
+					<select>
+						<option value="" default selected>Select policy</option>
+						<option value="minimization">Default Minimization</option>
+						<option value="transparency">Default Transparency</option>
+					</select>
+			</div>
+			<div style="align: left">
+        			 <input type="file" id="policyfile" style="display: none">
+			</div>
+			<div style="align: left">
+				<button type="button" class="submit-button" onclick="onPolicySubmit()">	
+			</div>
+		</div>	
+	</div>
 </body>
 </html>

@@ -290,32 +290,29 @@ function getDefaultTIP()
 
 	request.onsuccess = function(event)
 	{
-		db = event.target.result;
 		//Read list of tips to be loaded from config file
 		var configFile = self.data.load("defaultTIP/configfile");
+		var tips = configFile.split("\n");
 
-		var configFileJSON = self.data.load("defaultTIP/configFileJSON");
-		var configFileJSONObj = JSON.parse(configFileJSON);
+		db = event.target.result;
 
-		var tipreferencearray = configFileJSONObj.DefaultTIP.TIPs.TIPList;
-
-
-		for(var index in tipreferencearray)
+		//Iterate through list of tips
+		for( var i in tips)
 		{
-			var tip = tipreferencearray[index];
-			var tip_type = tip.TIP.Type;
-			var tip_nickname = tip.TIP.Nickname;
-
-			//Parse TIP
-			var tipjson = self.data.load(tip.TIP.Path);
-			var jsonObj = JSON.parse(tipjson);	
-			var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
-		
-			var isActive = "1";	
-			//Insert TIP In Cache	
-			trustmarkpolicyhelper.insertTIPInCache(db, tip_id, tipjson, tip_nickname, tip_type, isActive);
+			//If line is not empty
+			if(!isEmpty(tips[i]))
+			{
+				//Parse TIP
+				var tipjson = self.data.load(tips[i]);
+				var jsonObj = JSON.parse(tipjson);	
+				var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
+			
+				//Insert TIP In Cache	
+				trustmarkpolicyhelper.insertTIPInCache(db, tip_id, tipjson);
+			}
 		}
 
+		//trustmarkpolicyhelper.checkIfRecipientSatisfiesPolicy(db, "www.facebook.com", "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml"); 
 	}
 }
 
@@ -411,7 +408,7 @@ function createFile()
 
 initDB();
 loadPrepackagedData();
-trustmarkpolicyhelper.readFileFromPath("abc");
+
 /*TODO
  1. ICONs for each TIP
  2. Case insensitive replace for AND

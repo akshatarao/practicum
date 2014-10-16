@@ -15,7 +15,7 @@ var { indexedDB }  = require('sdk/indexed-db');
 var trustmarkpanel = require("sdk/panel").Panel({
 
 	width: 360,
-	height:	440,
+	height:	490,
         contentURL: self.data.url("panel.html"),
 	contentScriptFile: self.data.url("test.js"),
   	onHide: hideTrustmarks,
@@ -25,6 +25,8 @@ var trustmarkpanel = require("sdk/panel").Panel({
 
 		var sidebarid = "trustmark-sidebar-" + message; 
 		var sidebartitle = message + " trustmarks";
+		
+
 		var sidebar = require("sdk/ui/sidebar").Sidebar({
 	        id: sidebarid,
 	        title: sidebartitle,
@@ -71,6 +73,9 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			trustmarkpanel.port.emit("hi");
 		}
 		});
+
+
+		
 
 		sidebar.show();
 	} 

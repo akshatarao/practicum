@@ -5,6 +5,8 @@
  */
 
 var { indexedDB } = require('sdk/indexed-db');
+const {Cu} = require("chrome");
+const {TextEncoder, TextDecoder, OS} = Cu.import("resource://gre/modules/osfile.jsm", {});
 /**
  * Create a policy 
  */
@@ -12,6 +14,28 @@ function createPolicy()
 {
 	console.log("Inside create policy");
 }
+
+function uploadUserPolicy(filePath, tipNickname, tip_type)
+{
+	
+}
+
+function readFileFromPath(filePath, nickname, type)
+{
+	let promise = OS.File.read("/home/justinekays/access.json");
+	promise = promise.then(function onSuccess(value)
+	{
+		let decoder = new TextDecoder();
+		var jsonData = decoder.decode(value);
+		var tip_json = JSON.parse(jsonData);
+
+			
+	
+	});
+	
+}
+
+
 
 function createTempFile(fileName)
 {
@@ -213,25 +237,53 @@ function updateExpression(existing_condition, referenced_tip_id, referenced_tip_
 	return existing_condition;
 }
 
+function getTipType(tip_id)
+{
+	var policyTypeArr = [ "minimization", "transparency", "access", "accountability", "dataquality"];
+
+	for(var index in policyTypeArr)
+	{
+		var policyType = policyTypeArr[index];
+		
+		var typearr = tip_id.match(policyType);
+	
+		if(typearr && typearr.length > 0)
+		{
+			return policyType;
+		}
+	}			
+}
+
+function getTIPNickname(policy_type)
+{
+	return policy_type + "-default";
+}
+
 
 /**
  *@Purpose: Append the trustmark to trustmark list recursively
  *@Parameters: tipObjectStore - TIP Object Store
  *             tip_id - TIP Identifier
  *	       tip_json - TIP JSON
+ *	       tip_type - Type of TIP (minimization, transparency etc.)
+ *	       tip_nickname - TIP Nickname
+ *	       isActive - is TIP Currently Applied (1/0)
  *	       trustmark - Trustmark List that will be appended to TIP's trustmark list
  *	       trustexpression - Trust Expression of the TIP (new insert) or Referenced TIP for Update
  *	       tipreferencearray - Array of TIP IDs referred by the TIP
  *	       currentindex - Index of currently referred TIP in tipreferencearray whose trustmarks will be appended to TIP's trustmark list in the next call
  *@Returns: none		
  */
-function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustexpression, tipreferencearray, currentindex)
+function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nickname, isActive, trustmark, trustexpression, tipreferencearray, currentindex)
 {
 	//Get the TIP row from TIP Object Store
 	var getRequest = tipObjectStore.get(tip_id);
 
 	getRequest.onsuccess = function(event)
 	{
+		var policyType = getTipType(tip_id);
+                var nickname = getTIPNickname(policyType);
+
 		//If TIP Row already exists, append trustmarks to existing trustmark list
 		if(event.target.result)
 		{
@@ -253,7 +305,8 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustex
 			//console.log("Existing condition: " + existing_expression);		
 	
 			//Update tip with new trustmark list
-			var newRow = { "tip_id" : tip_id, "tip_json": tip_json , "trustmark_list": trustmarklist, "trust_expression" : existing_expression};
+
+			var newRow = { "tip_id" : tip_id, "tip_json": tip_json , "trustmark_list": trustmarklist, "trust_expression" : existing_expression, "type": tip_type, "isActive": isActive, "nickname" : tip_nickname};
 			
 			var updateRequest = tipObjectStore.put(newRow);	
 
@@ -269,7 +322,7 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustex
                                         //console.log(event.target.result.trustmark_list);
 
 					//Append trustmarks of the next tip in the tip reference array	
-					appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, tip_json, tipObjectStore);
+					appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, tip_json,tip_type, tip_nickname, isActive, tipObjectStore);
                                 }
 
 			}
@@ -283,7 +336,7 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustex
 		{
 			//TIP does not previously exist in cache
 			//Insert TIP into cache
-			var newRow  = { "tip_id" : tip_id, "tip_json": tip_json, "trustmark_list": trustmark, "trust_expression": trustexpression};
+			var newRow  = { "tip_id" : tip_id, "tip_json": tip_json, "trustmark_list": trustmark, "trust_expression": trustexpression, "type":tip_type, "isActive": isActive, "nickname":tip_nickname};
 
 			var addRequest = tipObjectStore.add(newRow);
 			
@@ -295,7 +348,7 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustex
 			        var tipreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustInteroperabilityProfileReferenceList;
 				if(tipreferencearray)
 				{
-    					appendTrustmarksRecursively(tipreferencearray, 0, tip_id, tip_json, tipObjectStore);
+    					appendTrustmarksRecursively(tipreferencearray, 0, tip_id, tip_json, tip_type, tip_nickname, isActive, tipObjectStore);
 				}
 			}
 
@@ -315,10 +368,13 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, trustmark, trustex
  *@Parameters: tipreferencearray - TIP Reference array
  *	       currentindex - Index of the referenced tip among list of referenced tips
  *	       tip_json - JSON string of the TIP
+ *	       tip_type - Type of TIP(minimization, transparency..)
+ *	       tip_nickname - TIP Nickname
+ *	       isActive  - is TIP currently applied
  *	       TIPObjectStore - TIP Object Store
  *@Returns    none
  */
-function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, tip_json, TIPObjectStore)
+function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, tip_json, tip_type, tip_nickname, isActive, TIPObjectStore)
 {
 	//If no tips were referenced OR all referenced tips have been processed, do nothing
 	if(!tipreferencearray || (currentindex === tipreferencearray.length))
@@ -347,7 +403,7 @@ function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, ti
 		  currentindex = currentindex+1;
 		
 		  //Append the referenced tip's trustmark list to tip's trustmark list	
-                  addTIPDetailsToTIP(TIPObjectStore, tip_id, tip_json, referenced_trustmark_list, referenced_tip_trustexpression, tipreferencearray, currentindex); 
+                  addTIPDetailsToTIP(TIPObjectStore, tip_id, tip_json, tip_type, tip_nickname, isActive, referenced_trustmark_list, referenced_tip_trustexpression, tipreferencearray, currentindex); 
 	     }
 	     else
              {
@@ -361,15 +417,19 @@ function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, ti
  * @Parameters - db - Database pointer
  *             - tip_id - TIP Identifier
  *	       - tip_json - TIP JSON
+ *	       - tip_type - Type of Policy (minimization,transparency ...)
+ *	       - tip_nickname - TIP Nickname
+ *	       - tip_path - TIP Path
+ *	       - isActive - is TIP Active	
  * @Returns none  
  */
-function insertTIPInCache(db, tip_id, tip_json)
+function insertTIPInCache(db, tip_id, tip_json, tip_nickname, tip_type, isActive)
 {
     var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
 
     var trustmarklist = getTrustmarkList(tip_json);
     var trust_expression = getTIPTrustExpression(tip_json);	
-    addTIPDetailsToTIP(TIPObjectStore, tip_id, tip_json, trustmarklist, trust_expression);
+    addTIPDetailsToTIP(TIPObjectStore, tip_id, tip_json, tip_type, tip_nickname, isActive, trustmarklist, trust_expression);
 
     TIPObjectStore.transaction.oncomplete = function(event)
     {
@@ -472,6 +532,7 @@ exports.getCurrentTransparencyPolicy = getCurrentTransparencyPolicy
 exports.getCurrentDataQualityPolicy = getCurrentDataQualityPolicy
 exports.getCurrentAccessPolicy = getCurrentAccessPolicy
 exports.getCurrentAccountabilityPolicy = getCurrentAccountabilityPolicy 
+exports.readFileFromPath = readFileFromPath
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

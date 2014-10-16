@@ -292,7 +292,6 @@ function getDefaultTIP()
 	{
 		db = event.target.result;
 		//Read list of tips to be loaded from config file
-		var configFile = self.data.load("defaultTIP/configfile");
 
 		var configFileJSON = self.data.load("defaultTIP/configFileJSON");
 		var configFileJSONObj = JSON.parse(configFileJSON);

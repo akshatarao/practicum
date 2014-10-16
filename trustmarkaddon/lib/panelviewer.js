@@ -64,6 +64,7 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		
 				if(message === "minimization")
 				{
+					trustmarkpolicyhelper.resetPolicy();
 					tip_id = trustmarkpolicyhelper.getCurrentMinimizationPolicy();
 				}
 				else if(message === "transparency")

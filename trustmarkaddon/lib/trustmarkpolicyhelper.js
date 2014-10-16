@@ -7,6 +7,7 @@
 var { indexedDB } = require('sdk/indexed-db');
 const {Cu} = require("chrome");
 const {TextEncoder, TextDecoder, OS} = Cu.import("resource://gre/modules/osfile.jsm", {});
+var self = require("sdk/self");
 /**
  * Create a policy 
  */
@@ -15,6 +16,13 @@ function createPolicy()
 	console.log("Inside create policy");
 }
 
+
+/********************************************
+ * @Purpose : Applies custome user policy
+ * @Param : tip_nickname - TIP Custom Name
+ * @Param: tip_type - TIP Type
+ * @Returns none
+ ********************************************/
 function applyUserPolicy(tip_nickname, tip_type)
 {
 	var request = indexedDB.open("trustmarkDB", 2);
@@ -42,12 +50,12 @@ function applyUserPolicy(tip_nickname, tip_type)
 				{
 					isActive = "1";
 					
-					console.log("Update to active:" + tip.tip_id);
+					//console.log("Update to active:" + tip.tip_id);
 				}
 				else
 				{
 					isActive = "0";
-					console.log("Update to inActive: " + tip.tip_id);
+					//console.log("Update to inActive: " + tip.tip_id);
 				}
 
 				var newRow = { "tip_id" : tip.tip_id, "tip_json" : tip.tip_json, "trustmark_list" : tip.trustmark_list, "trust_expression" : tip.trust_expression, "type" : tip.type, "isActive" : isActive, "nickname" : tip.nickname};
@@ -69,6 +77,26 @@ function applyUserPolicy(tip_nickname, tip_type)
 		}
 		
 	}
+}
+
+/*******************
+ *@Purpose - Reset all policies to default
+ *@Returns none
+ ******************/
+function resetPolicy()
+{
+	var configFileJSON = self.data.load("defaultTIP/configFileJSON");
+	var configFileJSONObj = JSON.parse(configFileJSON);
+        var tipreferencearray = configFileJSONObj.DefaultTIP.TIPs.TIPList;
+
+        for(var index in tipreferencearray)
+        {  
+              var tip = tipreferencearray[index];
+              var tip_type = tip.TIP.Type;
+              var tip_nickname = tip.TIP.Nickname;
+			
+              applyUserPolicy(tip_nickname, tip_type);
+	}	
 }
 /**
  *@Purpose - Uploads user defined policy from file path
@@ -616,6 +644,7 @@ exports.getCurrentAccessPolicy = getCurrentAccessPolicy
 exports.getCurrentAccountabilityPolicy = getCurrentAccountabilityPolicy 
 exports.uploadUserPolicy = uploadUserPolicy
 exports.applyUserPolicy = applyUserPolicy
+exports.resetPolicy = resetPolicy 
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

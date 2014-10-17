@@ -46,7 +46,7 @@ body
 	color: white;
 	text-align: center;
 	padding: 5px;
-	height: 70px;
+	height: 40px;
 	width: 330px;
 	margin-top: 10px;
         border: 1px solid black;
@@ -75,27 +75,18 @@ body
 
 }
 
-.submit-button
-{
-	width: 50px;
-	height: 20px;
-}
 .settings-button
 {
-	width: 30px;
-	height: 30px;
+	width: 32px;
+	height: 32px;
+	background: url('gears.png'); /**Icon credits: png-2.findicons.com***/
+	border-bottom-left-radius: 0.2em;
+        border-bottom-right-radius: 0.2em;
+        border-top-left-radius: 0.2em;
+        border-top-right-radius: 0.2em;
+
 }
 
-.reset-button
-{
-	width: 30px;
-	height: 30px;
-}
-
-.reset-button:hover
-{
-	background-color: blue;
-}
 .settings-button:hover
 {
 	background-color: red;
@@ -138,12 +129,6 @@ body
 		<div style="display: table-row;">
 			<div style="display: table-cell; width: 30px">
 				<button class="settings-button" id="settings" onmouseover="showToolTip();" onmouseout="hideToolTip();"/>
-			</div>
-			<div style="display: table-cell; width: 30px">
-				<button class="reset-button" onmouseover="showToolTip();" onmouseout="hideToolTip();"/> 
-			</div>
-			<div style="display: table-cell; width: 30px">
-				<button class="change-button" onmouseover="showToolTip();" onmouseout="hideToolTip();"
 			</div>
 			<div style="display: table-cell" id="tooltip">
 			</div>

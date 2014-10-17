@@ -1,1 +1,138 @@
-Hello! I'm Mr.Settings!!
+<html>
+<style>
+.body
+{
+	background-color: red;
+}
+
+.tabs {
+    width:100%;
+    display:inline-block;
+}
+ 
+.tab-head
+{
+	padding:3px 6px;
+	border-radius: 3px 3px 0px 0px;
+	display: inline-block;
+        background: #0066CC;
+        color:#4c4c4c;
+	font-size: 13px;
+	font-weight: 600;
+	transition:all linear 0.15s;
+}
+
+.tab-head:hover
+{
+	background:#A9A9FF
+}
+ 
+ .tab-content 
+{
+        padding:15px;
+        border-radius:3px;
+        box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+        background:#fff;
+	height: 500px;
+	border: 1px solid black;
+ }
+
+.content
+{
+	border: 1px solid black;
+} 
+</style>
+<body>
+<div class="tabs">
+    <div class="tab-links">
+        <div id="upload" class="tab-head">Upload</div>
+        <div id="apply" class="tab-head">Apply</div>
+        <div id="reset" class="tab-head">Reset</div>
+    </div>
+   <div class="tab-content">
+   	 <div id="upload-content" class="content" style="display:block">
+       		 <p>Tab #1 content goes here!</p>
+	         <p>Upload</p>
+	 </div>
+	 <div id="apply-content"  class="content" style="display:none">
+	         <p>Tab #2 content goes here!</p>
+	         <p>Apply</p>
+	 </div>
+	 <div id="reset-content" class="content" style="display:none">
+	        <p>Tab #3 content goes here!</p>
+	        <p>Reset</p>
+	</div>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+var uploadDiv = document.getElementById("upload");
+var applyDiv = document.getElementById("apply");
+var resetDiv = document.getElementById("reset");
+
+function onMouseOverListener(event)
+{
+	event.target.style.background = "#A9A9FF";
+}
+
+function onMouseOutListener(event)
+{
+	event.target.style.background = "#0066CC";
+}
+
+function onClickListener(event)
+{
+
+	var tabheaddivs = document.getElementsByClassName('tab-head');
+
+	for(index = 0; index < tabheaddivs.length; index++)
+	{
+		var divelement = tabheaddivs[index];
+
+		if(divelement.id === event.target.id)
+		{
+			divelement.style.background = "#A9A9FF";
+		}
+		else
+		{
+			divelement.style.background = "#0066CC";
+		}	
+	}
+
+
+        var tabdivs = document.getElementsByClassName('content');
+        var contentelementid = event.target.id +"-content";
+
+        for(index = 0; index < tabdivs.length; index++)
+        {
+                var divelement = tabdivs[index];
+
+                if(divelement.id === contentelementid)
+                {
+                        divelement.style.display = "block";
+                }
+		else
+		{
+			divelement.style.display = "none";
+		}
+        }
+
+}
+
+function reset()
+{
+
+        uploadDiv.addEventListener("click", onClickListener, false);
+        applyDiv.addEventListener("click", onClickListener, false);
+        resetDiv.addEventListener("click", onClickListener,false);
+	uploadDiv.addEventListener("mouseover", onMouseOverListener,false);
+	applyDiv.addEventListener("mouseover", onMouseOverListener, false);
+	resetDiv.addEventListener("mouseover", onMouseOverListener, false);
+	uploadDiv.addEventListener("mouseout", onMouseOutListener,false);
+	resetDiv.addEventListener("mouseout", onMouseOutListener,false);
+	applyDiv.addEventListener("mouseout", onMouseOutListener,false);
+}
+
+reset();
+
+</script>

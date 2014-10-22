@@ -12,11 +12,11 @@
  
 .tab-head
 {
-	padding:3px 6px;
+	padding:6px 9px;
 	border-radius: 3px 3px 0px 0px;
 	display: inline-block;
-        background: #0066CC;
-        color:#4c4c4c;
+        background: #3D4040;
+        color:#CCD5D5;
 	font-size: 13px;
 	font-weight: 600;
 	transition:all linear 0.15s;
@@ -29,30 +29,79 @@
  
  .tab-content 
 {
-        padding:15px;
-        border-radius:3px;
+        padding: 10px;
+	border-radius:3px;
         box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-        background:#fff;
-	height: 500px;
+        background: white;
+	height: 570px;
 	border: 1px solid black;
  }
 
+.select
+{
+	word-wrap: break-word;
+	font-size: 10px;
+}
 .content
 {
-	border: 1px solid black;
-} 
+	
+}
+
+.option
+{
+	font-size: 8px;
+}
+
+.errormessage
+{
+	font-size: 10px;
+	color:red;
+}
 </style>
-<body>
+<body style="background:#DEEFFF">
 <div class="tabs">
     <div class="tab-links">
-        <div id="upload" class="tab-head">Upload</div>
+        <div id="upload" class="tab-head" style="background:#00407F;color:white">Upload</div>
         <div id="apply" class="tab-head">Apply</div>
         <div id="reset" class="tab-head">Reset</div>
     </div>
    <div class="tab-content">
    	 <div id="upload-content" class="content" style="display:block">
-       		 <p>Tab #1 content goes here!</p>
-	         <p>Upload</p>
+       		 <img src="upload-icon.jpg" height="80" width="100">
+		 <br>
+		 <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
+			<i><font color="#00407F">&nbsp;&nbsp;Define</font></i> your own privacy standards
+		 </div>
+		 <br>
+		 <div style="height:60px">
+			<p><font size="2"><b>1. Choose your policy name.</b></font></p>
+			<input type="text" placeholder="Policy Name" id="policy_name" size="30" style="width: 80%">
+			<div id="policyname_error" class="errormessage"></div>
+		 </div>
+		 <br>
+		 <div style="overflow:none" style="height:60px">
+			<p><font size="2"><b>2. Which privacy principle does it apply to?</b></font></p>
+			<select id="policy_type" style="width: 80%">
+				<option value="none" default selected>Choose Privacy Principle</option>
+				<option value="minimization">Minimization of Data Activity</option>
+				<option value="transparency">Transparency of privacy practices</option>
+				<option value="access">User Access to view/correct data</option>
+				<option value="accountability">Accountability to privacy policy</option>
+				<option value="dataquality">Maintainance of data accuracy</option>
+			</select>
+			<div id="policytype_error" class="errormessage"></div>
+		</div>
+		<br>
+		<div>
+			<p><font size="2"><b>3. Upload the policy file.</b></font><p>
+			<input type="file" id="policyfile" accept=".json">
+			<div id="policyfile_error" class="errormessage"></div> 
+		</div>
+		<br>
+		<div align="center">
+			<input type="button" id="uploadbutton" value="Upload!" onclick="uploadTIP();">
+			<div id="overall_error" class="errormessage"></div>
+		</div>
 	 </div>
 	 <div id="apply-content"  class="content" style="display:none">
 	         <p>Tab #2 content goes here!</p>
@@ -69,17 +118,30 @@
 var uploadDiv = document.getElementById("upload");
 var applyDiv = document.getElementById("apply");
 var resetDiv = document.getElementById("reset");
+var errorMessage = "";
 
+/***
+ *@Purpose - On MouseOver Listener for Tab
+ */
 function onMouseOverListener(event)
 {
-	event.target.style.background = "#A9A9FF";
+	event.target.style.background = "#00407F";
 }
 
+/**
+ *@Purpose - On mouseout listener for tab
+ */
 function onMouseOutListener(event)
 {
-	event.target.style.background = "#0066CC";
+	if(event.target.style.color != "white")
+	{
+		event.target.style.background = "#3D4040";
+	}
 }
 
+/**
+ *@Purpose - Show Tabbed Content
+ */
 function onClickListener(event)
 {
 
@@ -91,11 +153,13 @@ function onClickListener(event)
 
 		if(divelement.id === event.target.id)
 		{
-			divelement.style.background = "#A9A9FF";
+			divelement.style.background = "#00407F";
+			divelement.style.color = "white";
 		}
 		else
 		{
-			divelement.style.background = "#0066CC";
+			divelement.style.background = "#3D4040";
+			divelement.style.color = "#CCD5D5"; 
 		}	
 	}
 
@@ -119,6 +183,9 @@ function onClickListener(event)
 
 }
 
+/**
+ *@Purpose - Reset Listeners for all divs
+ */
 function reset()
 {
 
@@ -133,6 +200,220 @@ function reset()
 	applyDiv.addEventListener("mouseout", onMouseOutListener,false);
 }
 
+/**
+ *@Purpose - Clear Error messages for div_id
+ */
+function clearErrorMessage(error_div_id)
+{
+	var errordiv = document.getElementById(error_div_id);
+	errordiv.innerHTML = "";
+}
+
+/**
+ *@Purpose - Clear error messages for all error divs
+ */
+function clearErrorMessages()
+{
+	var errordivs = document.getElementsByClassName('errormessage');
+
+	for (index = 0; index < errordivs.length; index++)
+	{
+		var errordiv = errordivs[index];
+		clearErrorMessage(errordiv.id);
+	}	
+}
+
+/**
+ *@Purpose - Verify Policy Name is Unique
+ */
+function verifyPolicyNameNew(policyName)
+{
+	//TODO: check with existing policy names
+	return true;
+}
+
+/**
+ *@Purpose - Verifies if Policy Name is Valid
+ *@Param - policyName
+ *@Returns - true/false
+ */
+function verifyPolicyNameIsValid(policyName)
+{
+	var selected = true;
+
+	if(policyName.length > 20 || !policyName || policyName.length === 0)
+	{
+		selected = false;
+	}	
+
+	return selected;
+}
+
+/**
+ *@Purpose - Show error message
+ *@Param - errorMessage - Error Message
+ *@Param - div_id - Div Identifier
+ *@Returns none
+ */
+function triggerError(errorMessage,div_id)
+{
+	var errorDiv = document.getElementById(div_id);
+
+	errorDiv.innerHTML = errorMessage;
+}
+/**
+ *@Purpose - Is File Selected
+ *@Returns - true/false
+ */
+function verifyIfFileSelected(filePath)
+{
+	var selected = true;
+
+	if(filePath.length  === 0 || !filePath)
+	{
+		selected = false;
+	}
+	else
+	{
+		clearErrorMessage("policyfile_error");
+	}
+
+	return selected;
+}
+
+/**
+ *@Purpose - Verifies if a policy type was selected
+ *@Returns true/false
+ */
+function verifyPolicyTypeSelected(privacyprinciple)
+{
+	var selected = true;
+
+	if(privacyprinciple === "Choose Privacy Principle")
+		selected = false;
+	
+	return selected;
+}
+
+/**
+ *@Purpose - Get Policy Name
+ */
+function getPolicyName()
+{
+	var e = document.getElementById("policy_name");
+        var selected = true;
+
+        var escapedValue = escape(e.value);
+
+	if(!verifyPolicyNameIsValid(escapedValue))
+	{
+		var errorMessage = "Policy Name should be between 1-20 characters";
+		triggerError(errorMessage, "policyname_error");
+	}
+	else if(!verifyPolicyNameNew(escapedValue))
+	{
+		var errorMessage = "Policy name should be unique";
+		triggerError(errorMessage, "policyname_error");
+	}
+
+	return escapedValue;
+}
+
+/**
+ *@Purpose - Get Policy Type
+ */
+function getPolicyType()
+{
+	var e = document.getElementById("policy_type");
+        var privacyprinciple = e.options[e.selectedIndex].text;
+	
+	if(verifyPolicyTypeSelected(privacyprinciple))
+	{
+		clearErrorMessage("policytype_error");
+		return e.options[e.selectedIndex].value;
+	}
+	else
+	{
+		var errorMessage = "Select a privacy principle";
+		triggerError(errorMessage, "policytype_error");
+	}
+
+	return "";		
+}
+
+/**
+ *@Purpose - Get Policy File
+ */
+function getPolicyFile()
+{
+	var filePath = document.getElementById("policyfile").value;
+	//TODO: Should I escape javascript
+
+	if(!verifyIfFileSelected(filePath))
+	{
+		 var errorMessage = "No file was selected.";
+                 triggerError(errorMessage, "policyfile_error");	
+		 return "";
+	}
+
+	return filePath;
+
+}
+
+/**
+ *@Purpose - Check if string is empty
+ *@Param  - string
+ *@Returns - true/false
+ */
+function isEmpty(str)
+{
+	var stringEmpty = false;
+
+	if(!str || str.length == 0)
+		stringEmpty = true;
+
+	return stringEmpty;
+}
+
+/**
+ *@Purpose - Upload TIP
+ */	
+function uploadTIP()
+{
+	var policyName = getPolicyName();
+	var policyType = getPolicyType();
+	var filePath = getPolicyFile();
+
+	var policyfile = document.getElementById("policyfile").files[0];
+	var fileReader = new FileReader();
+
+	fileReader.onload = function(e)
+	{
+		var contents = e.target.result;
+		addon.port.emit("policypassed", policyName, policyType, contents);
+	}
+
+	fileReader.readAsText(policyfile);
+
+	if(!isEmpty(policyName) && !isEmpty(policyType) && !isEmpty(filePath))
+	{
+		clearErrorMessages();
+		fileReader.readAsText(policyfile);		
+	}
+	else
+	{
+		var errorMessage = "One or more inputs is invalid. Check fields above."
+		triggerErrorMessage("overall_error", errorMessage);
+	}
+}
 reset();
 
+
 </script>
+
+<!--
+ *TODO: 
+ * 1. Check if policy name is unique
+ * 2. Accept only JSONs
+ * 3. Ensure JSON is valid format (Not top priority now)
+ -->

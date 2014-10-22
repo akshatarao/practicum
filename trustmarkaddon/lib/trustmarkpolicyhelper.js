@@ -98,6 +98,29 @@ function resetPolicy()
               applyUserPolicy(tip_nickname, tip_type);
 	}	
 }
+
+function uploadUserPolicy2(tip_json_str, tip_nickname, tip_type)
+{
+	var request = indexedDB.open("trustmarkDB", 2);
+	var db;
+
+	request.onerror = function(event)
+	{
+		console.log("An error occurred while opening the database");
+	}
+	
+	request.onsuccess = function(event)
+	{
+		db = event.target.result;
+
+		var tip_json = JSON.parse(tip_json_str);
+	        var tip_id = tip_json.TrustInteroperabilityProfile.Identifier;
+                var isActive = "0";
+
+                insertTIPInCache(db, tip_id, tip_json_str, tip_nickname, tip_type, isActive)
+	
+	}
+}
 /**
  *@Purpose - Uploads user defined policy from file path
  *@Param - filepath - User defined TIP file path
@@ -106,6 +129,7 @@ function resetPolicy()
  */
 function uploadUserPolicy(filePath, tip_nickname, tip_type)
 {
+	console.log("In Upload: " + filePath + " Nickname: " + tip_nickname + " Type: " + tip_type);
 	let promise = OS.File.read(filePath);
 	promise = promise.then(function onSuccess(value)
 	{
@@ -458,11 +482,12 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 				{
     					appendTrustmarksRecursively(tipreferencearray, 0, tip_id, tip_json, tip_type, tip_nickname, isActive, tipObjectStore);
 				}
-
+				
+				console.log("TIP added!" + tip_nickname);
 				/********TESTCODE Starts here*********/
-				if(tip_nickname === "Custom Access")
+				if(tip_nickname === "Custom")
 				{
-					console.log("Im here");
+					console.log("Im here in Custom Access");
 					applyUserPolicy(tip_nickname, tip_type);
 				}
 				/******TESTCODE Ends here************/
@@ -643,6 +668,7 @@ exports.getCurrentDataQualityPolicy = getCurrentDataQualityPolicy
 exports.getCurrentAccessPolicy = getCurrentAccessPolicy
 exports.getCurrentAccountabilityPolicy = getCurrentAccountabilityPolicy 
 exports.uploadUserPolicy = uploadUserPolicy
+exports.uploadUserPolicy2 = uploadUserPolicy2
 exports.applyUserPolicy = applyUserPolicy
 exports.resetPolicy = resetPolicy 
 /**

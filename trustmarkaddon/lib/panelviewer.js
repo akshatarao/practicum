@@ -15,7 +15,7 @@ var { indexedDB }  = require('sdk/indexed-db');
 var trustmarkpanel = require("sdk/panel").Panel({
 
 	width: 360,
-	height:	490,
+	height:	440,
         contentURL: self.data.url("panel.html"),
 	contentScriptFile: self.data.url("test.js"),
   	onHide: hideTrustmarks,
@@ -37,11 +37,20 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			onHide : function(worker)
 			{
 				sidebar.dispose();
+			},
+			onAttach: function(worker)
+			{
+				worker.port.on("policypassed", function(policyName, policyType, tip_json) {
+					console.log("Policy Passed! " + policyName + " " + policyType + " " + tip_json);
+					trustmarkpolicyhelper.uploadUserPolicy2(tip_json, policyName, policyType);	
+				});
+
 			}
+			
 		      });
 		
 			sidebar.show();
-
+			trustmarkpanel.hide();
 		}
 		else
 		{

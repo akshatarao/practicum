@@ -198,6 +198,7 @@ function reset()
 	uploadDiv.addEventListener("mouseout", onMouseOutListener,false);
 	resetDiv.addEventListener("mouseout", onMouseOutListener,false);
 	applyDiv.addEventListener("mouseout", onMouseOutListener,false);
+	clearErrorMessages();
 }
 
 /**
@@ -375,6 +376,18 @@ function isEmpty(str)
 	return stringEmpty;
 }
 
+function clearContents()
+{
+	var policyname = document.getElementById("policy_name");
+	policyname.value = "";
+
+	var policy_type = document.getElementById("policy_type");
+	policy_type.selectedIndex = 0;
+
+	var policy_file = document.getElementById("policyfile");
+	policy_file.value = "";	
+
+}
 /**
  *@Purpose - Upload TIP
  */	
@@ -390,10 +403,10 @@ function uploadTIP()
 	fileReader.onload = function(e)
 	{
 		var contents = e.target.result;
+		clearContents();
+		triggerError("Successful upload!", "overall_error");
 		addon.port.emit("policypassed", policyName, policyType, contents);
 	}
-
-	fileReader.readAsText(policyfile);
 
 	if(!isEmpty(policyName) && !isEmpty(policyType) && !isEmpty(filePath))
 	{
@@ -403,7 +416,7 @@ function uploadTIP()
 	else
 	{
 		var errorMessage = "One or more inputs is invalid. Check fields above."
-		triggerErrorMessage("overall_error", errorMessage);
+		triggerError(errorMessage, "overall_error");
 	}
 }
 reset();

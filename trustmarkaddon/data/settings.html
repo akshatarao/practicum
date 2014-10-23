@@ -106,7 +106,8 @@
 	 <div id="apply-content"  class="content" style="display:none">
 
   		 <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
-                      <img src="change-button.jpg" height="100" width="100">  
+                      <img src="change-button.jpg" height="100" width="100"> 
+		      <br> 
 		      <i><font color="#00407F">&nbsp;&nbsp;Change</font></i> your privacy settings
                  </div>
 		 <br>
@@ -126,10 +127,13 @@
 		 </div>
 		 <br>
 		 <div style="height: 60px; overflow:none">
-			<p><font size="2"><b>2. Choose the policy to be applied.</b></font></p>
-                        <select id="policy_nickname_apply" style="width: 80%">
-                              <option value="none" default selected>Choose Policy</option>
-                        </select>
+			<div style="overflow:none" style="height:60px">
+				<p><font size="2"><b>2. Choose the policy to be applied.</b></font></p>
+                	        <select id="policy_nickname_apply" style="width: 80%" onchange="checkPolicyNicknameEntered();">
+                        	      <option value="none" default selected>Choose Policy</option>
+            		        </select>
+			</div>
+			<div id="policynickname_apply_error" class="errormessage"></div>
 		 </div>
 		 <br>
 		 <br>
@@ -176,6 +180,10 @@ function onMouseOutListener(event)
 function onClickListener(event)
 {
 
+	clearMessages();
+	resetApply();
+	clearContents();
+
 	var tabheaddivs = document.getElementsByClassName('tab-head');
 
 	for(index = 0; index < tabheaddivs.length; index++)
@@ -215,6 +223,23 @@ function onClickListener(event)
 }
 
 /**
+ *@Purpose - Reset apply form fields
+ */
+function resetApply()
+{
+	var e = document.getElementById("policy_nickname_apply");
+        var size = e.length;
+        
+        while( size > 1)
+        {
+               e.remove(size-1);
+               size--;
+        }
+
+	e = document.getElementById("policy_type_apply");
+        e.selectedIndex = 0;
+}
+/**
  *@Purpose - Reset Listeners for all divs
  */
 function reset()
@@ -229,13 +254,14 @@ function reset()
 	uploadDiv.addEventListener("mouseout", onMouseOutListener,false);
 	resetDiv.addEventListener("mouseout", onMouseOutListener,false);
 	applyDiv.addEventListener("mouseout", onMouseOutListener,false);
-	clearErrorMessages();
+	clearMessages();
+	resetApply();
 }
 
 /**
  *@Purpose - Clear Error messages for div_id
  */
-function clearErrorMessage(error_div_id)
+function clearMessage(error_div_id)
 {
 	var errordiv = document.getElementById(error_div_id);
 	errordiv.innerHTML = "";
@@ -244,14 +270,14 @@ function clearErrorMessage(error_div_id)
 /**
  *@Purpose - Clear error messages for all error divs
  */
-function clearErrorMessages()
+function clearMessages()
 {
 	var errordivs = document.getElementsByClassName('errormessage');
 
 	for (index = 0; index < errordivs.length; index++)
 	{
 		var errordiv = errordivs[index];
-		clearErrorMessage(errordiv.id);
+		clearMessage(errordiv.id);
 	}	
 }
 
@@ -287,7 +313,7 @@ function verifyPolicyNameIsValid(policyName)
  *@Param - div_id - Div Identifier
  *@Returns none
  */
-function triggerError(errorMessage,div_id)
+function displayMessage(errorMessage,div_id)
 {
 	var errorDiv = document.getElementById(div_id);
 
@@ -307,7 +333,7 @@ function verifyIfFileSelected(filePath)
 	}
 	else
 	{
-		clearErrorMessage("policyfile_error");
+		clearMessage("policyfile_error");
 	}
 
 	return selected;
@@ -340,12 +366,12 @@ function getPolicyName()
 	if(!verifyPolicyNameIsValid(escapedValue))
 	{
 		var errorMessage = "Policy Name should be between 1-20 characters";
-		triggerError(errorMessage, "policyname_error");
+		displayMessage(errorMessage, "policyname_error");
 	}
 	else if(!verifyPolicyNameNew(escapedValue))
 	{
 		var errorMessage = "Policy name should be unique";
-		triggerError(errorMessage, "policyname_error");
+		displayMessage(errorMessage, "policyname_error");
 	}
 
 	return escapedValue;
@@ -361,13 +387,13 @@ function getPolicyType()
 	
 	if(verifyPolicyTypeSelected(privacyprinciple))
 	{
-		clearErrorMessage("policytype_error");
+		clearMessage("policytype_error");
 		return e.options[e.selectedIndex].value;
 	}
 	else
 	{
 		var errorMessage = "Select a privacy principle";
-		triggerError(errorMessage, "policytype_error");
+		displayMessage(errorMessage, "policytype_error");
 	}
 
 	return "";		
@@ -384,7 +410,7 @@ function getPolicyFile()
 	if(!verifyIfFileSelected(filePath))
 	{
 		 var errorMessage = "No file was selected.";
-                 triggerError(errorMessage, "policyfile_error");	
+                 displayMessage(errorMessage, "policyfile_error");	
 		 return "";
 	}
 
@@ -435,19 +461,19 @@ function uploadTIP()
 	{
 		var contents = e.target.result;
 		clearContents();
-		triggerError("Successful upload!", "overall_error");
+		displayMessage("Successful upload!", "overall_error");
 		addon.port.emit("policypassed", policyName, policyType, contents);
 	}
 
 	if(!isEmpty(policyName) && !isEmpty(policyType) && !isEmpty(filePath))
 	{
-		clearErrorMessages();
+		clearMessages();
 		fileReader.readAsText(policyfile);		
 	}
 	else
 	{
 		var errorMessage = "One or more inputs is invalid. Check fields above."
-		triggerError(errorMessage, "overall_error");
+		displayMessage(errorMessage, "overall_error");
 	}
 }
 
@@ -458,14 +484,26 @@ function sendTIPType()
 
 	if(e.selectedIndex > 0)
 	{
+		clearMessage("policytype_apply_error");
 		addon.port.emit("gettips", tip_type);		 
+	}
+	else
+	{
+
+		var errorMessage = "Select a policy type";
+		displayMessage(errorMessage, "policytype_apply_error");
+		var e = document.getElementById("policy_nickname_apply");
+	        var size = e.length;
+	        while( size > 1)
+	        {
+        	        e.remove(size-1);
+                	size--;
+	        }
 	}
 }
 
 addon.port.on("tipreceive", function onTipReceive(tip_array)
 {
-	window.alert(tip_array);
-	//TODO: Load TIPS in select tag options
 
 	var e = document.getElementById("policy_nickname_apply");
 	var size = e.length;
@@ -486,21 +524,74 @@ addon.port.on("tipreceive", function onTipReceive(tip_array)
 	}
 });
 
-function applyTIP()
+/**
+ *@Purpose - Check if policy nickname was selected
+ *@Returns: none
+ */
+function checkPolicyNicknameEntered()
 {
-	var tip_type_element = document.getElementById("policy_type_apply");
-	var tip_nickname_element = document.getElementById("policy_nickname_apply");
+	var e = document.getElementById("policy_nickname_apply");
 
-	if((tip_type_element.selectedIndex === 0) || (tip_nickname_element.selectedIndex === 0)) 
+	if(e.selectedIndex === 0)
 	{
-		//TODO: Show error message
+		var errorMessage = "Select a policy";
+		displayMessage(errorMessage, "policynickname_apply_error");
 	}
 	else
 	{
-		//TODO: Clear error messages
+		clearMessage("policynickname_apply_error");
+	}
+}
+
+function getPolicyTypeForApply()
+{
+	var e = document.getElementById("policy_type_apply");
 	
-		var tip_nickname = tip_nickname_element.options[tip_nickname_element.selectedIndex].value;
-		var tip_type = tip_type_element.options[tip_type_element.selectedIndex].value;
+	if(e.selectedIndex > 0)
+	{
+		clearMessage("policytype_apply_error");
+		return e.options[e.selectedIndex].value;
+	}
+	else
+	{
+		var errorMessage = "Select a policy type";
+		displayMessage(errorMessage,"policytype_apply_error");
+		return "";
+	}
+}	
+
+function getPolicyNicknameForApply()
+{
+	var e = document.getElementById("policy_nickname_apply");
+
+	if(e.selectedIndex > 0)
+	{
+		clearMessage("policynickname_apply_error");
+		return e.options[e.selectedIndex].value;
+	}
+	else
+	{
+		var errorMessage = "Select a policy";
+		displayMessage(errorMessage, "policynickname_apply_error");
+		return "";
+	}
+}
+
+function applyTIP()
+{
+	var tip_type = getPolicyTypeForApply();
+	var tip_nickname = getPolicyNicknameForApply();
+
+	if(isEmpty(tip_type) || isEmpty(tip_nickname)) 
+	{
+		var errorMessage = "One or more inputs are invalid. Check errors above."
+		displayMessage(errorMessage, "overallapply_error");
+	}
+	else
+	{
+		clearMessages();
+		var successMessage = "Policy was successfully applied.";
+		displayMessage(successMessage, "overallapply_error");	
 		addon.port.emit("applytip", tip_nickname, tip_type);
 	}
 }

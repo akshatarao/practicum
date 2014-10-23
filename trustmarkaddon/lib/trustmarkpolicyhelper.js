@@ -16,6 +16,48 @@ function createPolicy()
 	console.log("Inside create policy");
 }
 
+/***
+ *@Purpose - Get list of all applicable TIPS
+ *@Param: tip_type - Type of TIP
+ *@Returns: none
+ */
+function getTIPNicknameList(tip_type,worker)
+{
+	var request = indexedDB.open("trustmarkDB",2);
+	var db;
+
+	request.onsuccess = function(event)
+	{
+		db = event.target.result;
+		var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+
+		var policyIndex = tipObjectStore.index("type");
+		var policyRequest = policyIndex.openCursor(tip_type);
+		var tip_array = [];
+		console.log("Im here!");
+		policyRequest.onsuccess = function(event)
+		{	
+			var cursor = event.target.result;
+
+			if(cursor)
+			{
+				var tip = cursor.value;
+				console.log("Nickname: " + tip.nickname);
+				tip_array.push(tip.nickname);
+
+				cursor.continue();
+			}
+			else
+			{
+				console.log("TIP_Array: " + tip_array);
+				worker.port.emit("tipreceive", tip_array);
+			}
+		}
+
+	
+	}
+
+}
 
 /********************************************
  * @Purpose : Applies custome user policy
@@ -489,6 +531,7 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 				{
 					console.log("Im here in Custom Access");
 					applyUserPolicy(tip_nickname, tip_type);
+					getTIPList("access");
 				}
 				/******TESTCODE Ends here************/
 			}
@@ -671,6 +714,7 @@ exports.uploadUserPolicy = uploadUserPolicy
 exports.uploadUserPolicy2 = uploadUserPolicy2
 exports.applyUserPolicy = applyUserPolicy
 exports.resetPolicy = resetPolicy 
+exports.getTIPNicknameList = getTIPNicknameList
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

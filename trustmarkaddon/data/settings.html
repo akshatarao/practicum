@@ -104,8 +104,39 @@
 		</div>
 	 </div>
 	 <div id="apply-content"  class="content" style="display:none">
-	         <p>Tab #2 content goes here!</p>
-	         <p>Apply</p>
+
+  		 <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
+                      <img src="change-button.jpg" height="100" width="100">  
+		      <i><font color="#00407F">&nbsp;&nbsp;Change</font></i> your privacy settings
+                 </div>
+		 <br>
+                 <div style="height:60px; overflow:none">
+			<div style="overflow:none" style="height:60px">
+                       		 <p><font size="2"><b>1. Select the privacy principle.</b></font></p>
+	                        <select id="policy_type_apply" style="width: 80%" onchange="sendTIPType();">
+        	                        <option value="none" default selected>Choose Privacy Principle</option>
+					<option value="minimization">Minimization of Data Activity</option>
+	                                <option value="transparency">Transparency of privacy practices</option>
+        	                        <option value="access">User Access to view/correct data</option>
+                	                <option value="accountability">Accountability to privacy policy</option>
+                        	        <option value="dataquality">Maintainance of data accuracy</option>
+				</select>
+			</div>
+			<div id="policytype_apply_error" class="errormessage"></div>
+		 </div>
+		 <br>
+		 <div style="height: 60px; overflow:none">
+			<p><font size="2"><b>2. Choose the policy to be applied.</b></font></p>
+                        <select id="policy_nickname_apply" style="width: 80%">
+                              <option value="none" default selected>Choose Policy</option>
+                        </select>
+		 </div>
+		 <br>
+		 <br>
+		 <div align="center" style="height:60px">
+                        <input type="button" id="applybutton" value="Apply Policy!" onclick="applyTIP();">
+                        <div id="overallapply_error" class="errormessage"></div>
+                </div>
 	 </div>
 	 <div id="reset-content" class="content" style="display:none">
 	        <p>Tab #3 content goes here!</p>
@@ -419,6 +450,60 @@ function uploadTIP()
 		triggerError(errorMessage, "overall_error");
 	}
 }
+
+function sendTIPType()
+{
+	var e = document.getElementById("policy_type_apply");
+	var tip_type = e.options[e.selectedIndex].value;
+
+	if(e.selectedIndex > 0)
+	{
+		addon.port.emit("gettips", tip_type);		 
+	}
+}
+
+addon.port.on("tipreceive", function onTipReceive(tip_array)
+{
+	window.alert(tip_array);
+	//TODO: Load TIPS in select tag options
+
+	var e = document.getElementById("policy_nickname_apply");
+	var size = e.length;
+	while( size > 1)
+	{
+		e.remove(size-1);
+		size--;
+	}
+
+	//Clear existing options;
+	
+	for(var index = 0; index < tip_array.length; index++)
+	{
+		var option = document.createElement("option");
+		option.text  = unescape(tip_array[index]);
+		option.value = tip_array[index];
+		e.add(option);
+	}
+});
+
+function applyTIP()
+{
+	var tip_type_element = document.getElementById("policy_type_apply");
+	var tip_nickname_element = document.getElementById("policy_nickname_apply");
+
+	if((tip_type_element.selectedIndex === 0) || (tip_nickname_element.selectedIndex === 0)) 
+	{
+		//TODO: Show error message
+	}
+	else
+	{
+		//TODO: Clear error messages
+	
+		var tip_nickname = tip_nickname_element.options[tip_nickname_element.selectedIndex].value;
+		var tip_type = tip_type_element.options[tip_type_element.selectedIndex].value;
+		addon.port.emit("applytip", tip_nickname, tip_type);
+	}
+}
 reset();
 
 
@@ -427,6 +512,17 @@ reset();
 <!--
  *TODO: 
  * 1. Check if policy name is unique
+ * 1. Check if policy identifier already exists
  * 2. Accept only JSONs
  * 3. Ensure JSON is valid format (Not top priority now)
  -->
+
+<! -- Apply
+
+ 1. Show error messages when any not selected
+ 2. Show successful message when applied
+ 3. Reset all selected options after applying policy click
+ 4. On tab load, clear all selected options and error messages
+ 5. Revert to Default support
+ 6. Better settings image
+ --->

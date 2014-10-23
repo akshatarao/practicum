@@ -45,6 +45,20 @@ var trustmarkpanel = require("sdk/panel").Panel({
 					trustmarkpolicyhelper.uploadUserPolicy2(tip_json, policyName, policyType);	
 				});
 
+				worker.port.on("gettips", function(tip_type)
+				{
+					console.log("Get TIPS");
+
+					trustmarkpolicyhelper.getTIPNicknameList(tip_type, worker);
+
+				});
+
+				worker.port.on("applytip", function(tip_nickname, tip_type)
+				{
+					console.log("Apply TIP");
+
+					trustmarkpolicyhelper.applyUserPolicy(tip_nickname, tip_type);
+				});
 			}
 			
 		      });

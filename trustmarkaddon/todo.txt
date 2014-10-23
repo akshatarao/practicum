@@ -1,7 +1,13 @@
-1. Display policy
-2. Settings Sidebar
-3. ICON change - Apply overall policy
-4. Status URL - Last Priority
-5. Policy maker
-6. TIPs for rest of companies
-7. Fix descriptions in facebook trustmarks
+1. Display policy - 2
+2. Settings Sidebar - DONE
+3. ICON change - Apply overall policy - 3
+4. Status URL - Last Priority  - 4
+5. Get TIP from Server - 4
+6. TIPs for rest of companies - 5
+7. Fix descriptions in facebook trustmarks - 5
+8. Redo trustmarks for all companies according to new format -5
+9. Trustmark Validation support - 4
+10. Create policy support - 1 
+11. Download trustmark - 8
+12. Reset to Defaults - 7
+13. Policy Upload - Check if policy id exists, policy unique name already exists - 6

@@ -11,3 +11,4 @@
 11. Download trustmark - 8
 12. Reset to Defaults - 7
 13. Policy Upload - Check if policy id exists, policy unique name already exists - 6
+14. View which policy upon clicking on trustmarks

@@ -27,7 +27,7 @@
 				"@id": "accountability_technicalcontrol_activity",
 				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/activity.xml",
 				"Name" : "Accountability through provision of technical mechanisms for viewing data activity",
-				"Description" : "Has technical means enabling users to view all activity on their data" 
+				"Description" : "Has technical means enabling users to view all operations on their data" 
 		}},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "accountability_redress_correction",

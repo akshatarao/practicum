@@ -6,6 +6,40 @@ var { indexedDB }  = require('sdk/indexed-db');
  Created by: ARao
 **/
 
+/***
+ *@Purpose: Insert Trustmark Definition in Cache
+ *@Param: td_identifier - Trustmark Definition ID
+ *@Param: td_name - Trustmark Definition Name
+ *@Param: td_desc - Trustmark Description
+ *@Returns: none
+ */
+function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc)
+{
+	var trustmarkDefObjectStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+
+	var trustmarkDefRequest = trustmarkDefObjectStore.get(td_identifier);
+	
+	trustmarkDefRequest.onerror = function(event)
+	{
+		console.log("An error occurred while accessing the trustmark definition store");
+	}
+
+	trustmarkDefRequest.onsuccess = function(event)
+	{
+		if(!event.target.result)
+		{
+			console.log("TD ID: " + td_identifier + "TD Name: " + td_name + "TD Desc: " + td_desc);
+			var trustmarkRow = { identifier : td_identifier, name : td_name, description: td_desc};
+
+			trustmarkDefObjectStore.add(trustmarkRow);	
+			
+		}
+		else
+		{
+			console.log("Trustmark Definition already exists");
+		}	
+	}	
+}
 /**
  * Retrieve trustmarks
  * Params: website_url - URL of the website for which the trustmarks are being retrieved
@@ -277,7 +311,7 @@ exports.retrieveTrustmarks = retrieveTrustmarks;
 exports.storeTrustmarkInCache = storeTrustmarkInCache;
 exports.retrieveTrustmarkFromCache = retrieveTrustmarkFromCache;
 exports.addTrustmarkRelationsToCache = addTrustmarkRelationsToCache;
-
+exports.insertTrustmarkDefinitionInCache = insertTrustmarkDefinitionInCache;
 
 /*****
  TODO 1. Return trustmark array - See how to return a value upon success - See how to check if cursor ends

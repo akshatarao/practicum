@@ -1,4 +1,4 @@
-/*
+/***
  Filename: main.js
  Created by: ARao
 */
@@ -122,6 +122,24 @@ function createRecipientStore(db)
 
 }
 
+function getTrustmarkDefStoreName()
+{
+	return "trustmarkdefs";
+}
+
+function createTrustmarkDefinitionStore(db)
+{
+	var objectStoreLabel = getTrustmarkDefStoreName();
+	
+	if(db.objectStoreNames.contains(objectStoreLabel))
+	{
+		db.deleteObjectStore(objectStoreLabel);
+	}
+
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
+	objectStore.createIndex("name", "name", {unique:true});
+	objectStore.createIndex("description", "description", {unique:false});
+}
 /**
  *@Purpose Retrieve Recipient Trustmark Mapping Store Name
  *@Returns objectStore name
@@ -232,6 +250,7 @@ function createObjectStores(database_pointer)
 	createTrustmarkStore(database_pointer);
 	createTIPStore(database_pointer);
 	createTempStore(database_pointer);
+	createTrustmarkDefinitionStore(database_pointer);
 }
 
 /**
@@ -273,6 +292,41 @@ function isEmpty(str)
 	return (!str || 0 === str.length);
 }
 
+/***
+ *@Purpose: Load default trustmark definition references in cache
+ *@Returns: none
+ */
+function getDefaultTrustmarkDefs()
+{
+	var request = indexedDB.open("trustmarkDB", 2);
+	var db;
+
+	request.onerror = function(event)
+	{
+		console.log("An error occurred while opening the database.");
+	}
+
+	request.onsuccess = function(event)
+	{
+		db = event.target.result;
+
+		var configFileJSON = self.data.load("defaultTrustmarkDefinitions/configFileJSON");
+		var configFileJSONObj = JSON.parse(configFileJSON);
+
+		var tdreferencearray = configFileJSONObj.DefaultTrustmarkDefinition.TrustmarkDefinitionList;
+
+		for(var index in tdreferencearray)
+		{
+			var td = tdreferencearray[index];
+			var td_name = td.TrustmarkDefinition.Name;
+			var td_desc = td.TrustmarkDefinition.Description;
+			var td_identifier = td.TrustmarkDefinition.Identifier;
+
+			trustmarkhelper.insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc);
+	
+		}	
+	}	
+}
 /**
  *@Purpose: Load Default TIPS
  *@Parameters: none
@@ -378,7 +432,8 @@ function getDefaultTrustmarks()
 function loadPrepackagedData()
 {
 	getDefaultTrustmarks();
-	getDefaultTIP();	
+	getDefaultTIP();
+	getDefaultTrustmarkDefs();	
 }
 
 function createFile()

@@ -87,7 +87,7 @@
 		 <br>
 		 <div style="overflow:none" style="height:60px">
 			<p><font size="2"><b>2. Which privacy principle does it apply to?</b></font></p>
-			<select id="policy_type" style="width: 90%">
+			<select id="policy_type" style="width: 80%">
 				<option value="none" default selected>Choose Privacy Principle</option>
 				<option value="minimization">Minimization of Data Activity</option>
 				<option value="transparency">Transparency of privacy practices</option>
@@ -120,7 +120,7 @@
                  <div style="height:60px; overflow:none">
 			<div style="overflow:none" style="height:60px">
                        		 <p><font size="2"><b>1. Select the privacy principle.</b></font></p>
-	                        <select id="policy_type_apply" style="width: 90%" onchange="sendTIPType();">
+	                        <select id="policy_type_apply" style="width: 80%" onchange="sendTIPType();">
         	                        <option value="none" default selected>Choose Privacy Principle</option>
 					<option value="minimization">Minimization of Data Activity</option>
 	                                <option value="transparency">Transparency of privacy practices</option>
@@ -149,8 +149,9 @@
                 </div>
 	 </div>
 	 <div id="create-content" class="content" style="display:none">
-		<img src="create.png" height="60" width="60">
-                <div style="height:50px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
+		<img src="create.png" height="80" width="80">
+                <br>
+                <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
                         <i><font color="#00407F">&nbsp;&nbsp;Define</font></i> your own privacy standards
                 </div>
 		<div style="height:40px">
@@ -164,18 +165,18 @@
 			<input type="text" placeholder="Policy Description" id="policy_desc_create" size="150" style="width:80%">
 			<div id="policydesc_create_error" class="errormessage"></div>
 		</div>
-		<br>
 		<div style="height: 70px">
 			<p><font size="2"><b>3. Build your policy expression.</b></font></p>
-			<div style="height: 40px">
-				<select id="trustmarkdefs" style="width: 70%">
-					<option value="none" default selected>Choose trustmark</option>
-				</select>
-				<input type="button" id="addtrustmark" style="expr-button" onclick="updateTIPExprWithTrustmark();" value="ADD"/>
+			<br>
+			<div style="height: 60px">
+							<select id="trustmarkdefs" style="width: 70%">
+								<option value="none" default selected>Choose trustmark</option>
+							</select>
+							<input type="button" id="addtrustmark" style="expr-button" onclick="updateTIPExprWithTrustmark();" value="ADD"/>
 			</div>		
 		</div>
 		<br>
-		<div style="height:50px">
+		<div style="display:table-row">
 				<table>
 					<tr>
 						<td>
@@ -193,14 +194,12 @@
 					</tr>
 				</table>
 		</div>
-		<div style="height:100px">
-			<textarea rows="5" cols="27" readonly="true" value="Create policy expression here.">
+		<br>
+		<div style="height:60px">
+			<textarea rows="4" cols="27" readonly="true" placeholder="View policy expression here">
 			</textarea>
 		</div>
-		<div>
-			<input type="button" id="createtip" value="Create" style="expr-button" onclick="createTIP();">
-			<input type="button" id="downloadtip" value="Download" style="expr-button" onclick="downloadTIP();">
-		</div>
+
 	 </div>
 </div>
 </body>

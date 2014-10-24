@@ -221,13 +221,6 @@
 	                                "Description" : "Records origin from which data was collected"
                                 }
                         },
-			{       
-                                "TrustmarkDefinition" : {
-                                        "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/dataprovenance.xml",
-                                        "Name" : "Accountability through maintaining data provenance",
-                                        "Description" : "Records origin from which data was collected"
-                                }
-                        },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/dataquality/dataaccuracy/dataaccuracy.xml",

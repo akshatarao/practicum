@@ -9,6 +9,7 @@ var tabs = require("sdk/tabs");
 var urls = require("sdk/url");
 
 var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
+var trustmarkhelper = require("./trustmarkhelper.js");
 var { indexedDB }  = require('sdk/indexed-db');
 
 
@@ -40,6 +41,13 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			},
 			onAttach: function(worker)
 			{
+
+				worker.port.on("loadtrustmarkdefs", function()
+				{
+					console.log("In Load");
+					trustmarkhelper.loadTrustmarkDefinitions(worker);
+				});
+
 				worker.port.on("policypassed", function(policyName, policyType, tip_json) {
 					console.log("Policy Passed! " + policyName + " " + policyType + " " + tip_json);
 					trustmarkpolicyhelper.uploadUserPolicy2(tip_json, policyName, policyType);	

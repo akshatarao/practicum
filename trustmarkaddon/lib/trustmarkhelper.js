@@ -6,6 +6,46 @@ var { indexedDB }  = require('sdk/indexed-db');
  Created by: ARao
 **/
 
+function loadTrustmarkDefinitions(worker)
+{
+	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
+	var db;
+
+	dbOpenRequest.onsuccess = function(event)
+	{
+		db = event.target.result;
+
+		var trustmarkDefinitionObjectStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+
+		var openRequest = trustmarkDefinitionObjectStore.openCursor();
+		var test = [];
+
+		openRequest.onerror = function(event)
+		{
+			console.log("An error occurred while openingObjectStore");
+		}
+		openRequest.onsuccess = function(event)
+		{
+			var cursor = event.target.result;
+
+			if(cursor)
+			{
+				var td = cursor.value;
+				var td_id = td.identifier;
+				var td_desc = td.description;
+				var td_array = [td_id, td_desc];
+				test.push(td_array);
+				cursor.continue();
+			}
+			else
+			{
+				
+				worker.port.emit("receivetrustmarkdefs", test);
+			}
+		}
+
+	} 
+}
 /***
  *@Purpose: Insert Trustmark Definition in Cache
  *@Param: td_identifier - Trustmark Definition ID
@@ -28,7 +68,7 @@ function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc)
 	{
 		if(!event.target.result)
 		{
-			console.log("TD ID: " + td_identifier + "TD Name: " + td_name + "TD Desc: " + td_desc);
+			//console.log("TD ID: " + td_identifier + "TD Name: " + td_name + "TD Desc: " + td_desc);
 			var trustmarkRow = { identifier : td_identifier, name : td_name, description: td_desc};
 
 			trustmarkDefObjectStore.add(trustmarkRow);	
@@ -36,7 +76,7 @@ function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc)
 		}
 		else
 		{
-			console.log("Trustmark Definition already exists");
+			console.log("Trustmark Definition already exists: " + td_identifier);
 		}	
 	}	
 }
@@ -312,7 +352,7 @@ exports.storeTrustmarkInCache = storeTrustmarkInCache;
 exports.retrieveTrustmarkFromCache = retrieveTrustmarkFromCache;
 exports.addTrustmarkRelationsToCache = addTrustmarkRelationsToCache;
 exports.insertTrustmarkDefinitionInCache = insertTrustmarkDefinitionInCache;
-
+exports.loadTrustmarkDefinitions = loadTrustmarkDefinitions;
 /*****
  TODO 1. Return trustmark array - See how to return a value upon success - See how to check if cursor ends
       2. Trustmark Definition Cache

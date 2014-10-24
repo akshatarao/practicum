@@ -105,7 +105,7 @@
 		</div>
 		<br>
 		<div align="center">
-			<input type="button" id="uploadbutton" value="Upload!" onclick="uploadTIP();">
+			<input type="button" id="uploadbutton" value="Upload" onclick="uploadTIP();" title="Upload your custom policy file.">
 			<div id="overall_error" class="errormessage"></div>
 		</div>
 	 </div>
@@ -144,7 +144,7 @@
 		 <br>
 		 <br>
 		 <div align="center" style="height:60px">
-                        <input type="button" id="applybutton" value="Apply Policy!" onclick="applyTIP();">
+                        <input type="button" id="applybutton" value="Activate" onclick="applyTIP();" title="Change selected policy to active">
                         <div id="overallapply_error" class="errormessage"></div>
                 </div>
 	 </div>
@@ -159,19 +159,25 @@
 			<div id="policyname_create_error" class="errormessage"></div>
 		</div>
 		<br>
-		<div style="height: 60px">
-			<p><font size="2"><b>2. Enter your policy description.</b></font></p>
-			<input type="text" placeholder="Policy Description" id="policy_desc_create" size="150" style="width:80%">
-			<div id="policydesc_create_error" class="errormessage"></div>
+		<div>
+			<p><font size="2"><b>2. Select privacy principle your policy applies to.</b></font></p>
+			<select id="policy_type_create" style="width: 90%">
+                              	<option value="none" default selected>Choose Privacy Principle</option>
+                                <option value="minimization">Minimization of Data Activity</option>
+                                <option value="transparency">Transparency of privacy practices</option>
+                                <option value="access">User Access to view/correct data</option>
+                                <option value="accountability">Accountability to privacy policy</option>
+                                <option value="dataquality">Maintainance of data accuracy</option>
+                        </select>
 		</div>
 		<br>
 		<div style="height: 70px">
 			<p><font size="2"><b>3. Build your policy expression.</b></font></p>
 			<div style="height: 40px">
 				<select id="trustmarkdefs" style="width: 70%">
-					<option value="none" default selected>Choose trustmark</option>
+					<option value="none" default selected>Choose privacy rules</option>
 				</select>
-				<input type="button" id="addtrustmark" style="expr-button" onclick="updateTIPExprWithTrustmark();" value="ADD"/>
+				<input type="button" id="addtrustmark" style="expr-button" onclick="updateTIPExprWithTrustmark();" value="ADD" title="Add rule to expression."/>
 			</div>		
 		</div>
 		<br>
@@ -179,27 +185,27 @@
 				<table>
 					<tr>
 						<td>
-							<input type="button" id="openingbrace" style="expr-button" value=" { " onClick="updateTIPExpr('{');">
+							<input type="button" id="openingbrace" style="expr-button" value=" { " onClick="updateTIPExpr('{');"i title="Begin a nested rule.">
 						</td>
 						<td>
-							<input type="button" id="closingbrace" style="expr-button" value=" } " onClick="updateTIPExpr('}');">
+							<input type="button" id="closingbrace" style="expr-button" value=" } " onClick="updateTIPExpr('}');" title="Close a nested rule.">
 						</td>
                                         	<td>
-							<input type="button" id="andbutton" style="expr-button" value="AND" onclick="updateTIPExpr('and');">
+							<input type="button" id="andbutton" style="expr-button" value="AND" onclick="updateTIPExpr('and');" title="Connect two rules with an AND.">
 						</td>
 						<td>
-                                     		        <input type="button" id="orbutton" value="OR" style="expr-button" onclick="updateTIPExpr('or');">
+                                     		        <input type="button" id="orbutton" value="OR" style="expr-button" onclick="updateTIPExpr('or');" title="Connect two rules with an OR.">
                               			</td>
 					</tr>
 				</table>
 		</div>
 		<div style="height:100px">
-			<textarea rows="5" cols="27" readonly="true" value="Create policy expression here.">
+			<textarea rows="4" cols="27" readonly="true" value="Create policy expression here.">
 			</textarea>
 		</div>
 		<div>
-			<input type="button" id="createtip" value="Create" style="expr-button" onclick="createTIP();">
-			<input type="button" id="downloadtip" value="Download" style="expr-button" onclick="downloadTIP();">
+			<input type="button" id="createtip" title="Click to create your policy!"value="Create" style="expr-button" onclick="createTIP();">
+			<input type="button" id="downloadtip" value="Download" style="expr-button" onclick="downloadTIP();" title="Download your created policy">
 		</div>
 	 </div>
 </div>
@@ -209,7 +215,7 @@ var uploadDiv = document.getElementById("upload");
 var applyDiv = document.getElementById("apply");
 var createDiv = document.getElementById("create");
 var errorMessage = "";
-
+var custom_policy_expr = "";
 /***
  *@Purpose - On MouseOver Listener for Tab
  */
@@ -237,7 +243,8 @@ function onClickListener(event)
 
 	clearMessages();
 	resetApply();
-	clearContents();
+	resetUpload();
+	resetCreate();
 
 	var tabheaddivs = document.getElementsByClassName('tab-head');
 
@@ -267,6 +274,11 @@ function onClickListener(event)
 
                 if(divelement.id === contentelementid)
                 {
+			if(event.target.id === "create")
+			{
+				addon.port.emit("loadtrustmarkdefs");
+			}
+
                         divelement.style.display = "block";
                 }
 		else
@@ -275,6 +287,31 @@ function onClickListener(event)
 		}
         }
 
+}
+
+/***
+ *@Purpose - Reset Create Form fields
+ */
+function resetCreate()
+{
+        var e = document.getElementById("trustmarkdefs");
+
+        var size = e.length;
+        while(size > 1)
+        {
+                e.remove(size-1);
+                size--;
+        }
+
+	custom_policy_expr = "";
+
+	var policyname = document.getElementById("policy_name_create");
+        policyname.value = "";
+
+        var policy_type = document.getElementById("policy_type_create");
+        policy_type.selectedIndex = 0;
+
+	
 }
 
 /**
@@ -311,6 +348,8 @@ function reset()
 	
 	clearMessages();
 	resetApply();
+	resetCreate();
+	resetUpload();
 }
 
 /**
@@ -488,7 +527,7 @@ function isEmpty(str)
 	return stringEmpty;
 }
 
-function clearContents()
+function resetUpload()
 {
 	var policyname = document.getElementById("policy_name");
 	policyname.value = "";
@@ -515,7 +554,7 @@ function uploadTIP()
 	fileReader.onload = function(e)
 	{
 		var contents = e.target.result;
-		clearContents();
+		resetUpload();
 		displayMessage("Successful upload!", "overall_error");
 		addon.port.emit("policypassed", policyName, policyType, contents);
 	}
@@ -557,6 +596,29 @@ function sendTIPType()
 	}
 }
 
+addon.port.on("receivetrustmarkdefs", function onTrustmarkDefinitionLoad(td_arraymap) {
+	var e = document.getElementById("trustmarkdefs");
+
+	var size = e.length;
+	while(size > 1)
+	{
+		e.remove(size-1);
+		size--;
+	}	
+
+	for(var index = 0; index < td_arraymap.length; index++)
+	{
+		var td_array = td_arraymap[index];
+		var td_id = td_array[0];
+		var td_desc = td_array[1];
+
+		var option = document.createElement("option");
+                option.value = td_id;
+		option.text = td_desc;
+		e.add(option);  
+
+	}
+});
 addon.port.on("tipreceive", function onTipReceive(tip_array)
 {
 

@@ -32,8 +32,9 @@ function loadTrustmarkDefinitions(worker)
 			{
 				var td = cursor.value;
 				var td_id = td.identifier;
+				var td_name = td.name;
 				var td_desc = td.description;
-				var td_array = [td_id, td_desc];
+				var td_array = [td_id, td_name, td_desc];
 				test.push(td_array);
 				cursor.continue();
 			}

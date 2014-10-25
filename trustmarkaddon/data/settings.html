@@ -169,6 +169,7 @@
                                 <option value="accountability">Accountability to privacy policy</option>
                                 <option value="dataquality">Maintainance of data accuracy</option>
                         </select>
+			<div id="policytype_create_error" class="errormessage"></div>
 		</div>
 		<br>
 		<div style="height: 70px">
@@ -185,28 +186,33 @@
 				<table>
 					<tr>
 						<td>
-							<input type="button" id="openingbrace" style="expr-button" value=" { " onClick="updateTIPExpr('{');"i title="Begin a nested rule.">
+							<input type="button" id="openingbrace" style="expr-button" value="{" onClick="updateTIPExpr('{', '{');"i title="Begin a nested rule.">
 						</td>
 						<td>
-							<input type="button" id="closingbrace" style="expr-button" value=" } " onClick="updateTIPExpr('}');" title="Close a nested rule.">
+							<input type="button" id="closingbrace" style="expr-button" value="}" onClick="updateTIPExpr('}', '}');" title="Close a nested rule.">
 						</td>
                                         	<td>
-							<input type="button" id="andbutton" style="expr-button" value="AND" onclick="updateTIPExpr('and');" title="Connect two rules with an AND.">
+							<input type="button" id="andbutton" style="expr-button" value="AND" onclick="updateTIPExpr('and', 'and');" title="Connect two rules with an AND.">
 						</td>
 						<td>
-                                     		        <input type="button" id="orbutton" value="OR" style="expr-button" onclick="updateTIPExpr('or');" title="Connect two rules with an OR.">
+                                     		        <input type="button" id="orbutton" value="OR" style="expr-button" onclick="updateTIPExpr('or', 'or');" title="Connect two rules with an OR.">
                               			</td>
+						<td>
+							<input type="button" id="clearexprbutton" value="Clear" style="expr-button" onclick="clearPolicyExpr();" title="Clear the policy rule expression."/>
+						</td>
 					</tr>
 				</table>
 		</div>
 		<div style="height:100px">
-			<textarea rows="4" cols="27" readonly="true" value="Create policy expression here.">
+			<textarea rows="4" cols="27" readonly="true" value="Create policy expression here." id="policy_preview">
 			</textarea>
+			<div id="policy_preview_error" class="errormessage"></div>
 		</div>
 		<div>
 			<input type="button" id="createtip" title="Click to create your policy!"value="Create" style="expr-button" onclick="createTIP();">
 			<input type="button" id="downloadtip" value="Download" style="expr-button" onclick="downloadTIP();" title="Download your created policy">
 		</div>
+		<div class="errormessage" id="policycreate_overall_error"></div>
 	 </div>
 </div>
 </body>
@@ -216,6 +222,9 @@ var applyDiv = document.getElementById("apply");
 var createDiv = document.getElementById("create");
 var errorMessage = "";
 var custom_policy_expr = "";
+var custom_policy_expr_text = "";
+var custom_policy_tdref_array = [];
+
 /***
  *@Purpose - On MouseOver Listener for Tab
  */
@@ -303,7 +312,7 @@ function resetCreate()
                 size--;
         }
 
-	custom_policy_expr = "";
+	clearPolicyExpr();
 
 	var policyname = document.getElementById("policy_name_create");
         policyname.value = "";
@@ -405,13 +414,19 @@ function verifyPolicyNameIsValid(policyName)
  *@Purpose - Show error message
  *@Param - errorMessage - Error Message
  *@Param - div_id - Div Identifier
+ *@Param - type - error/success
  *@Returns none
  */
-function displayMessage(errorMessage,div_id)
+function displayMessage(message,div_id,type)
 {
-	var errorDiv = document.getElementById(div_id);
+	var messageDiv = document.getElementById(div_id);
 
-	errorDiv.innerHTML = errorMessage;
+	messageDiv.innerHTML = message;
+	
+	if(type === "ERROR")
+		messageDiv.style.color = "red";
+	else
+		messageDiv.style.color = "green";
 }
 /**
  *@Purpose - Is File Selected
@@ -460,12 +475,12 @@ function getPolicyName()
 	if(!verifyPolicyNameIsValid(escapedValue))
 	{
 		var errorMessage = "Policy Name should be between 1-20 characters";
-		displayMessage(errorMessage, "policyname_error");
+		displayMessage(errorMessage, "policyname_error" , "ERROR");
 	}
 	else if(!verifyPolicyNameNew(escapedValue))
 	{
 		var errorMessage = "Policy name should be unique";
-		displayMessage(errorMessage, "policyname_error");
+		displayMessage(errorMessage, "policyname_error", "ERROR");
 	}
 
 	return escapedValue;
@@ -487,7 +502,7 @@ function getPolicyType()
 	else
 	{
 		var errorMessage = "Select a privacy principle";
-		displayMessage(errorMessage, "policytype_error");
+		displayMessage(errorMessage, "policytype_error", "ERROR");
 	}
 
 	return "";		
@@ -504,7 +519,7 @@ function getPolicyFile()
 	if(!verifyIfFileSelected(filePath))
 	{
 		 var errorMessage = "No file was selected.";
-                 displayMessage(errorMessage, "policyfile_error");	
+                 displayMessage(errorMessage, "policyfile_error", "ERROR");	
 		 return "";
 	}
 
@@ -555,7 +570,7 @@ function uploadTIP()
 	{
 		var contents = e.target.result;
 		resetUpload();
-		displayMessage("Successful upload!", "overall_error");
+		displayMessage("Successful upload!", "overall_error", "SUCCESS");
 		addon.port.emit("policypassed", policyName, policyType, contents);
 	}
 
@@ -567,7 +582,7 @@ function uploadTIP()
 	else
 	{
 		var errorMessage = "One or more inputs is invalid. Check fields above."
-		displayMessage(errorMessage, "overall_error");
+		displayMessage(errorMessage, "overall_error", "ERROR");
 	}
 }
 
@@ -584,8 +599,8 @@ function sendTIPType()
 	else
 	{
 
-		var errorMessage = "Select a policy type";
-		displayMessage(errorMessage, "policytype_apply_error");
+		var errorMessage = "Select a policy type.";
+		displayMessage(errorMessage, "policytype_apply_error", "ERROR");
 		var e = document.getElementById("policy_nickname_apply");
 	        var size = e.length;
 	        while( size > 1)
@@ -610,9 +625,11 @@ addon.port.on("receivetrustmarkdefs", function onTrustmarkDefinitionLoad(td_arra
 	{
 		var td_array = td_arraymap[index];
 		var td_id = td_array[0];
-		var td_desc = td_array[1];
+		var td_name = td_array[1];
+		var td_desc = td_array[2];
 
 		var option = document.createElement("option");
+		option.id = td_name;
                 option.value = td_id;
 		option.text = td_desc;
 		e.add(option);  
@@ -652,7 +669,7 @@ function checkPolicyNicknameEntered()
 	if(e.selectedIndex === 0)
 	{
 		var errorMessage = "Select a policy";
-		displayMessage(errorMessage, "policynickname_apply_error");
+		displayMessage(errorMessage, "policynickname_apply_error", "ERROR");
 	}
 	else
 	{
@@ -672,7 +689,7 @@ function getPolicyTypeForApply()
 	else
 	{
 		var errorMessage = "Select a policy type";
-		displayMessage(errorMessage,"policytype_apply_error");
+		displayMessage(errorMessage,"policytype_apply_error", "ERROR");
 		return "";
 	}
 }	
@@ -689,7 +706,7 @@ function getPolicyNicknameForApply()
 	else
 	{
 		var errorMessage = "Select a policy";
-		displayMessage(errorMessage, "policynickname_apply_error");
+		displayMessage(errorMessage, "policynickname_apply_error" , "ERROR");
 		return "";
 	}
 }
@@ -702,15 +719,154 @@ function applyTIP()
 	if(isEmpty(tip_type) || isEmpty(tip_nickname)) 
 	{
 		var errorMessage = "One or more inputs are invalid. Check errors above."
-		displayMessage(errorMessage, "overallapply_error");
+		displayMessage(errorMessage, "overallapply_error", "ERROR");
 	}
 	else
 	{
 		clearMessages();
 		var successMessage = "Policy was successfully applied.";
-		displayMessage(successMessage, "overallapply_error");	
+		displayMessage(successMessage, "overallapply_error", "SUCCESS");	
 		addon.port.emit("applytip", tip_nickname, tip_type);
 	}
+}
+
+function clearPolicyExpr()
+{
+	custom_policy_expr = "";
+	custom_policy_expr_text = "";
+	custom_policy_tdref_array = [];
+	var policytext_preview = document.getElementById("policy_preview");
+	policytext_preview.innerHTML = "";
+}
+function updateTIPExpr(value, text)
+{
+	custom_policy_expr = custom_policy_expr.concat(" " + value);
+
+	if(value != text)
+	{
+		text = "\'" + text + "\'"
+	}
+	custom_policy_expr_text = custom_policy_expr_text.concat(" " + text);	
+	var policytext_preview = document.getElementById("policy_preview");
+	policytext_preview.innerHTML = custom_policy_expr_text;
+}
+
+function updateTrustmarkReferenceList(ruleObject)
+{
+	var tdreference = new Object();
+	tdreference.TrustmarkDefinitionReference = ruleObject;
+
+	custom_policy_tdref_array.push(tdreference);
+	
+}
+function updateTIPExprWithTrustmark()
+{
+	var e = document.getElementById("trustmarkdefs");
+	var rule_id = e.options[e.selectedIndex].value;
+	var rule_text = e.options[e.selectedIndex].text;
+	var rule_name = e.options[e.selectedIndex].id;
+
+	var ruleObject = new Object();
+	ruleObject.Identifier = rule_id;
+	ruleObject.Name = rule_name;
+	ruleObject.Description = rule_text;
+
+	//window.alert(JSON.stringify(ruleObject));
+	updateTIPExpr(rule_id, rule_text);
+	updateTrustmarkReferenceList(ruleObject);
+}
+
+
+function createTIPJSON(tip_name,tip_type,tip_expr)
+{
+	var id = tip_name.replace(/\s+/g,'');
+	id = id.concat(Math.round(Math.random()*1000000));
+	var TIPProfile = new Object();
+	TIPProfile.Name = tip_name;
+	TIPProfile.Identifier = "http://custom_tips/schema/trust-interoperability-profiles/" + tip_type + "/"+id+".xml";
+	TIPProfile.PublicationDateTime = new Date().toUTCString();
+
+	var Issuer = new Object();
+	Issuer.Identifier = "Self-issued";
+	Issuer.Name = "Self";
+	Issuer.Contact = new Object();
+	Issuer.Contact.Type = "PRIMARY";
+	Issuer.Email = "self@self.com";
+	TIPProfile.Issuer = Issuer;
+	
+	var referencesObject = new Object();
+	referencesObject.TrustmarkDefinitionReferenceList = custom_policy_tdref_array;
+	TIPProfile.References = referencesObject;
+
+	TIPProfile.TrustExpression = tip_expr;
+
+	var TIP = new Object();
+	TIP.TrustInteroperabilityProfile = TIPProfile;
+	window.alert(JSON.stringify(TIP));
+}
+
+function getTIPNameForCreate()
+{
+	var tip_name = document.getElementById("policy_name_create").value;
+
+	if(isEmpty(tip_name))
+	{
+		var errorMessage = "Enter a policy name."
+		displayMessage(errorMessage, "policyname_create_error", "ERROR");
+		return "";
+	}
+		//TODO: Check if TIP name already exists!
+	
+	return tip_name;		
+}
+
+function getTIPTypeForCreate()
+{
+	var e = document.getElementById("policy_type_create");
+
+	if(e.selectedIndex === 0)
+	{
+		var errorMessage = "Select a policy type.";
+		displayMessage(errorMessage, "policytype_create_error", "ERROR"); 
+		return "";
+	}
+		
+	return e.options[e.selectedIndex].value;
+}
+
+function getTIPExpr()
+{
+	var tip_expr = document.getElementById("policy_preview").innerHTML;
+	
+	if(isEmpty(tip_expr))
+	{
+		var errorMessage = "Create a policy conditional expression";
+		displayMessage(errorMessage, "policy_preview_error", "ERROR");
+	}
+	else
+	{
+		tip_expr = custom_policy_expr;
+	}
+	
+	return tip_expr;
+}
+
+function createTIP()
+{
+	var tip_name = getTIPNameForCreate();
+	var tip_type = getTIPTypeForCreate();
+	var tip_expr = getTIPExpr();
+
+	if(isEmpty(tip_name) || isEmpty(tip_type) || isEmpty(tip_expr))
+	{
+		var errorMessage = "One or more inputs are invalid. Check above for errors";
+		displayMessage(errorMessage, "policycreate_overall_error", "ERROR");	
+	}
+	else
+	{	
+		var tip_json = createTIPJSON(tip_name, tip_type, tip_expr);
+	}	
+	
 }
 reset();
 
@@ -725,12 +881,11 @@ reset();
  * 3. Ensure JSON is valid format (Not top priority now)
  -->
 
-<! -- Apply
-
- 1. Show error messages when any not selected
- 2. Show successful message when applied
- 3. Reset all selected options after applying policy click
- 4. On tab load, clear all selected options and error messages
+<! --Create
+ 1. Check if TIP Name is unique
+ 2. Show only trustmarks mapping to TIP type
+ 3. Download tip json file
+ 4. Filled input checks for TIP Name, TIP type - apply
  5. Revert to Default support
  6. Better settings image
  --->

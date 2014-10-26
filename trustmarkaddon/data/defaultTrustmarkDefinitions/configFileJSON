@@ -63,6 +63,13 @@
                         },
 			{
                                 "TrustmarkDefinition" : {
+                                        "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datause.xml",
+                                        "Name": "Minimize Data Use via Specified Purpose",
+                                        "Description" : "Specifies the uses of collected user data"
+                                }
+                        },
+			{
+                                "TrustmarkDefinition" : {
 	                               	"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datacollection.xml",
         	                        "Name" : "Minimize Data Collection via Opt-out consent",
                 	                "Description" : "Enables users to deny collection of their data via opt-out consent"

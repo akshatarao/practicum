@@ -33,7 +33,7 @@
 	border-radius:3px;
         box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
         background: white;
-	height: 570px;
+	height: 580px;
 	border: 1px solid black;
  }
 
@@ -186,10 +186,10 @@
 				<table>
 					<tr>
 						<td>
-							<input type="button" id="openingbrace" style="expr-button" value="{" onClick="updateTIPExpr('{', '{');"i title="Begin a nested rule.">
+							<input type="button" id="openingbrace" style="expr-button" value="(" onClick="updateTIPExpr('(', '(');"i title="Begin a nested rule.">
 						</td>
 						<td>
-							<input type="button" id="closingbrace" style="expr-button" value="}" onClick="updateTIPExpr('}', '}');" title="Close a nested rule.">
+							<input type="button" id="closingbrace" style="expr-button" value=")" onClick="updateTIPExpr(')', ')');" title="Close a nested rule.">
 						</td>
                                         	<td>
 							<input type="button" id="andbutton" style="expr-button" value="AND" onclick="updateTIPExpr('and', 'and');" title="Connect two rules with an AND.">
@@ -198,7 +198,7 @@
                                      		        <input type="button" id="orbutton" value="OR" style="expr-button" onclick="updateTIPExpr('or', 'or');" title="Connect two rules with an OR.">
                               			</td>
 						<td>
-							<input type="button" id="clearexprbutton" value="Clear" style="expr-button" onclick="clearPolicyExpr();" title="Clear the policy rule expression."/>
+							<input type="button" id="clearexprbutton" value="CLR" style="expr-button" onclick="clearPolicyExpr();" title="Clear the policy rule expression."/>
 						</td>
 					</tr>
 				</table>
@@ -298,6 +298,17 @@ function onClickListener(event)
 
 }
 
+function clearCreateContents()
+{
+	clearPolicyExpr();
+
+        var policyname = document.getElementById("policy_name_create");
+        policyname.value = "";
+
+        var policy_type = document.getElementById("policy_type_create");
+        policy_type.selectedIndex = 0;
+
+}
 /***
  *@Purpose - Reset Create Form fields
  */
@@ -312,14 +323,7 @@ function resetCreate()
                 size--;
         }
 
-	clearPolicyExpr();
-
-	var policyname = document.getElementById("policy_name_create");
-        policyname.value = "";
-
-        var policy_type = document.getElementById("policy_type_create");
-        policy_type.selectedIndex = 0;
-
+	clearCreateContents();
 	
 }
 
@@ -802,7 +806,7 @@ function createTIPJSON(tip_name,tip_type,tip_expr)
 
 	var TIP = new Object();
 	TIP.TrustInteroperabilityProfile = TIPProfile;
-	window.alert(JSON.stringify(TIP));
+	return JSON.stringify(TIP);
 }
 
 function getTIPNameForCreate()
@@ -814,6 +818,10 @@ function getTIPNameForCreate()
 		var errorMessage = "Enter a policy name."
 		displayMessage(errorMessage, "policyname_create_error", "ERROR");
 		return "";
+	}
+	else
+	{
+		clearMessage("policyname_create_error");
 	}
 		//TODO: Check if TIP name already exists!
 	
@@ -830,6 +838,10 @@ function getTIPTypeForCreate()
 		displayMessage(errorMessage, "policytype_create_error", "ERROR"); 
 		return "";
 	}
+	else
+	{
+		clearMessage("policytype_create_error");
+	}
 		
 	return e.options[e.selectedIndex].value;
 }
@@ -845,6 +857,7 @@ function getTIPExpr()
 	}
 	else
 	{
+		clearMessage("policy_preview_error");
 		tip_expr = custom_policy_expr;
 	}
 	
@@ -857,6 +870,7 @@ function createTIP()
 	var tip_type = getTIPTypeForCreate();
 	var tip_expr = getTIPExpr();
 
+
 	if(isEmpty(tip_name) || isEmpty(tip_type) || isEmpty(tip_expr))
 	{
 		var errorMessage = "One or more inputs are invalid. Check above for errors";
@@ -865,6 +879,11 @@ function createTIP()
 	else
 	{	
 		var tip_json = createTIPJSON(tip_name, tip_type, tip_expr);
+		displayMessage("Successfully created policy!", "policycreate_overall_error", "SUCCESS");
+		clearCreateContents();
+		addon.port.emit("policypassed", tip_name, tip_type, tip_json);
+
+
 	}	
 	
 }
@@ -876,7 +895,6 @@ reset();
 <!--
  *TODO: 
  * 1. Check if policy name is unique
- * 1. Check if policy identifier already exists
  * 2. Accept only JSONs
  * 3. Ensure JSON is valid format (Not top priority now)
  -->
@@ -885,7 +903,9 @@ reset();
  1. Check if TIP Name is unique
  2. Show only trustmarks mapping to TIP type
  3. Download tip json file
- 4. Filled input checks for TIP Name, TIP type - apply
+ 4. TIP Expression is valid?
  5. Revert to Default support
  6. Better settings image
+ 7. Change { to ( , Clear to CLS,increase height of settings content
+ 8. If second sidebar opens, dispose the first one (close all sidebars when icon clicked)
  --->

@@ -365,6 +365,59 @@ function getTIPTrustExpression(tip_json)
 	return trustexpression;
 }
 
+function getTIPExpressionText(tip_name)
+{
+	var dbRequest = indexedDB.open("trustmarkDB", 2);
+
+	var db;
+
+	dbRequest.onsuccess = function(event)
+	{	
+		db = event.target.result;
+
+		var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+
+		var tipIndex = tipObjectStore.index("nickname")
+		var tipRequest = tipIndex.openCursor(tip_name);	
+
+		tipRequest.onsuccess = function(event)
+		{
+			var cursor = event.target.result;
+			if(cursor)
+			{
+					
+				var tipRow = event.target.result.value;
+				
+				if(tipRow.nickname === tip_name)
+				{
+
+					var trustexpression = tipRow.trust_expression;
+					var trustmarkdefsStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+					var openRequest = trustmarkdefsStore.openCursor()
+					
+					openRequest.onsuccess = function(event)
+					{
+						var trustmarkdefcursor = event.target.result;
+
+						if(trustmarkdefcursor)
+						{
+							var td = trustmarkdefcursor.value;
+							trustexpression = trustexpression.replace(td.identifier, "'" +td.description + "'");	
+
+							trustmarkdefcursor.continue();
+						}
+						else
+						{
+							console.log("Expression in  Text: " + trustexpression);
+						}	
+					}	
+				}
+				
+				cursor.continue();
+			}	
+		}
+	}
+}
 /**
  *@Purpose: Get a Trustmark List String
  *@Parameters: TIP JSON
@@ -526,14 +579,8 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 				}
 				
 				console.log("TIP added!" + tip_nickname);
-				/********TESTCODE Starts here*********/
-				if(tip_nickname === "Custom")
-				{
-					console.log("Im here in Custom Access");
-					applyUserPolicy(tip_nickname, tip_type);
-					getTIPList("access");
-				}
-				/******TESTCODE Ends here************/
+
+				getTIPExpressionText(tip_nickname);
 			}
 
 
@@ -715,6 +762,7 @@ exports.uploadUserPolicy2 = uploadUserPolicy2
 exports.applyUserPolicy = applyUserPolicy
 exports.resetPolicy = resetPolicy 
 exports.getTIPNicknameList = getTIPNicknameList
+exports.getTIPExpressionText = getTIPExpressionText
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

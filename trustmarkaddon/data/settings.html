@@ -12,12 +12,12 @@
  
 .tab-head
 {
-	padding:6px 9px;
+	padding:5px 5px;
 	border-radius: 3px 3px 0px 0px;
 	display: inline-block;
         background: #3D4040;
         color:#CCD5D5;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 600;
 	transition:all linear 0.15s;
 }
@@ -67,9 +67,10 @@
 <body style="background:#DEEFFF">
 <div class="tabs">
     <div class="tab-links">
-        <div id="upload" class="tab-head" style="background:#00407F;color:white">Upload</div>
-        <div id="apply" class="tab-head">Apply</div>
-        <div id="create" class="tab-head">Create</div>
+        <div id="upload" class="tab-head" style="background:#00407F;color:white" title="Upload a custom privacy ruleset">Upload</div>
+        <div id="apply" class="tab-head" title="Apply an existing privacy ruleset">Apply</div>
+        <div id="create" class="tab-head" title="Create a new privacy ruleset">Create</div>
+	<div id="view" class="tab-head" title="View a privacy ruleset">View</div>
     </div>
    <div class="tab-content">
    	 <div id="upload-content" class="content" style="display:block">
@@ -214,12 +215,28 @@
 		</div>
 		<div class="errormessage" id="policycreate_overall_error"></div>
 	 </div>
+	<div id="view-content" class="content" style="display:none">
+		<img src="view_icon.png" height="80" width="80">
+		<br>
+		<div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
+                      <i><font color="#00407F">&nbsp;&nbsp;View</font></i> a privacy ruleset
+                </div>
+                <br>
+		<div style="height: 60px; overflow:none">
+                        <div style="overflow:none" style="height:60px">
+                                <p><font size="2"><b>1. Choose the policy to view.</b></font></p>
+                                <select id="policy_nickname_view" style="width: 80%" onchange="checkPolicyNicknameEnteredForView();">
+                                      <option value="none" default selected>Choose Policy</option>
+                                </select>
+                        </div>
+                        <div id="policynickname_view_error" class="errormessage"></div>
+                </div>
+
+	
+	</div>
 </div>
 </body>
 <script type="text/javascript">
-var uploadDiv = document.getElementById("upload");
-var applyDiv = document.getElementById("apply");
-var createDiv = document.getElementById("create");
 var errorMessage = "";
 var custom_policy_expr = "";
 var custom_policy_expr_text = "";

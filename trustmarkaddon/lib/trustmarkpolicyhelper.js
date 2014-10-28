@@ -320,12 +320,12 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 
                         	                if(result)
                                 	        {
-                                        	        trustmarkpanel.port.emit("passedtip", tip_divname);
+                                        	        trustmarkpanel.port.emit("passedtip", tip_divname, recipient_id);
                                                 	console.log("The recipient has matched policy");
                                         	}
 	                                        else
         	                                {
-                	                                trustmarkpanel.port.emit("failedtip", tip_divname);
+                	                                trustmarkpanel.port.emit("failedtip", tip_divname, recipient_id);
                         	                        console.log("The recipient has not matched policy");
                                 	        }
 
@@ -580,7 +580,6 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 				
 				console.log("TIP added!" + tip_nickname);
 
-				getTIPExpressionText(tip_nickname);
 			}
 
 

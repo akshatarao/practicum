@@ -16,14 +16,22 @@ var { indexedDB }  = require('sdk/indexed-db');
 var trustmarkpanel = require("sdk/panel").Panel({
 
 	width: 360,
-	height:	440,
+	height:	460,
         contentURL: self.data.url("panel.html"),
 	contentScriptFile: self.data.url("test.js"),
   	onHide: hideTrustmarks,
 	onMessage: function(message)
 	{
 
-		if(message === "settings")
+		if(message === "overallpassed")
+		{
+
+		}
+		else if(message === "overallfailed")
+		{
+
+		}
+		else if(message === "settings")
 		{
 			var sidebarid = "settings";
 			var sidebartitle = "Settings";
@@ -170,6 +178,11 @@ var togglebutton;
  */
 function displayTrustmarks(button)
 {
+	//TODO: On page load - check and set icon
+	/*var icon = new Object();
+	var jsonString = '{"16" : "./view_icon.png"}';
+	button.icon  = JSON.parse(jsonString);
+        */
 	console.log("Inside display trustmarks");
 	togglebutton = button;
 	trustmarkpanel.show({

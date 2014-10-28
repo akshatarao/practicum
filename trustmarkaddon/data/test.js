@@ -1,18 +1,57 @@
-self.port.on("failedtip", function onFailedTIP(tip)
+function displayOverallPrinciplesPassed(recipient)
+{
+	 var tipdivs = document.getElementsByClassName('tip')
+	 var overallPassed = true;
+
+	 for(var index = 0; index < tipdivs.length; index++)
+	 {
+
+		var tip = tipdivs[index];
+		
+		if(tip.style.display === "block")
+		{
+			overallPassed = false;
+		}
+	 }
+
+	var overallmessagediv = document.getElementById("overall-policy");
+	var overallMessage  = "<font color='#0066FF'>" + recipient + "</font> fails the privacy settings for the below privacy principles.";
+	
+	if(overallPassed)
+	{
+		overallMessage = "<font color='#0066FF'>" + recipient + "</font> has passed the privacy settings for all the privacy principles.";
+		self.port.emit("overallpassed");		
+	}
+	else
+	{
+		self.port.emit("overallfailed");
+	}
+
+	overallmessagediv.innerHTML = overallMessage;
+
+}
+
+self.port.on("failedtip", function onFailedTIP(tip, recipient)
 {
 	var wrapperid = tip + "-wrapper";
 	var d = document.getElementById(wrapperid);
 	d.style.background = "url('red-cross.png')";
 	d.style.color = "gray";
+	d.style.display = "block";
+
+	displayOverallPrinciplesPassed(recipient);
 
 });
 
-self.port.on("passedtip", function onPassedTIP(tip)
+self.port.on("passedtip", function onPassedTIP(tip, recipient)
 {
 	var wrapperid = tip + "-wrapper";
 	var d = document.getElementById(wrapperid);
 	d.style.background = "url('green-check.png')";
 	d.style.color = "gray";
+        d.style.display = "none";
+
+        displayOverallPrinciplesPassed(recipient);
 
 });
 

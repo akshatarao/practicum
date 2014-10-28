@@ -16,7 +16,7 @@ body
 	padding: 5px;
 	line-height:40px;
 	height: 40px;
-	width: 325px;
+	width: 331px;
 	margin-bottom: 10px;
 	font-size:20px;
 	font-weight: bold;
@@ -37,7 +37,8 @@ body
     border-bottom-left-radius: 0.3em;
     border-bottom-right-radius: 0.3em;
     border-top-left-radius: 0.3em;
-    border-top-right-radius: 0.3em;		
+    border-top-right-radius: 0.3em;
+    display: none;		
 }
 
 #panel-footer
@@ -46,8 +47,8 @@ body
 	color: white;
 	text-align: center;
 	padding: 5px;
-	height: 40px;
-	width: 330px;
+	height: 27px;
+	width: 331px;
 	margin-top: 10px;
         border: 1px solid black;
 }
@@ -61,6 +62,7 @@ body
     	border-bottom-right-radius: 0.3em;
 	border-top-left-radius: 0.3em;
    	border-top-right-radius: 0.3em;
+	height: 280px;
 }
 
 .tip-heading
@@ -91,11 +93,23 @@ body
 	background-color: red;
 }
 
+.overall-policy
+{
+	height: 40px;
+	width: 323px;
+	font-size: 16px;
+	font-weight: bold;
+        padding: 2px;
+	font-family: "Times New Roman", Georgia, Serif;
+	color: black;
+}
 </style>
 </head>
 <body>
 	<div id="panel-header">
 	<font color="#D9F8FF">Know&nbsp;&nbsp;</font>your<font color="#D9F8FF">&nbsp;&nbsp;privacy</font><font size="6">!</font>
+	</div>
+	<div id="overall-policy" class="overall-policy">	
 	</div>
 	<div id="tip-wrapper" style="background:#F0F0F0">
 		<div class = "tip" id="minimization-wrapper">
@@ -127,25 +141,9 @@ body
 	<div id="panel-footer">
 		<div style="display: table-row;">
 			<div style="display: table-cell; width: 30px">
-				<button class="settings-button" id="settings" onmouseover="showToolTip();" onmouseout="hideToolTip();"/>
+				<img src="gears.png" id="settings" onmouseover="showToolTip();" onmouseout="hideToolTip();"/>
 			</div>
 			<div style="display: table-cell" id="tooltip">
-			</div>
-		</div>	
-		<div id="filesettings" style="display:none;vertical-align:center;">
-			<div style="display: table-row;">
-                                        <input type="text" id="policyname" style="width: 100px;" placeholder="Policy Name">   </input>
-					<select>
-						<option value="" default selected>Select policy</option>
-						<option value="minimization">Default Minimization</option>
-						<option value="transparency">Default Transparency</option>
-					</select>
-			</div>
-			<div style="align: left">
-        			 <input type="file" id="policyfile" style="display: none">
-			</div>
-			<div style="align: left">
-				<button type="button" class="submit-button" onclick="onPolicySubmit()">	
 			</div>
 		</div>	
 	</div>

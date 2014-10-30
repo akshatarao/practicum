@@ -26,9 +26,16 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		if(message === "overallpassed")
 		{
 
+			var icon = new Object();
+		        var jsonString = '{"16" : "./view_icon.png"}';
+		        togglebutton.icon  = JSON.parse(jsonString);
 		}
 		else if(message === "overallfailed")
 		{
+			console.log("OVerall Failed");
+			 var icon = new Object();
+                        var jsonString = '{"16" : "./view_icon.png"}';
+                        togglebutton.icon  = JSON.parse(jsonString);
 
 		}
 		else if(message === "settings")
@@ -173,6 +180,18 @@ function iterateThroughTIPs(recipient_id)
 }
 
 var togglebutton;
+
+function setToggleButton(button)
+{
+	togglebutton = button;
+
+	/*var icon = new Object();
+        var jsonString = '{"16" : "./view_icon.png"}';
+        togglebutton.icon  = JSON.parse(jsonString);
+        */
+
+}
+
 /**
  * Display the trustmarks in a panel.
  */
@@ -199,3 +218,5 @@ function hideTrustmarks()
 } 
 
 exports.displayTrustmarks = displayTrustmarks;
+exports.setToggleButton = setToggleButton;
+exports.iterateThroughTIPs = iterateThroughTIPs;

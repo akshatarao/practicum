@@ -8,6 +8,8 @@ var pageloader = require("./pageloadhandler.js");
 var panelviewer = require("./panelviewer.js");
 var trustmarkhelper = require("./trustmarkhelper.js");
 var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
+var urls = require("sdk/url");
+var tabs = require("sdk/tabs");
 
 //Load objects
 var { ToggleButton } = require('sdk/ui/button/toggle');
@@ -106,7 +108,6 @@ function createRecipientStore(db)
 
 	//Create recipient object store
 	var objectStore = db.createObjectStore(objectStoreLabel, { keyPath: "identifier" });
-        objectStore.createIndex("name", "name", {unique:true});
       	objectStore.createIndex("trustmark_list", "trustmark_list", {unique:false});
 
 
@@ -465,10 +466,20 @@ function createFile()
 
 initDB();
 loadPrepackagedData();
-//trustmarkpolicyhelper.uploadUserPolicy("/home/justinekays/access.json", "Custom Access", "access");
-//trustmarkpolicyhelper.applyUserPolicy("Custom Access", "access");
-/*TODO
- 1. ICONs for each TIP
- 2. Case insensitive replace for AND
+panelviewer.setToggleButton(button);
 
-*/
+  
+ //Check if url is among recipients
+ //If not retrieve recipient trustsmarks from server
+ //Validate if recipient trustmarks are signed and status is active
+ //Insert recipient trustmarks into cache
+ //If not obtained from cache, send an no recipient trustmarks found to panel
+ //Panel should set overalldiv message to no trustmarks received from server (This site's privacy policy has not yet been analysed.
+ //Mark all tip divs as display: none
+ //Set overall icon to ?
+ //If tip divs have trustmarks, then overalldiv message will be overwritten anyway.
+ //If tip divs have trustmarks , check recipient trustmark status while iterating through tips
+ //Refresh page to see the new policy effects.
+ // var url = urls.URL(tabs.activeTab.url);
+ // console.log("URL is: " + url);
+ // panelviewer.iterateThroughTIPs(url.host);

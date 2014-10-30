@@ -47,6 +47,26 @@ function loadTrustmarkDefinitions(worker)
 
 	} 
 }
+
+/****
+ *@Purpose - Get Trustmark List String from Array
+ *@Param - trustmark_array - Array of trustmark identifiers
+ *@Returns none
+ */
+function getTrustmarkList(trustmark_array)
+{
+	var trustmark_list = "";
+
+	for(var index in trustmark_array)
+	{
+		trustmark_list += trustmark_array[index];
+		trustmark_list += "##TRUSTMARK##";
+	}
+
+	return trustmark_list;
+}
+
+
 /***
  *@Purpose: Insert Trustmark Definition in Cache
  *@Param: td_identifier - Trustmark Definition ID
@@ -81,15 +101,6 @@ function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc)
 		}	
 	}	
 }
-/**
- * Retrieve trustmarks
- * Params: website_url - URL of the website for which the trustmarks are being retrieved
- * Returns: trustmark XML
- */
-function retrieveTrustmarks(website_url)
-{
-	//console.log("Inside retrieve trustmarks");
-}
 
 
 /**
@@ -107,12 +118,13 @@ function getRecipientName(trustmark_json_str)
 /**
  *@Purpose - Add Recipient to Cache
  *@Parameters
- *	db - Database
- *	recipient_id - Recipient Identifier
- *	trustmark_json - Trustmark JSON string
+ *@Param-	db - Database
+ *@Param-	recipient_id - Recipient Identifier
+ *@Param-	trustmark_json - Trustmark JSON string
+ *@Param - overwriteTrustmarkList - if true, overwrites the existing trustmark list for a recipient with the new trustmark_id_val
  *@Returns none
  */
-function addRecipientToCache(db, recipient_id, trustmark_id_val, trustmark_json)
+function addRecipientToCache(db, recipient_id, trustmark_id_val, overwriteTrustmarkList)
 {
 	var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
 
@@ -129,19 +141,25 @@ function addRecipientToCache(db, recipient_id, trustmark_id_val, trustmark_json)
                 {
 		       //Update trustmark id to existing list
                        //console.log("Recipient " + recipientRequest.result.name + " found.");
-                       var trustmark_list_val =  recipientRequest.result.trustmark_list;
-                       trustmark_list_val += "##TRUSTMARK##";
-                       trustmark_list_val += trustmark_id_val;
 
-                       var newRow = { identifier : recipient_id, trustmark_list : trustmark_list_val, name: recipient_name };  
-                      recipientObjectStore.put(newRow);    
+		       var trustmark_list_val = trustmark_id_val;
+			
+		       //Append to the existing trustmark list	
+		       if(!overwriteTrustmarkList)
+		       {
+	                       trustmark_list_val =  recipientRequest.result.trustmark_list;
+        	               trustmark_list_val += "##TRUSTMARK##";
+                	       trustmark_list_val += trustmark_id_val;
+		       }
+	
+                       var newRow = { identifier : recipient_id, trustmark_list : trustmark_list_val };  
+                       recipientObjectStore.put(newRow);    
                       //console.log("Trustmark List: " + trustmark_list_val); 
                 }
                 else
                 {
                   	//Update trustmark id to list
-                        var recipient_name = getRecipientName(trustmark_json);
-                        var recipientRow = { identifier : recipient_id, trustmark_list : trustmark_id_val,name: recipient_name };
+                        var recipientRow = { identifier : recipient_id, trustmark_list : trustmark_id_val};
                         recipientObjectStore.add(recipientRow);
                         //console.log("Recipient added : " + recipient_name);
                 }
@@ -149,10 +167,22 @@ function addRecipientToCache(db, recipient_id, trustmark_id_val, trustmark_json)
 
 }
 
-function addTrustmarkDefToCache(db, trustmark_def_id_val, trustmark_def_name_val, trustmark_provider_name_val)
+/*****
+ *@Purpose - Delete trustmark from cache
+ *@Param - db - Database pointer
+ *@Param - trustmark_id_val - Trustmark ID
+ *@Returns none
+ */
+function deleteTrustmarkFromCache(db, trustmark_id_val)
 {
-	var trustmarkDefObjectStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+	var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
 
+        var trustmarkRequest = trustmarkObjectStore.delete(trustmark_id_val);
+
+	trustmarkRequest.onSuccess = function(event)
+	{
+		console.log("Deletion successful of trustmark from trustmark store: " + trustmark_id_val);
+	}
 
 }
 
@@ -190,6 +220,25 @@ function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustma
 
 }
 
+/****
+ *@Purpose - Delete a trustmark recipient mapping from cache
+ *@Param - db - Database pointer
+ *@Param - trustmark_id_val - Trustmark ID
+ *@Returns none
+ */
+function deleteTrustmarkMappingFromCache(db, trustmark_id_val)
+{
+	 var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
+
+	 var deleteRequest = trustmarkMappingObjectStore.delete(trustmark_id_val);
+	 
+	 deleteRequest.onsuccess = function(event)
+	 {
+		console.log("Trustmark successfully deleted from mapping: " + trustmark_id_val);
+
+	 }
+	
+}
 /*@Purpose - Add trustmark mapping to cache
  *@Parameters - db - Database pointer
  *	      - trustmark_id_val = Trustmark Identifier
@@ -277,14 +326,14 @@ function retrieveRecipientTrustmarks(recipient_id)
 						var trustmark_json = trustmarkRequest.result.trustmark_json;
 						var trustmark_json_obj = JSON.parse(trustmark_json);
 						var trustmarkname = trustmark_json_obj.Trustmark.TrustmarkDefinitionReference.Name
-						//console.log("Trustmark: " + trustmarkname);
+						console.log("Trustmark: " + trustmarkname);
 						test[i] = trustmarkname;
+						
 						i = i+1;
 					}
 					else
 					{
-						//console.log("Test: " + test);
-						//TODO: Handle
+
 					}
 				}
 
@@ -320,44 +369,19 @@ function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_
 	//console.log("Trustmark ID: " + trustmark_id);
 	//console.log("Trustmark Def ID:" + trustmark_def_id);
 */
-	addRecipientToCache(db, recipient_id, trustmark_def_id, trustmark_json);
+	var overwriteTrustmarkList = false;
+	addRecipientToCache(db, recipient_id, trustmark_def_id, false);
 	addTrustmarkToCache(db, trustmark_id, trustmark_def_id, trustmark_json);
 	addTrustmarkMappingToCache(db, trustmark_id, recipient_id, trustmark_def_id);
-	//if not exists, add trustmark-recipient mapping to store	
 
-	//TODO: Update existing trustmark
 }
 
-/**
- * Store trustmarks in IndexedDB cache
- * Params: website_url - URL of the website
-           trustmark_xml - Trustmark of the website
- */
-function storeTrustmarkInCache(website_url, trustmark_xml)
-{
-	//console.log("Inside store trustmark in cache");
-}
-
-/**
- * Retrieve Trustmarks from Cache
- * Params: website_url - Website URL
- */ 
-function retrieveTrustmarkFromCache(website_url)
-{
-	//console.log("Inside retrieve trustmark from cache");
-}
 
 exports.retrieveRecipientTrustmarks = retrieveRecipientTrustmarks;
-exports.retrieveTrustmarks = retrieveTrustmarks;
-exports.storeTrustmarkInCache = storeTrustmarkInCache;
-exports.retrieveTrustmarkFromCache = retrieveTrustmarkFromCache;
 exports.addTrustmarkRelationsToCache = addTrustmarkRelationsToCache;
 exports.insertTrustmarkDefinitionInCache = insertTrustmarkDefinitionInCache;
 exports.loadTrustmarkDefinitions = loadTrustmarkDefinitions;
-/*****
- TODO 1. Return trustmark array - See how to return a value upon success - See how to check if cursor ends
-      2. Trustmark Definition Cache
-      3. Provider Cache
-      4. Code comments
-      5. Signed trustmarks
-****/
+exports.deleteTrustmarkFromCache = deleteTrustmarkFromCache;
+exports.deleteTrustmarkMappingFromCache = deleteTrustmarkMappingFromCache;
+exports.getTrustmarkList = getTrustmarkList;
+exports.addRecipientToCache = addRecipientToCache;

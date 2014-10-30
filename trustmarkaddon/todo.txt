@@ -1,14 +1,17 @@
-1. Display policy in trustmarks sidebar and settings sidebar- 2
-2. Settings Sidebar - DONE
-3. ICON change - Apply overall policy - 3
-4. Status URL - Last Priority  - 4
-5. Get TIP from Server - 4
-6. TIPs for rest of companies - 5
-7. Fix descriptions in facebook trustmarks - 5
-8. Redo trustmarks for all companies according to new format -5
-9. Trustmark Validation support - 4
-10. Create policy support - 1 - DONE 
-11. Download trustmark - 8
-12. Reset to Defaults - 7
-13. Policy Upload - Check if policy id exists, policy unique name already exists - 6
-14. View which policy upon clicking on trustmarks
+1. Placeholder 1: Retrieve and update recipient trustmarks from server
+2. Placeholder 2: Check if recipient trustmarks match TIP
+3. Overall ICON change on overall TIP
+4. Panel - No trustmarks received if trustmarks are not there
+5. View TIP condition in sidebar
+6. View TIP condition upon clicking
+7. Get trustmarks for specific TIP for 'Create'
+8. Check if policy unique name already exists
+9. Redo all trustmarks according to new format/mapping
+10. Analysis
+
+
+---------------------------------
+1. Reset to Defaults
+2. Download trustmarks
+
+

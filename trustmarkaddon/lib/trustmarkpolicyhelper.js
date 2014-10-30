@@ -268,6 +268,19 @@ function getTIPTrustmarkJSONString(trustmark_list)
 	JSON.parse(jsonString);
 	return jsonString;
 }
+
+/***
+ *@Purpose -Placeholder: Check if Recipient trustmarks satisfy TIP
+ *@Param - recipient_id - Site hostname (www.facebook.com)
+ *@Param - tip_json -TIP JSON
+ *@Returns - true if recipient satisfies policy
+ */
+function doesRecipientSatisfiesPolicyUsingWebAPI(recipient_id, tip_json)
+{
+
+	//TODO: Placeholder for checking if recipient satisfies tip
+	return true;
+}
 	
 function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpanel)
 {
@@ -284,7 +297,6 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 	{
 		if(event.target.result)
 		{
-			console.log("Row found for recipient id:" + recipient_id);
 			var trustmark_list = event.target.result.trustmark_list;
 		
 			var tipObjectStore = db.transaction("tip").objectStore("tip");
@@ -302,34 +314,47 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 
                  		         if(isActive === "1")
                        			 {
-		                                console.log("Active tip id: " + results.tip_id);
 
-						var trust_expression = results.trust_expression;
-	                                        var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);                   
-        	                                for(let item of trustmarkSet)
-                	                        {
-                        	                        trust_expression = trust_expression.replace(item, 1);
-                                	        }
+						var overallEvaluationViaWebAPI = false;
 
-                                        	trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
-                                        	//TODO: Case insensitive replace
-	                                        trust_expression = trust_expression.replace(/and/g, "&&");
-        	                                trust_expression = trust_expression.replace(/or/g, "||");
+						if(overallEvaluationViaWebAPI)
+						{
+							//TODO: Placeholder for GTRI integration for TIP verification
+							doesRecipientSatisfiesPolicyUsingWebAPI(recipient_id, results.tip_json);
+						}
+						else
+						{
+							//Simple evaluation of trust expression
 
-                	                        var result = eval("(" + trust_expression + ")");
+							var trust_expression = results.trust_expression;
+		                                        var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);                   
+        	        	                        for(let item of trustmarkSet)
+                	        	                {
+                        	        	                trust_expression = trust_expression.replace(item, 1);
+        	                        	       	 }
+	
+                	                        	trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
+                        	                	//TODO: Case insensitive replace
+	                        	                trust_expression = trust_expression.replace(/\sand\s/g, "&&");
+        	                        	        trust_expression = trust_expression.replace(/\sor\s/g, "||");
+							trust_expression = trust_expression.replace(/\sAND\s/g, "&&");
+							trust_expression = trust_expression.replace(/\sOR\s/g, "||");
 
-                        	                if(result)
-                                	        {
-                                        	        trustmarkpanel.port.emit("passedtip", tip_divname, recipient_id);
-                                                	console.log("The recipient has matched policy");
-                                        	}
-	                                        else
-        	                                {
-                	                                trustmarkpanel.port.emit("failedtip", tip_divname, recipient_id);
-                        	                        console.log("The recipient has not matched policy");
-                                	        }
+                	                       		 var result = eval("(" + trust_expression + ")");
 
-					 }
+	                        	                if(result)
+        	                        	        {
+                	                        	        trustmarkpanel.port.emit("passedtip", tip_divname, recipient_id);
+                        	                        	console.log("The recipient has matched policy");
+                                	        	}
+	                                	        else
+        	                                	{
+                	                                	trustmarkpanel.port.emit("failedtip", tip_divname, recipient_id);
+                     		   	                        console.log("The recipient has not matched policy");
+                                		        }
+
+						 }
+					}
 				
 					cursor.continue();
                 	        }

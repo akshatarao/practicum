@@ -18,10 +18,12 @@ function printTrustmarkList(trustmarkarray)
 tabs.on('activate', function(tab) {
 	console.log('tab is active', tab.url);
 
-	var url = urls.URL(tabs.url);
-        var site = url.host;
-
-	onPageLoad(site);
+	if(!tab.url.startsWith("about"))
+	{
+		var url = urls.URL(tab.url);
+        	var site = url.host;
+		onPageLoad(site);
+	}
 
 });
 

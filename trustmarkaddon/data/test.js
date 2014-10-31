@@ -119,8 +119,39 @@ function reset()
 }
 reset();
 
-self.port.on("hi", function onHi()
+self.port.on("resetpanel", function onResetPanel()
 {
         reset();
+});
+
+self.port.on("notrustmarks", function onNoTrustmarksReceived(recipient)
+{
+	
+	var overallmessagediv = document.getElementById("overall-policy");
+
+	var overallMessage = "";
+	if(recipient)
+	{
+		overallMessage = "The privacy policy for <font color='#0066FF'>" + recipient + "</font> has not yet been reviewed.";
+
+	}
+	else
+	{
+        	overallMessage  = "No website is open in this tab.";
+	}
+
+	overallmessagediv.innerHTML = overallMessage;
+	//Change icon to grey
+
+	var tipdivs = document.getElementsByClassName('tip');
+
+        for(var index = 0; index < tipdivs.length; index++)
+        {
+                var tip = tipdivs[index];
+
+                tip.style.display = "none";
+        }
+
+
 });
 

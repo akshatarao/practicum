@@ -1,14 +1,12 @@
-1. Placeholder 1: Retrieve and update recipient trustmarks from server
-2. Placeholder 2: Check if recipient trustmarks match TIP
 3. Overall ICON change on overall TIP
-4. Panel - No trustmarks received if trustmarks are not there
 5. View TIP condition in sidebar
 6. View TIP condition upon clicking
 7. Get trustmarks for specific TIP for 'Create'
 8. Check if policy unique name already exists
 9. Redo all trustmarks according to new format/mapping
 10. Analysis
-
+11. Test with two sites
+12. Dispose panel if sidebar open, Dispose sidebar if panel on
 
 ---------------------------------
 1. Reset to Defaults

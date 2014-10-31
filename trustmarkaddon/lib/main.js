@@ -4,7 +4,6 @@
 */
 
 //Load all related components
-var pageloader = require("./pageloadhandler.js");
 var panelviewer = require("./panelviewer.js");
 var trustmarkhelper = require("./trustmarkhelper.js");
 var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
@@ -461,8 +460,9 @@ function createFile()
     // Handle error!
     return;
   }});
-
 }
+
+
 
 initDB();
 loadPrepackagedData();

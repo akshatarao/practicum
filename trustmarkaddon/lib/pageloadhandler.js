@@ -15,33 +15,6 @@ function printTrustmarkList(trustmarkarray)
 	console.log("Trustmark array: " + trustmarkarray);
 }
 
-tabs.on('activate', function(tab) {
-	console.log('tab is active', tab.url);
-
-	if(!tab.url.startsWith("about"))
-	{
-		var url = urls.URL(tab.url);
-        	var site = url.host;
-		onPageLoad(site);
-	}
-
-});
-
-tabs.on('ready', function(tab)
-{
-	console.log('tab is loaded', tab.title, tab.url);
-	
-	if(tab === tabs.activeTab)
-	{
-		console.log("Im the active tab" + tab.url);
-
-		var url = urls.URL(tab.url);
-	        var site = url.host;
-
-		onPageLoad(site);
-	}
-});
-
 function isEmpty(str)
 {
 	if(str && str.length > 0)
@@ -78,6 +51,20 @@ function getRecipientTrustmarkArray(trustmark_list)
  */
 function getRecipientActiveTrustmarkIDListFromServer(recipient_id)
 {
+
+	
+	var prepackaged_trustmarks_sites = [];
+	prepackaged_trustmarks_sites.push("www.facebook.com");
+
+	for(var index in prepackaged_trustmarks_sites)
+	{
+		var site = prepackaged_trustmarks_sites[index];
+
+		if(recipient_id === site)
+			return "DUMMY_TRUSTMARK_IDS";
+
+	}
+
 	//TODO: Insert web service here to contact the trustmark server
 	return "";
 }
@@ -294,16 +281,21 @@ function verifyIfLatestRecipientTrustmarksAreInCache(recipient_id, recipientActi
 /**
  * Loads the page with a privacy warning frame 
  */
-function onPageLoad(recipient_id)
+function onPageLoad(recipient_id, trustmarkpanel)
 {
 
 	var recipientActiveTrustmarkIDs = getRecipientActiveTrustmarkIDListFromServer(recipient_id);
 	console.log("Got Recipient Active Trustmark IDs from Server: " + recipient_id);
 
-	verifyIfLatestRecipientTrustmarksAreInCache(recipient_id, recipientActiveTrustmarkIDs);
-	console.log("Verified If recipient trustmarks are in cache: " + recipient_id);
-
-	console.log("page load");
+	if(!isEmpty(recipientActiveTrustmarkIDs))
+	{
+		verifyIfLatestRecipientTrustmarksAreInCache(recipient_id, recipientActiveTrustmarkIDs);
+		console.log("Verified If recipient trustmarks are in cache: " + recipient_id);
+	}
+	else
+	{
+		trustmarkpanel.port.emit("notrustmarks", recipient_id);
+	}
 }
 
 exports.onPageLoad = onPageLoad;

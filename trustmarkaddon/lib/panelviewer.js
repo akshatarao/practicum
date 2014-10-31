@@ -10,6 +10,7 @@ var urls = require("sdk/url");
 
 var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
 var trustmarkhelper = require("./trustmarkhelper.js");
+var pageloadhandler = require("./pageloadhandler.js");
 var { indexedDB }  = require('sdk/indexed-db');
 
 
@@ -136,7 +137,7 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			onHide: function()
 			{
 				sidebar.dispose();
-				trustmarkpanel.port.emit("hi");
+				trustmarkpanel.port.emit("resetpanel");
 			}
 			});
 
@@ -216,6 +217,29 @@ function hideTrustmarks()
 {
   togglebutton.state('window', {checked:false});
 } 
+
+tabs.on('activate', function(tab) {
+        console.log('tab is active', tab.url);
+
+        var url = urls.URL(tab.url);
+        var site = url.host;
+        pageloadhandler.onPageLoad(site, trustmarkpanel);
+
+});
+
+tabs.on('ready', function(tab)
+{
+        console.log('tab is loaded', tab.title, tab.url);
+
+        if(tab === tabs.activeTab)
+        {
+                console.log("Im the active tab" + tab.url);
+                var url = urls.URL(tab.url);
+                var site = url.host;
+
+                pageloadhandler.onPageLoad(site, trustmarkpanel);
+        }
+});
 
 exports.displayTrustmarks = displayTrustmarks;
 exports.setToggleButton = setToggleButton;

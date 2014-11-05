@@ -6,7 +6,7 @@ var { indexedDB }  = require('sdk/indexed-db');
  Created by: ARao
 **/
 
-function loadTrustmarkDefinitions(worker)
+function loadTrustmarkDefinitions(worker, tip_type)
 {
 	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
 	var db;
@@ -30,12 +30,20 @@ function loadTrustmarkDefinitions(worker)
 
 			if(cursor)
 			{
+				
 				var td = cursor.value;
-				var td_id = td.identifier;
-				var td_name = td.name;
-				var td_desc = td.description;
-				var td_array = [td_id, td_name, td_desc];
-				test.push(td_array);
+
+				var td_tip_type = td.tip_type;
+
+				if(td_tip_type === tip_type)
+				{
+					var td_id = td.identifier;
+					var td_name = td.name;
+					var td_desc = td.description;
+					var td_array = [td_id, td_name, td_desc];
+					test.push(td_array);
+				}
+
 				cursor.continue();
 			}
 			else
@@ -74,7 +82,7 @@ function getTrustmarkList(trustmark_array)
  *@Param: td_desc - Trustmark Description
  *@Returns: none
  */
-function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc)
+function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc, td_tip_type)
 {
 	var trustmarkDefObjectStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
 
@@ -90,7 +98,7 @@ function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc)
 		if(!event.target.result)
 		{
 			//console.log("TD ID: " + td_identifier + "TD Name: " + td_name + "TD Desc: " + td_desc);
-			var trustmarkRow = { identifier : td_identifier, name : td_name, description: td_desc};
+			var trustmarkRow = { identifier : td_identifier, name : td_name, description: td_desc, tip_type: td_tip_type};
 
 			trustmarkDefObjectStore.add(trustmarkRow);	
 			

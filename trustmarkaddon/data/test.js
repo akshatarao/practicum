@@ -1,3 +1,8 @@
+/********
+ *@Purpose - Functions to display TIPs panel content
+ *         - Displays the failed TIPs
+ *         - Supports click on TIPs and sends message to panel to display TIP sidebar
+ */
 function displayOverallPrinciplesPassed(recipient)
 {
 	 var tipdivs = document.getElementsByClassName('tip')

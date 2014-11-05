@@ -1,4 +1,7 @@
-
+/******
+ *@Purpose - Shows failed and passed trustmarks
+ *
+ */
 function isEmpty(str)
 {
 	return (!str || 0 === str.length);

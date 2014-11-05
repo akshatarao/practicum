@@ -20,7 +20,7 @@ var button = ToggleButton({
   id: "show-panel",
   label: "Show Panel",
   icon: {
-    "16": "./icon-16.png"
+    "32": "./icon-16.png"
   },
   onClick: displayTrustmarkPanel
 });
@@ -31,6 +31,8 @@ var button = ToggleButton({
  */
 function displayTrustmarkPanel(state)
 {
+
+	console.log(JSON.stringify(button.icon));
 	if(state.checked)
 	{
 		panelviewer.displayTrustmarks(button);
@@ -139,6 +141,7 @@ function createTrustmarkDefinitionStore(db)
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
 	objectStore.createIndex("name", "name", {unique:true});
 	objectStore.createIndex("description", "description", {unique:false});
+	objectStore.createIndex("tip_type", "tip_type", {unique:false});
 }
 /**
  *@Purpose Retrieve Recipient Trustmark Mapping Store Name
@@ -321,8 +324,9 @@ function getDefaultTrustmarkDefs()
 			var td_name = td.TrustmarkDefinition.Name;
 			var td_desc = td.TrustmarkDefinition.Description;
 			var td_identifier = td.TrustmarkDefinition.Identifier;
+			var td_tip_type = td.TrustmarkDefinition.TIP;
 
-			trustmarkhelper.insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc);
+			trustmarkhelper.insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc, td_tip_type);
 	
 		}	
 	}	

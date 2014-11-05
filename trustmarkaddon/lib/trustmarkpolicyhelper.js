@@ -34,7 +34,6 @@ function getTIPNicknameList(tip_type,worker)
 		var policyIndex = tipObjectStore.index("type");
 		var policyRequest = policyIndex.openCursor(tip_type);
 		var tip_array = [];
-		console.log("Im here!");
 		policyRequest.onsuccess = function(event)
 		{	
 			var cursor = event.target.result;
@@ -42,14 +41,12 @@ function getTIPNicknameList(tip_type,worker)
 			if(cursor)
 			{
 				var tip = cursor.value;
-				console.log("Nickname: " + tip.nickname);
 				tip_array.push(tip.nickname);
 
 				cursor.continue();
 			}
 			else
 			{
-				console.log("TIP_Array: " + tip_array);
 				worker.port.emit("tipreceive", tip_array);
 			}
 		}
@@ -59,6 +56,42 @@ function getTIPNicknameList(tip_type,worker)
 
 }
 
+
+function checkIfTipNameIsUnique(worker, tip_name, tip_type, tip_expr)
+{
+	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
+
+        dbOpenRequest.onsuccess = function(event)
+        {
+                db = event.target.result;
+		var tipObjectStore = db.transaction("tip").objectStore("tip");
+		var tipRequest = tipObjectStore.openCursor();
+                var overallFailed = false;
+
+               	tipRequest.onsuccess = function(event)
+                {
+                           var cursor = event.target.result;
+
+                           if(cursor)
+                           {
+                           	var tip = cursor.value;
+				if(tip.nickname === tip_name)
+				{
+					worker.port.emit("duplicatetipname");	
+				}
+				else
+				{
+					cursor.continue();
+				}			
+			   }
+			   else
+			   {
+				worker.port.emit("uniquetipname", tip_name, tip_type, tip_expr);
+			   }	
+		}
+	}
+			
+}
 /********************************************
  * @Purpose : Applies custome user policy
  * @Param : tip_nickname - TIP Custom Name
@@ -281,6 +314,102 @@ function doesRecipientSatisfiesPolicyUsingWebAPI(recipient_id, tip_json)
 	//TODO: Placeholder for checking if recipient satisfies tip
 	return true;
 }
+
+function evaluateTrustmarkExpression(trust_expression, trustmark_list)
+{
+	var result = true;
+        var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);   
+        for(let item of trustmarkSet)
+        {
+                 trust_expression = trust_expression.replace(item, 1);
+        }
+
+        trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
+        trust_expression = trust_expression.replace(/\sand\s/g, "&&");
+        trust_expression = trust_expression.replace(/\sor\s/g, "||");
+        trust_expression = trust_expression.replace(/\sAND\s/g, "&&");
+        trust_expression = trust_expression.replace(/\sOR\s/g, "||");
+
+        result = eval("(" + trust_expression + ")");
+
+	return result;
+}
+
+function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
+{
+	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
+
+	dbOpenRequest.onsuccess = function(event)
+	{
+		db = event.target.result;
+	var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
+	var recipientRequest = recipientObjectStore.get(recipient_id);
+
+	recipientRequest.onsuccess = function(event)
+	{
+
+		var recipient = event.target.result;
+
+		if(recipient)
+		{
+			var trustmark_list = recipient.trustmark_list;
+
+			var tipObjectStore = db.transaction("tip").objectStore("tip");
+
+			var tipRequest = tipObjectStore.openCursor();
+			var overallFailed = false;
+
+			tipRequest.onsuccess = function(event)
+			{
+				var cursor = event.target.result;
+
+				if(cursor)
+				{
+
+					var tip = cursor.value;
+					if(tip.isActive === "1")
+					{
+						var trust_expression = tip.trust_expression;
+
+						var result = evaluateTrustmarkExpression(trust_expression,trustmark_list);
+						if(!result)
+							overallFailed = true;
+					}
+
+					if(!overallFailed)
+					{
+						cursor.continue();
+					}
+					else
+					{
+						var icon = new Object();
+        			                var jsonString = '{"32" : "./redshield.jpg"}';
+	                        		button.icon  = JSON.parse(jsonString);
+					}
+				}
+				else
+				{
+					if(!overallFailed)
+					{
+						var icon = new Object();
+			                        var jsonString = '{"32" : "./greenshield.jpg"}';
+                        			button.icon  = JSON.parse(jsonString);
+					}
+				}
+
+			}
+			
+		}
+		else
+		{
+			var icon = new Object();
+			var jsonString = '{"32" : "./questionmark.png"}';
+                        button.icon  = JSON.parse(jsonString);
+		}
+	}
+	}
+
+}
 	
 function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpanel)
 {
@@ -327,20 +456,7 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 							//Simple evaluation of trust expression
 
 							var trust_expression = results.trust_expression;
-		                                        var trustmarkSet = getRecipientTrustmarkSet(trustmark_list);                   
-        	        	                        for(let item of trustmarkSet)
-                	        	                {
-                        	        	                trust_expression = trust_expression.replace(item, 1);
-        	                        	       	 }
-	
-                	                        	trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
-                        	                	//TODO: Case insensitive replace
-	                        	                trust_expression = trust_expression.replace(/\sand\s/g, "&&");
-        	                        	        trust_expression = trust_expression.replace(/\sor\s/g, "||");
-							trust_expression = trust_expression.replace(/\sAND\s/g, "&&");
-							trust_expression = trust_expression.replace(/\sOR\s/g, "||");
-
-                	                       		 var result = eval("(" + trust_expression + ")");
+							var result = evaluateTrustmarkExpression(trust_expression, trustmark_list);
 
 	                        	                if(result)
         	                        	        {
@@ -787,6 +903,8 @@ exports.applyUserPolicy = applyUserPolicy
 exports.resetPolicy = resetPolicy 
 exports.getTIPNicknameList = getTIPNicknameList
 exports.getTIPExpressionText = getTIPExpressionText
+exports.checkIfRecipientSatisfiesAllActiveTIPs = checkIfRecipientSatisfiesAllActiveTIPs
+exports.checkIfTipNameIsUnique = checkIfTipNameIsUnique;
 /**
  *NOTES
  1. Not handling TIP/Trustmark Updation over time

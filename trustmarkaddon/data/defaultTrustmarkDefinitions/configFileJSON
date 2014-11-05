@@ -7,21 +7,24 @@
 			{ "TrustmarkDefinition" : {
 						"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml",
 						"Name": "Access to inspect personal data",
-						"Description" : "Access to inspect personal data"
+						"Description" : "Access to inspect personal data",
+						"TIP" : "access"
 					}
 			},
 			{
 				"TrustmarkDefinition" : {
 						"Identifier":"http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/modify.xml",
 						"Name": "Access to modify personal data",
-						"Description" : "Access to modify personal data"
+						"Description" : "Access to modify personal data",
+						"TIP": "access"
 				}
 			},
 			{
 				"TrustmarkDefinition" : {
                                                 "Identifier":"http://trustmark.gtri.gatech.edu/sampletds/access/activitydata/inspect.xml",            
                                                 "Name": "Access to inspect activity metadata",
-                                                "Description" : "Access to inspect activity metadata"
+                                                "Description" : "Access to inspect activity metadata",
+						"TIP" : "access"
                                 }
 
 			},
@@ -29,7 +32,8 @@
 				"TrustmarkDefinition" : {
 					"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datadisclosure.xml",
 	                                "Name": "Minimize Data Disclosure via Opt-in Consent",
-        	                        "Description": "Enables users to choose to disclose their data via opt-in consent" 
+        	                        "Description": "Enables users to choose to disclose their data via opt-in consent",
+					"TIP" : "minimization" 
  
 				}
 			},
@@ -37,49 +41,56 @@
 				"TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datadisclosure.xml",
 	                                "Name": "Minimize Data Disclosure via Opt-out Consent",
-        	                        "Description" : "Enables users to choose not to disclose their data via opt-out consent"
+        	                        "Description" : "Enables users to choose not to disclose their data via opt-out consent",
+					"TIP" : "minimization"
 				}
 			},
 			{
                                 "TrustmarkDefinition" : {
                                         "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datause.xml",                        
                                         "Name": "Minimize Data Use via Opt-in consent",
-                                        "Description" : "Enables users to control usage of their data via opt-in consent"
+                                        "Description" : "Enables users to control usage of their data via opt-in consent",
+					"TIP" : "minimization"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
                                         "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datause.xml",
                                         "Name": "Minimize Data Use via Opt-out consent",
-                                        "Description" : "Enables users to control usage of their data via opt-out consent"
+                                        "Description" : "Enables users to control usage of their data via opt-out consent",
+					"TIP" : "minimization"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
                                         "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datacollection.xml",
                                         "Name": "Minimize Data Collection via Opt-in consent",
-                                        "Description" : "Enables users to allow collection of their data via opt-in consent"
+                                        "Description" : "Enables users to allow collection of their data via opt-in consent",
+					"TIP" : "minimization"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
                                         "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datause.xml",
                                         "Name": "Minimize Data Use via Specified Purpose",
-                                        "Description" : "Specifies the uses of collected user data"
+                                        "Description" : "Specifies the uses of collected user data",
+					"TIP" : "minimization"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 	                               	"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datacollection.xml",
         	                        "Name" : "Minimize Data Collection via Opt-out consent",
-                	                "Description" : "Enables users to deny collection of their data via opt-out consent"
+                	                "Description" : "Enables users to deny collection of their data via opt-out consent",
+					"TIP" : "minimization"
 				 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/dataretention.xml",
 	                                "Name" : "Minimize Data Retention via Opt-out consent",
-        	                        "Description" : "Enables users to deny retention of their data via opt-out consent"
+        	                        "Description" : "Enables users to deny retention of their data via opt-out consent",
+					"TIP" : "minimization"
 
                                  }
                         },
@@ -87,14 +98,16 @@
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/dataretention.xml",
 	                                "Name" : "Minimize Data Retention via Opt-in consent",
-        	                        "Description" : "Enables users to allow retention of their data via opt-in consent"
+        	                        "Description" : "Enables users to allow retention of their data via opt-in consent",
+					"TIP" : "minimization"
                                  }
                         },
 			{	
                                 "TrustmarkDefinition" : {
                                         "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/collection.xml",
         	                        "Name" : "Minimize Data Collection via Specified Purpose",
-	                                "Description" : "Specifies the purposes for which user data is collected"
+	                                "Description" : "Specifies the purposes for which user data is collected",
+					"TIP" : "minimization"
 
 				 }
                         },
@@ -102,14 +115,16 @@
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datadisclosure.xml",
 	                                "Name" : "Minimize Data Disclosure via Specified Purpose",
-        	                        "Description" : "Specifies the purposes of sharing user data"
+        	                        "Description" : "Specifies the purposes of sharing user data",
+					"TIP" : "minimization"
                                  }
                         },
 			{
                                 "TrustmarkDefinition" : {
                         		"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/dataretention.xml",
 	                                "Name" : "Minimize Data Retention via Specified Purpose",
-        	                        "Description" : "Specifies the purposes for retaining user data"
+        	                        "Description" : "Specifies the purposes for retaining user data",
+					"TIP" : "minimization"
         
 				 }
                         },
@@ -117,42 +132,48 @@
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/dataaggregation.xml",
 	                                "Name" : "Minimize Data Aggregation and Linkages Between Transactions",
-	                                "Description" : "Minimizes data aggregation and linkages across collected data"
+	                                "Description" : "Minimizes data aggregation and linkages across collected data",
+					"TIP" : "minimization"
                                  }
                         },
 			{
                                 "TrustmarkDefinition" : {
 	                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/datadisclosure/destinationproperties.xml",
         	                        "Name" : "Minimize Data Disclosure via Destination Properties",
-                	                "Description" : "Ensures user data is disclosed to verified and accountable parties"
+                	                "Description" : "Ensures user data is disclosed to verified and accountable parties",
+					"TIP" : "minimization"
 				 }      
                         },
 			{
                                 "TrustmarkDefinition" : {
 	                                "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/contactinfo.xml",
         	                        "Name": "Accountability through presentation of contact information",
-                	                "Description" : "Presents contact information for handling grievances"
+                	                "Description" : "Presents contact information for handling grievances",
+					"TIP" : "accountability"
 				 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 	                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/dataactivity.xml",
                 	                "Name" : "Accountability through notification of data activity",
-         	                        "Description" : "Notifies users of operations performed on their data"
+         	                        "Description" : "Notifies users of operations performed on their data",
+					"TIP" : "accountability"
 				}
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/collecteddata.xml",
 	                                "Name" : "Accountability through notification of collected data types",
-        	                        "Description" : "Notifies users of types of data collected"
+        	                        "Description" : "Notifies users of types of data collected",
+					"TIP" : "accountability"
                                 }
                         },
  			{ 	
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/policycomplexity.xml",
                 	                "Name" : "Transparency through Minimal Policy and Purpose Complexity and Update Frequency",
-                        	        "Description" : "Has an easy-to-understand, rarely updated privacy policy"
+                        	        "Description" : "Has an easy-to-understand, rarely updated privacy policy",
+					"TIP" : "transparency"
 
                                 }
                         },
@@ -160,21 +181,24 @@
                                 "TrustmarkDefinition" : {
                                        "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/specifiedpurpose/explicit.xml",
 	                                "Name" : "Accountability through explicit purpose specification",
-        	                        "Description" : "Explicitly specifies the purpose of data collection and use"
+        	                        "Description" : "Explicitly specifies the purpose of data collection and use",
+					"TIP" : "transparency"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/legitimacy.xml",
                                 	"Name" : "Transparency through specification of legitimacy of data accessor",
-	                                "Description" : "Specifies the legitimacy of data access by affliations and third parties"
+	                                "Description" : "Specifies the legitimacy of data access by affliations and third parties",
+					"TIP" : "transparency"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/purposespecification/breachdisclosure.xml",
 	                                "Name" : "Transparency through notification of breach disclosure",
-        	                        "Description" : "Notifies users of data breaches immediately"
+        	                        "Description" : "Notifies users of data breaches immediately",
+					"TIP" : "transparency"
 
                                 }
                         },	
@@ -182,28 +206,32 @@
                                 "TrustmarkDefinition" : {
 					"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/access.xml",
 	                                "Name": "Accountability through provision of technical mechanisms for access",
-        	                        "Description": "Has technical means that enable user access to collected user data"
+        	                        "Description": "Has technical means that enable user access to collected user data",
+					"TIP" : "accountability"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/technicalcontrols/activity.xml",
 	                                "Name" : "Accountability through provision of technical mechanisms for viewing data activity",
-        	                        "Description" : "Has technical means enabling users to view all operations on their data"
+        	                        "Description" : "Has technical means enabling users to view all operations on their data",
+					"TIP" : "accountability"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/redress/correctpersonaldata.xml",
 	                                "Name" : "Allow redress through correction of personal data",
-	                                "Description" : "Enables user correction of inaccurate collected data"
+	                                "Description" : "Enables user correction of inaccurate collected data",
+					"TIP" : "accountability"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/redress/breachmitigation.xml",
 	                                "Name" : "Mitigate Effects of Policy Non-adherence and Breaches",
-	                                "Description" : "Mitigates damages caused by data breaches or non-adherence to privacy policy"
+	                                "Description" : "Mitigates damages caused by data breaches or non-adherence to privacy policy",
+					"TIP" : "accountability"
 
                                 }
                         },
@@ -211,42 +239,48 @@
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/databindingtopolicy/termination.xml",
 	                                "Name" : "Mitigate Data Binding on Relationship Termination",
-	                                "Description" : "Deletion of collected user data upon termination of user account"
+	                                "Description" : "Deletion of collected user data upon termination of user account",
+					"TIP" : "accountability"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/databindingtopolicy/policybinding.xml",
 	                                "Name" : "Ensure Binding of Data to Policy under which Data was Collected",
-        	                        "Description" : "Ensures site activity on collected data adheres to privacy policy under which it was collected"
+        	                        "Description" : "Ensures site activity on collected data adheres to privacy policy under which it was collected",
+					"TIP" : "accountability"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/dataprovenance.xml",
 	                                "Name" : "Accountability through maintaining data provenance",
-	                                "Description" : "Records origin from which data was collected"
+	                                "Description" : "Records origin from which data was collected",
+					"TIP" : "accountability"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/dataquality/dataaccuracy/dataaccuracy.xml",
 	                                "Name": "Maintain Data Quality through Data Accuracy",
-        	                        "Description": "Ensures that the collected data is accurate"
+        	                        "Description": "Ensures that the collected data is accurate",
+					"TIP" : "dataquality"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/dataquality/dataaccuracy/datacompletion.xml",
 	                                "Name": "Maintain Data Quality through Data Completeness",
-        	                        "Description" : "Ensures that the collected data is complete"
+        	                        "Description" : "Ensures that the collected data is complete",
+					"TIP" : "dataquality"
                                 }
                         },
 			{
                                 "TrustmarkDefinition" : {
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/dataquality/dataaccuracy/datafreshness.xml",
 	                                "Name": "Maintain Data Quality through Data Freshness",
-        	                        "Description" : "Ensures that the collected data is fresh"
+        	                        "Description" : "Ensures that the collected data is fresh",
+					"TIP" : "dataquality"
                                 }
                         }
 		]

@@ -67,13 +67,13 @@
 <body style="background:#DEEFFF">
 <div class="tabs">
     <div class="tab-links">
-        <div id="upload" class="tab-head" style="background:#00407F;color:white" title="Upload a custom privacy ruleset">Upload</div>
-        <div id="apply" class="tab-head" title="Apply an existing privacy ruleset">Apply</div>
+        <div id="upload" class="tab-head" style="background:#00407F;color:white;display:none" title="Upload a custom privacy ruleset">Upload</div>
+        <div id="apply" class="tab-head" style="background:#00407F;color:white;" title="Apply an existing privacy ruleset">Apply</div>
         <div id="create" class="tab-head" title="Create a new privacy ruleset">Create</div>
 	<div id="view" class="tab-head" title="View a privacy ruleset">View</div>
     </div>
    <div class="tab-content">
-   	 <div id="upload-content" class="content" style="display:block">
+   	 <div id="upload-content" class="content2" style="display:none">
        		 <img src="upload-icon.jpg" height="80" width="100">
 		 <br>
 		 <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
@@ -110,7 +110,7 @@
 			<div id="overall_error" class="errormessage"></div>
 		</div>
 	 </div>
-	 <div id="apply-content"  class="content" style="display:none">
+	 <div id="apply-content"  class="content" style="display:block">
 
   		 <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
                       <img src="change-button.jpg" height="100" width="100"> 
@@ -162,7 +162,7 @@
 		<br>
 		<div>
 			<p><font size="2"><b>2. Select privacy principle your policy applies to.</b></font></p>
-			<select id="policy_type_create" style="width: 90%">
+			<select id="policy_type_create" style="width: 90%"  onchange="sendTIPTypeForTrustmarks();">
                               	<option value="none" default selected>Choose Privacy Principle</option>
                                 <option value="minimization">Minimization of Data Activity</option>
                                 <option value="transparency">Transparency of privacy practices</option>
@@ -300,10 +300,6 @@ function onClickListener(event)
 
                 if(divelement.id === contentelementid)
                 {
-			if(event.target.id === "create")
-			{
-				addon.port.emit("loadtrustmarkdefs");
-			}
 
                         divelement.style.display = "block";
                 }
@@ -632,6 +628,34 @@ function sendTIPType()
 	}
 }
 
+function sendTIPTypeForTrustmarks()
+{
+	var e = document.getElementById("policy_type_create");
+	var tip_type = e.options[e.selectedIndex].value;
+
+	if(e.selectedIndex > 0)
+	{
+		clearMessage("policytype_create_error");
+		addon.port.emit("loadtrustmarkdefs", tip_type);
+	}
+	else
+	{
+		var errorMessage = "Select a policy type.";
+		displayMessage(errorMessage, "policytype_create_error", "ERROR");
+		var e = document.getElementById("trustmarkdefs");
+
+		var size = e.length;
+		while( size > 1)
+		{
+			e.remove(size-1);
+			size--;
+		}
+
+	}
+	
+
+}
+
 addon.port.on("receivetrustmarkdefs", function onTrustmarkDefinitionLoad(td_arraymap) {
 	var e = document.getElementById("trustmarkdefs");
 
@@ -894,15 +918,33 @@ function createTIP()
 		displayMessage(errorMessage, "policycreate_overall_error", "ERROR");	
 	}
 	else
-	{	
-		var tip_json = createTIPJSON(tip_name, tip_type, tip_expr);
-		displayMessage("Successfully created policy!", "policycreate_overall_error", "SUCCESS");
-		clearCreateContents();
-		addon.port.emit("policypassed", tip_name, tip_type, tip_json);
-
-
+	{
+		addon.port.emit("checkuniquetipname", tip_name, tip_type, tip_expr);		
 	}	
 	
+}
+
+addon.port.on("duplicatetipname", function tipNameExists()
+{
+	var tipNameErrorMessage = "Policy name already exists."
+	displayMessage(tipNameErrorMessage, "policyname_create_error", "ERROR");
+
+	var errorMessage = "One or more inputs are invalid. Check above for errors";
+        displayMessage(errorMessage, "policycreate_overall_error", "ERROR");
+	
+});
+
+addon.port.on("uniquetipname", function tipNameDoesntExist(tip_name, tip_type, tip_expr)
+{
+	var tip_json = createTIPJSON(tip_name, tip_type, tip_expr);
+        displayMessage("Successfully created policy!", "policycreate_overall_error", "SUCCESS");
+        clearCreateContents();
+        addon.port.emit("policypassed", tip_name, tip_type, tip_json);
+});
+
+function checkIfPolicyNameIsUnique()
+{
+
 }
 reset();
 

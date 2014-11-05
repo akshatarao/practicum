@@ -27,16 +27,16 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		if(message === "overallpassed")
 		{
 
-			var icon = new Object();
-		        var jsonString = '{"16" : "./view_icon.png"}';
-		        togglebutton.icon  = JSON.parse(jsonString);
+			//var icon = new Object();
+		        //var jsonString = '{"32" : "./greenshield.png"}';
+		        //togglebutton.icon  = JSON.parse(jsonString);
 		}
 		else if(message === "overallfailed")
 		{
 			console.log("OVerall Failed");
-			 var icon = new Object();
-                        var jsonString = '{"16" : "./view_icon.png"}';
-                        togglebutton.icon  = JSON.parse(jsonString);
+			// var icon = new Object();
+                        //var jsonString = '{"32" : "./redshield.png"}';
+                        //togglebutton.icon  = JSON.parse(jsonString);
 
 		}
 		else if(message === "settings")
@@ -58,10 +58,10 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			onAttach: function(worker)
 			{
 
-				worker.port.on("loadtrustmarkdefs", function()
+				worker.port.on("loadtrustmarkdefs", function(tip_type)
 				{
 					console.log("In Load");
-					trustmarkhelper.loadTrustmarkDefinitions(worker);
+					trustmarkhelper.loadTrustmarkDefinitions(worker, tip_type);
 				});
 
 				worker.port.on("policypassed", function(policyName, policyType, tip_json) {
@@ -83,6 +83,11 @@ var trustmarkpanel = require("sdk/panel").Panel({
 
 					trustmarkpolicyhelper.applyUserPolicy(tip_nickname, tip_type);
 				});
+
+				worker.port.on("checkuniquetipname", function(tip_name, tip_type, tip_expr)
+				{
+					trustmarkpolicyhelper.checkIfTipNameIsUnique(worker, tip_name, tip_type, tip_expr);
+				});	
 			}
 			
 		      });
@@ -151,6 +156,8 @@ trustmarkpanel.on("show", function()
 
 	var url = urls.URL(tabs.activeTab.url);
 	console.log("URL is: " + url);
+	console.log("Button" + JSON.stringify(togglebutton.icon));
+
 	iterateThroughTIPs(url.host);
 
 
@@ -185,12 +192,6 @@ var togglebutton;
 function setToggleButton(button)
 {
 	togglebutton = button;
-
-	/*var icon = new Object();
-        var jsonString = '{"16" : "./view_icon.png"}';
-        togglebutton.icon  = JSON.parse(jsonString);
-        */
-
 }
 
 /**
@@ -198,16 +199,10 @@ function setToggleButton(button)
  */
 function displayTrustmarks(button)
 {
-	//TODO: On page load - check and set icon
-	/*var icon = new Object();
-	var jsonString = '{"16" : "./view_icon.png"}';
-	button.icon  = JSON.parse(jsonString);
-        */
-	console.log("Inside display trustmarks");
 	togglebutton = button;
 	trustmarkpanel.show({
       	position: button
-  });
+  	});
 }
 
 /**
@@ -225,6 +220,8 @@ tabs.on('activate', function(tab) {
         var site = url.host;
         pageloadhandler.onPageLoad(site, trustmarkpanel);
 
+	trustmarkpolicyhelper.checkIfRecipientSatisfiesAllActiveTIPs(site,togglebutton);
+
 });
 
 tabs.on('ready', function(tab)
@@ -238,6 +235,7 @@ tabs.on('ready', function(tab)
                 var site = url.host;
 
                 pageloadhandler.onPageLoad(site, trustmarkpanel);
+		trustmarkpolicyhelper.checkIfRecipientSatisfiesAllActiveTIPs(site,togglebutton);
         }
 });
 

@@ -90,7 +90,7 @@
 			<p><font size="2"><b>2. Which privacy principle does it apply to?</b></font></p>
 			<select id="policy_type" style="width: 90%">
 				<option value="none" default selected>Choose Privacy Principle</option>
-				<option value="minimization">Minimization of Data Activity</option>
+				<option value="minimization">Minimization of data activity</option>
 				<option value="transparency">Transparency of privacy practices</option>
 				<option value="access">User Access to view/correct data</option>
 				<option value="accountability">Accountability to privacy policy</option>
@@ -221,18 +221,22 @@
 		<div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
                       <i><font color="#00407F">&nbsp;&nbsp;View</font></i> a privacy ruleset
                 </div>
-                <br>
 		<div style="height: 60px; overflow:none">
                         <div style="overflow:none" style="height:60px">
                                 <p><font size="2"><b>1. Choose the policy to view.</b></font></p>
-                                <select id="policy_nickname_view" style="width: 80%" onchange="checkPolicyNicknameEnteredForView();">
+                                <select id="policy_nickname_view" style="width: 80%" onchange="showTIPDetails();">
                                       <option value="none" default selected>Choose Policy</option>
                                 </select>
                         </div>
-                        <div id="policynickname_view_error" class="errormessage"></div>
                 </div>
-
-	
+		<br>
+		<div id="policy_type_view">
+		</div>
+		<br>
+		<div style="height:800px">
+			<textarea rows="40" cols="27" readonly="true" value="Policy trust expression." id="policy_expr_view">
+			</textarea>
+		</div>
 	</div>
 </div>
 </body>
@@ -280,6 +284,12 @@ function onClickListener(event)
 
 		if(divelement.id === event.target.id)
 		{
+
+			if(divelement.id === "view")
+			{
+				addon.port.emit("gettips", "all");
+			}
+
 			divelement.style.background = "#00407F";
 			divelement.style.color = "white";
 		}
@@ -681,10 +691,21 @@ addon.port.on("receivetrustmarkdefs", function onTrustmarkDefinitionLoad(td_arra
 
 	}
 });
-addon.port.on("tipreceive", function onTipReceive(tip_array)
-{
 
-	var e = document.getElementById("policy_nickname_apply");
+addon.port.on("tipreceive", function onTipReceive(tip_array, tip_type)
+{
+	//For the View Tab
+
+	var e;
+	if(tip_type === "all")
+	{
+		e = document.getElementById("policy_nickname_view");
+	}
+	else//For the Apply Tab
+	{
+		e = document.getElementById("policy_nickname_apply");
+	}
+	
 	var size = e.length;
 	while( size > 1)
 	{
@@ -701,6 +722,7 @@ addon.port.on("tipreceive", function onTipReceive(tip_array)
 		option.value = tip_array[index];
 		e.add(option);
 	}
+	
 });
 
 /**
@@ -942,29 +964,61 @@ addon.port.on("uniquetipname", function tipNameDoesntExist(tip_name, tip_type, t
         addon.port.emit("policypassed", tip_name, tip_type, tip_json);
 });
 
-function checkIfPolicyNameIsUnique()
+addon.port.on("receivetipdetails", function receiveTIPDetails(tip_type, tip_expr)
 {
+	var policy_type;
+	
+	if(tip_type === "minimization")
+	{
+		policy_type = "Minimization of Data Activity";
+	}
+	else if(tip_type === "transparency")
+	{
+		policy_type = "Transparency of privacy practices";
+	}
+	else if(tip_type === "access")
+	{
+		policy_type = "User access to view/correct data";
+	}
+	else if(tip_type === "accountability")
+	{
+		policy_type = "Accountability to privacy policy";
+	}
+	else if(tip_type === "dataquality")
+	{
+		policy_type = "Maintainance of data accuracy";
+	}
 
+	var policy_type_view = document.getElementById("policy_type_view");
+	policy_type_view.innerHTML = policy_type;
+
+	var policy_expr_view = document.getElementById("policy_expr_view");
+	policy_expr_view.innerHTML = tip_expr;
+});
+
+function showTIPDetails()
+{
+	var e = document.getElementById("policy_nickname_view");
+		
+	if(e.selectedIndex > 0)
+	{
+		addon.port.emit("gettipdetails", e.options[e.selectedIndex].value);
+	}
+	else
+	{	
+		var policy_type = document.getElementById("policy_type_view");
+		policy_type.innerHTML = "";
+
+		var policy_expr_view = document.getElementById("policy_expr_view");
+		policy_expr_view.innerHTML = "";
+	}
 }
 reset();
 
 
 </script>
 
-<!--
- *TODO: 
- * 1. Check if policy name is unique
- * 2. Accept only JSONs
- * 3. Ensure JSON is valid format (Not top priority now)
- -->
-
 <! --Create
- 1. Check if TIP Name is unique
- 2. Show only trustmarks mapping to TIP type
- 3. Download tip json file
- 4. TIP Expression is valid?
- 5. Revert to Default support
  6. Better settings image
- 7. Change { to ( , Clear to CLS,increase height of settings content
  8. If second sidebar opens, dispose the first one (close all sidebars when icon clicked)
  --->

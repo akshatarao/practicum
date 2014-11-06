@@ -1,6 +1,5 @@
 5. View TIP condition in sidebar
 6. View TIP condition upon clicking
-8. Check if policy unique name already exists
 9. Redo all trustmarks according to new format/mapping
 10. Analysis
 11. Test with two sites

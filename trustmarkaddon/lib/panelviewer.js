@@ -33,7 +33,6 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		}
 		else if(message === "overallfailed")
 		{
-			console.log("OVerall Failed");
 			// var icon = new Object();
                         //var jsonString = '{"32" : "./redshield.png"}';
                         //togglebutton.icon  = JSON.parse(jsonString);
@@ -58,29 +57,27 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			onAttach: function(worker)
 			{
 
+				worker.port.on("gettipdetails", function(tip_name)
+				{
+					trustmarkpolicyhelper.getTIPExpressionText(tip_name, worker);
+				});
+
 				worker.port.on("loadtrustmarkdefs", function(tip_type)
 				{
-					console.log("In Load");
 					trustmarkhelper.loadTrustmarkDefinitions(worker, tip_type);
 				});
 
 				worker.port.on("policypassed", function(policyName, policyType, tip_json) {
-					console.log("Policy Passed! " + policyName + " " + policyType + " " + tip_json);
 					trustmarkpolicyhelper.uploadUserPolicy2(tip_json, policyName, policyType);	
 				});
 
 				worker.port.on("gettips", function(tip_type)
 				{
-					console.log("Get TIPS");
-
 					trustmarkpolicyhelper.getTIPNicknameList(tip_type, worker);
-
 				});
 
 				worker.port.on("applytip", function(tip_nickname, tip_type)
 				{
-					console.log("Apply TIP");
-
 					trustmarkpolicyhelper.applyUserPolicy(tip_nickname, tip_type);
 				});
 

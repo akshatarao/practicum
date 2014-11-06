@@ -21,7 +21,7 @@ function createPolicy()
  *@Param: tip_type - Type of TIP
  *@Returns: none
  */
-function getTIPNicknameList(tip_type,worker)
+function getTIPNicknameList(tip_type, worker)
 {
 	var request = indexedDB.open("trustmarkDB",2);
 	var db;
@@ -30,9 +30,18 @@ function getTIPNicknameList(tip_type,worker)
 	{
 		db = event.target.result;
 		var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+		var policyRequest;
 
-		var policyIndex = tipObjectStore.index("type");
-		var policyRequest = policyIndex.openCursor(tip_type);
+		if(tip_type === "all")
+		{
+			policyRequest = tipObjectStore.openCursor();
+		}
+		else
+		{
+			var policyIndex = tipObjectStore.index("type");
+			policyRequest = policyIndex.openCursor(tip_type);
+		}
+
 		var tip_array = [];
 		policyRequest.onsuccess = function(event)
 		{	
@@ -47,7 +56,7 @@ function getTIPNicknameList(tip_type,worker)
 			}
 			else
 			{
-				worker.port.emit("tipreceive", tip_array);
+				worker.port.emit("tipreceive", tip_array, tip_type);
 			}
 		}
 
@@ -57,6 +66,13 @@ function getTIPNicknameList(tip_type,worker)
 }
 
 
+/****
+ *@Purpose - Check if TIP Name is Unique
+ *@Param - tip_name - TIP Name
+ *@Param - tip_type - TIP Type
+ *@Param - tip_expr - TIP Trust Expression
+ *@Returns - Emits uniquetipname/duplicatetipname messages
+ */
 function checkIfTipNameIsUnique(worker, tip_name, tip_type, tip_expr)
 {
 	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
@@ -506,7 +522,13 @@ function getTIPTrustExpression(tip_json)
 	return trustexpression;
 }
 
-function getTIPExpressionText(tip_name)
+/*****
+ *@Purpose - Send the tip trust expression (textual format) and tip type to settings
+ *@Param - tip_name - TIP Nickname
+ *@Param - worker - Settings Worker
+ *@Return - Emits receivetipdetails message with tip type and trust expression
+ */
+function getTIPExpressionText(tip_name, worker)
 {
 	var dbRequest = indexedDB.open("trustmarkDB", 2);
 
@@ -549,7 +571,8 @@ function getTIPExpressionText(tip_name)
 						}
 						else
 						{
-							console.log("Expression in  Text: " + trustexpression);
+
+							worker.port.emit("receivetipdetails", tipRow.type, trustexpression);
 						}	
 					}	
 				}

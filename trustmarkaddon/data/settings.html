@@ -63,6 +63,19 @@
 	width: 50px;
 	height: 32px;
 }
+
+.expr-textarea
+{
+	height:270px;
+	overflow-y:auto;
+	font-size:12px;
+	font-weight:normal;
+	background-color:#F0F0F0;
+	display:none;
+	border-radius: 2px 2px 2px 2px;
+	border: 1px solid #B8B8B8
+}
+
 </style>
 <body style="background:#DEEFFF">
 <div class="tabs">
@@ -172,7 +185,6 @@
                         </select>
 			<div id="policytype_create_error" class="errormessage"></div>
 		</div>
-		<br>
 		<div style="height: 70px">
 			<p><font size="2"><b>3. Build your policy expression.</b></font></p>
 			<div style="height: 40px">
@@ -204,21 +216,17 @@
 					</tr>
 				</table>
 		</div>
-		<div style="height:100px">
-			<textarea rows="4" cols="27" readonly="true" value="Create policy expression here." id="policy_preview">
-			</textarea>
-			<div id="policy_preview_error" class="errormessage"></div>
+		<div style="height:100px;overflow-y:auto;font-size:12px;font-weight:normal;background-color:#F0F0F0;border-radius: 2px 2px 2px 2px;border: 1px solid #B8B8B8" id="policy_preview">
 		</div>
+		<div id="policy_preview_error" class="errormessage"></div>
 		<div>
-			<input type="button" id="createtip" title="Click to create your policy!"value="Create" style="expr-button" onclick="createTIP();">
-			<input type="button" id="downloadtip" value="Download" style="expr-button" onclick="downloadTIP();" title="Download your created policy">
+			<input type="button" id="createtip" title="Click to create your policy!"value="Create Policy!" style="expr-button" onclick="createTIP();">
 		</div>
 		<div class="errormessage" id="policycreate_overall_error"></div>
 	 </div>
 	<div id="view-content" class="content" style="display:none">
 		<img src="view_icon.png" height="80" width="80">
-		<br>
-		<div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
+		<div style="height:30px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
                       <i><font color="#00407F">&nbsp;&nbsp;View</font></i> a privacy ruleset
                 </div>
 		<div style="height: 60px; overflow:none">
@@ -230,12 +238,15 @@
                         </div>
                 </div>
 		<br>
-		<div id="policy_type_view">
+		<div id="policy_principle" style="font-family:'Times New Roman', Georgia, Serif;display:none;">
+			<div style="font-size:16px;color:#00407F"><b>Privacy Principle<b></div>
+			<div id="policy_type_view" style="font-size:14px"></div>
 		</div>
 		<br>
-		<div style="height:800px">
-			<textarea rows="40" cols="27" readonly="true" value="Policy trust expression." id="policy_expr_view">
-			</textarea>
+		<div style="font-size:14px;color:#00407F;display:none;font-family: 'Times New Roman, Georgia, Serif;" id="expr_header">
+		<b>Conditional Expression</b>
+		</div>
+		<div style="height:270px;overflow-y:auto;font-size:12px;font-weight:normal;background-color:#F0F0F0;display:none;border-radius: 2px 2px 2px 2px;border: 1px solid #B8B8B8" id="policy_expr_view">
 		</div>
 	</div>
 </div>
@@ -275,6 +286,7 @@ function onClickListener(event)
 	resetApply();
 	resetUpload();
 	resetCreate();
+	resetView();
 
 	var tabheaddivs = document.getElementsByClassName('tab-head');
 
@@ -386,6 +398,7 @@ function reset()
 	resetApply();
 	resetCreate();
 	resetUpload();
+	resetView();
 }
 
 /**
@@ -813,6 +826,17 @@ function updateTIPExpr(value, text)
 	{
 		text = "\'" + text + "\'"
 	}
+	else
+	{
+		if(value === '(' || value === ')')
+			text = "<font color='blue'><b>"+value+"</b></font>";
+
+		if(value === 'and')
+			text = "<b>and</b>";
+
+		if(value === 'or')
+			text = "<b>or</b>";
+	}
 	custom_policy_expr_text = custom_policy_expr_text.concat(" " + text);	
 	var policytext_preview = document.getElementById("policy_preview");
 	policytext_preview.innerHTML = custom_policy_expr_text;
@@ -992,9 +1016,77 @@ addon.port.on("receivetipdetails", function receiveTIPDetails(tip_type, tip_expr
 	var policy_type_view = document.getElementById("policy_type_view");
 	policy_type_view.innerHTML = policy_type;
 
+	var policy_principle = document.getElementById("policy_principle");
+	policy_principle.style.display = "block";
+
 	var policy_expr_view = document.getElementById("policy_expr_view");
-	policy_expr_view.innerHTML = tip_expr;
+	policy_expr_view.innerHTML = getBeautifiedTIPExpr(tip_expr);
+	policy_expr_view.style.display = "block";
+
+	var policy_expr_header = document.getElementById("expr_header");
+	policy_expr_header.style.display = "block";
 });
+
+function replace(str,index,newstr) {
+    
+    if(index > str.length-1) 
+	return str;
+    
+    return str.substr(0,index) + newstr + str.substr(index+1);
+}
+function getBeautifiedTIPExpr(tip_expr)
+{
+	tip_expr = tip_expr.replace(/\) and \(/gi, "\)<p><b> AND </b></p>\(");
+	tip_expr = tip_expr.replace(/\) and /gi, "\)<p><b> AND </b></p>");
+	tip_expr = tip_expr.replace(/ and \(/gi, "<p><b> AND </b></p>\(");
+
+	tip_expr = tip_expr.replace(/\) and \(/gi, "\)<p><b> OR </b></p>\(");
+        tip_expr = tip_expr.replace(/\) and /gi, "\)<p><b> OR </b></p>");
+        tip_expr = tip_expr.replace(/ and \(/gi, "<p><b> OR </b></p>\(");
+
+	tip_expr = tip_expr.replace(/\' and \'/gi, "\'<p><b> AND </b></p>\'");
+	tip_expr = tip_expr.replace(/\' or \'/gi, "\'<p><b> OR </b></p>\'");
+	tip_expr = tip_expr.replace(/\(/gi,"<font color='blue' size='5'>\(</font>");
+        tip_expr = tip_expr.replace(/\)/gi, "<font color='blue' size='5'>\)</font>");
+
+	var stackChar = new Array();
+	var stackPosition = new Array();
+
+/***	for(var index = 0; index < tip_expr.length; index++)
+	{
+		if(tip_expr[index] === '(')
+		{
+			stackChar.push(tip_expr[index]);
+			stackPosition.push(index);
+		}
+		if(tip_expr[index] === ')')
+		{
+			var openingBracePosition = stackPosition.pop();
+
+			tip_expr
+		}
+
+	}*/	
+
+	return tip_expr;
+}
+
+function resetView()
+{
+	var policy_type = document.getElementById("policy_type_view");
+        policy_type.innerHTML = "";
+
+        var policy_principle = document.getElementById("policy_principle");
+        policy_principle.style.display = "none";
+
+        var policy_expr_view = document.getElementById("policy_expr_view");
+        policy_expr_view.innerHTML = "";
+        policy_expr_view.style.display = "none";
+
+        var policy_expr_header = document.getElementById("expr_header");
+        policy_expr_header.style.display = "none";
+
+}
 
 function showTIPDetails()
 {
@@ -1006,11 +1098,7 @@ function showTIPDetails()
 	}
 	else
 	{	
-		var policy_type = document.getElementById("policy_type_view");
-		policy_type.innerHTML = "";
-
-		var policy_expr_view = document.getElementById("policy_expr_view");
-		policy_expr_view.innerHTML = "";
+		resetView();
 	}
 }
 reset();

@@ -1,14 +1,49 @@
-<!DOCTYPE HTML>
 <html>
   <style>
 
+	.body
+	{
+        	background-color: red;
+	}
+
+	.tabs {
+		width:100%;
+	        display:inline-block;
+	}
+
+	.tab-head
+	{
+       		 padding:5px 5px;
+	         border-radius: 3px 3px 0px 0px;
+	         display: inline-block;
+	         background: #3D4040;
+	         color:#CCD5D5;
+	         font-size: 12px;
+	         font-weight: 600;
+	         transition:all linear 0.15s;
+	}
+
+	.tab-head:hover
+	{
+        	background:#A9A9FF
+	}
+
+	 .tab-content
+	{
+        	padding: 10px;
+	        border-radius:3px;
+        	box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+ 	        background: white;
+        	height: 580px;
+	        border: 1px solid black;
+ 	}
+		
 	.good_principle
 	{
 		height: 40px;
 		font-family: Tahoma,Geneva,sans-serif;
 		font-size: 15px;
 		font-weight: bold;
-		background: url("green-check-principle.png");
 	}
 
 	.bad_principle
@@ -17,20 +52,18 @@
 		font-family: Tahoma,Geneva,sans-serif;
 		font-size: 15px;
 		font-weight: bold;
-		background: url("red-cross-principle.png") no-repeat;
 	}
 	.received_trustmark
 	{
 		background : #002966;
 		color: white;
 		height: 50px;
-		width: 227px;
+		width: 200px;
 		margin-bottom: 7px;
 		padding: 5px;
 		font-size: 12px;
 		font-weight: bold;
 		font-family: Tahoma, Geneva, sans-serif; 
-		
 	}
 
 	.notreceived_trustmark
@@ -38,7 +71,7 @@
 		background :  linear-gradient(#C9D3D3, #DFEAEA);
 		padding: 5px;
 		height: 50px;
-		width:	227px;
+		width:	200px;
 		margin-bottom: 7px;
 		font-size: 12px;
 		font-family: Tahoma, Geneva, sans-serif;
@@ -46,7 +79,7 @@
 
 	.wrapper
 	{
-		width: 230px;
+		width: 200px;
 		padding: 2px;	
 	}
 
@@ -59,19 +92,30 @@
 		color: #0066FF; 
 	}		
   </style>
-  <script type="text/javascript" src="sidebar.js"></script>
-  <body>
+  <!--<script type="text/javascript" src="sidebar.js"></script>-->
+  <body style="background:#DEEFFF">
     <div id="trustmarkheader" class="trustmark_header">
-    </div>	
-    <div id="trustmark_wrapper" class="wrapper">
-	<div class="good_principle">
-		<div style="width:200px">Privacy principles satisfied</div>
-	</div>
     </div>
-    <div id="notrustmark_wrapper" class="wrapper">
-	<div class="bad_principle">
-		<div style="width:200px">Privacy principles failed</div>
-	</div>
-    </div>	
+    <div class="tab-links">
+	<div id="trustmark" class="tab-head" style="background:#00407F;color:white;" title="View all passed privacy tenets">Passed</div>
+	<div id="notrustmark" class="tab-head" title="View all failed privacy tenets">Failed</div>
+	<div id="viewtip" class="tab-head" title="View policy details.">View Policy</div> 
+    </div>
+    <div class="tab-content">				
+	    <div id="trustmark_wrapper" class="wrapper" style="display:block">
+		<div class="good_principle">
+			<div style="width:200px">Privacy principles <font color="green">satisfied</font></div>
+		</div>
+	    </div>
+	    <div id="notrustmark_wrapper" class="wrapper" style="display:none">
+		<div class="bad_principle">
+			<div style="width:200px">Privacy principles <font color="red">failed</font></div>
+	    	</div>
+	    </div>
+	    <div id="viewtip_wrapper" class="wrapper" style="display:none">
+	    </div>	
+    </div>		
   </body>
 </html>
+<script type="text/javascript" src="sidebar.js"></script>
+

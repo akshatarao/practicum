@@ -73,4 +73,79 @@ addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list
 	addon.port.emit("trustmarksshown");
 });
 
+/***
+ *@Purpose - On MouseOver Listener for Tab
+ */
+function onMouseOverListener(event)
+{
+        event.target.style.background = "#00407F";
+}
+
+/**
+ *@Purpose - On mouseout listener for tab
+ */
+function onMouseOutListener(event)
+{
+        if(event.target.style.color != "white")
+        {
+                event.target.style.background = "#3D4040";
+        }
+}
+
+function onClickListener(event)
+{
+	var tabheaddivs = document.getElementsByClassName('tab-head');
+
+        for(index = 0; index < tabheaddivs.length; index++)
+        {
+                var divelement = tabheaddivs[index];
+
+                if(divelement.id === event.target.id)
+                {
+                        divelement.style.background = "#00407F";
+                        divelement.style.color = "white";
+                }
+                else
+                {
+                        divelement.style.background = "#3D4040";
+                        divelement.style.color = "#CCD5D5"; 
+                }       
+        }
+
+
+	var tabdivs = document.getElementsByClassName('wrapper');
+        var contentelementid = event.target.id +"_wrapper";
+
+        for(index = 0; index < tabdivs.length; index++)
+        {
+                var divelement = tabdivs[index];
+
+                if(divelement.id === contentelementid)
+               {
+
+                        divelement.style.display = "block";
+                }
+                else
+                {
+                        divelement.style.display = "none";
+                }
+        }
+
+
+}
+
+function reset()
+{           
+        var tabdivs = document.getElementsByClassName('tab-head');
+               
+        for (var index = 0; index < tabdivs.length; index++)
+        {
+                var e = tabdivs[index]; 
+                e.addEventListener("click", onClickListener, false);
+                e.addEventListener("mouseover", onMouseOverListener,false);
+                e.addEventListener("mouseout", onMouseOutListener,false);
+        }
+}
+
+reset();
 //TODO: Click to view policy

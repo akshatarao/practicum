@@ -23,7 +23,26 @@ function getTrustmarkSet(trustmark_list)
 	return trustmarkSet;
 }
 
-addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list, tip_json, site_url) {
+function getBeautifiedTIPExpr(tip_expr)
+{
+        tip_expr = tip_expr.replace(/\) and \(/gi, "\)<p><b> AND </b></p>\(");
+        tip_expr = tip_expr.replace(/\) and /gi, "\)<p><b> AND </b></p>");
+        tip_expr = tip_expr.replace(/ and \(/gi, "<p><b> AND </b></p>\(");
+
+        tip_expr = tip_expr.replace(/\) and \(/gi, "\)<p><b> OR </b></p>\(");
+        tip_expr = tip_expr.replace(/\) and /gi, "\)<p><b> OR </b></p>");
+        tip_expr = tip_expr.replace(/ and \(/gi, "<p><b> OR </b></p>\(");
+
+        tip_expr = tip_expr.replace(/\' and \'/gi, "\'<p><b> AND </b></p>\'");
+        tip_expr = tip_expr.replace(/\' or \'/gi, "\'<p><b> OR </b></p>\'");
+        tip_expr = tip_expr.replace(/\(/gi,"<font color='blue' size='5'>\(</font>");
+        tip_expr = tip_expr.replace(/\)/gi, "<font color='blue' size='5'>\)</font>");
+
+        return tip_expr;
+}
+
+
+addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list, tip_json, site_url, trustexpression, tip_name) {
 
 	var tip_trustmark_set = tip_trustmark_list;
 	var recipient_trustmark_set = getTrustmarkSet(recipient_trustmark_list);
@@ -69,6 +88,12 @@ addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list
 		notrustmark_externaldiv.appendChild(element);
                 element.appendChild(document.createTextNode(trustmarkname));
 	}
+
+	var policy_preview = document.getElementById("policy_preview");
+	policy_preview.innerHTML = getBeautifiedTIPExpr(trustexpression);
+
+	var policy_name = document.getElementById("policy_name");
+	policy_name.innerHTML = tip_name;
 
 	addon.port.emit("trustmarksshown");
 });

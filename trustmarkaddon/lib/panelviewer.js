@@ -94,10 +94,8 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		}
 		else
 		{
-			console.log("Got content script" + message);
 
 			var sidebarid = "trustmark-sidebar-" + message; 
-			//TODO: Capitalize first letter
 			var sidebartitle = message + " trustmarks";
 
 			var sidebar = require("sdk/ui/sidebar").Sidebar({
@@ -113,7 +111,6 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		
 				if(message === "minimization")
 				{
-					trustmarkpolicyhelper.resetPolicy();
 					tip_id = trustmarkpolicyhelper.getCurrentMinimizationPolicy();
 				}
 				else if(message === "transparency")

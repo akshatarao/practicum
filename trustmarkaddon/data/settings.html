@@ -1049,25 +1049,6 @@ function getBeautifiedTIPExpr(tip_expr)
 	tip_expr = tip_expr.replace(/\(/gi,"<font color='blue' size='5'>\(</font>");
         tip_expr = tip_expr.replace(/\)/gi, "<font color='blue' size='5'>\)</font>");
 
-	var stackChar = new Array();
-	var stackPosition = new Array();
-
-/***	for(var index = 0; index < tip_expr.length; index++)
-	{
-		if(tip_expr[index] === '(')
-		{
-			stackChar.push(tip_expr[index]);
-			stackPosition.push(index);
-		}
-		if(tip_expr[index] === ')')
-		{
-			var openingBracePosition = stackPosition.pop();
-
-			tip_expr
-		}
-
-	}*/	
-
 	return tip_expr;
 }
 

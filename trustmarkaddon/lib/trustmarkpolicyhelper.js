@@ -850,10 +850,14 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 
 		tipRequest.onsuccess = function(event)
 		{
+
 			if(event.target.result)
 			{
-				var tip_trustmark_list = event.target.result.trustmark_list;
-				var tip_json = event.target.result.tip_json;
+				var tip = event.target.result;
+				var tip_trustmark_list = tip.trustmark_list;
+				var tip_json = tip.tip_json;
+				var trustexpression = tip.trust_expression;
+				var tip_name = tip.nickname;
 
 				var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
 
@@ -867,12 +871,28 @@ function displayTIPTrustmarks(worker, tip_key, recipient_id)
 				recipientRequest.onsuccess = function(event)
 				{
 					var recipient_trustmark_list = event.target.result.trustmark_list;
-
-
 					var tip_trustmark_json  = getTIPTrustmarkJSONString(tip_trustmark_list);
-					worker.port.emit("trustmark", tip_trustmark_json, recipient_trustmark_list, tip_json, recipient_id);	
-//					console.log("TIP trustmark list: " + tip_trustmark_list);
-//					console.log("Recipient Trustmark List: " + recipient_trustmarklist);
+
+                                        var trustmarkdefsStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+                                        var openRequest = trustmarkdefsStore.openCursor();
+
+                                        openRequest.onsuccess = function(event)
+                                        {
+                                                var trustmarkdefcursor = event.target.result;
+
+                                                if(trustmarkdefcursor)
+                                                {
+                                                        var td = trustmarkdefcursor.value;
+                                                        trustexpression = trustexpression.replace(td.identifier, "'" +td.description + "'");
+							trustmarkdefcursor.continue();
+
+						}
+						else
+						{
+							worker.port.emit("trustmark", tip_trustmark_json, recipient_trustmark_list, tip_json, recipient_id, trustexpression, tip_name);
+
+						}
+					}
 				}	
 			}
 		}	

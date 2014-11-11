@@ -20,7 +20,7 @@ var button = ToggleButton({
   id: "show-panel",
   label: "Show Panel",
   icon: {
-    "32": "./icon-16.png"
+    "32": "./eye-qnmark.png"
   },
   onClick: displayTrustmarkPanel
 });

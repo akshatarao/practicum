@@ -804,7 +804,7 @@ function applyTIP()
 	else
 	{
 		clearMessages();
-		var successMessage = "Policy was successfully applied.";
+		var successMessage = "Policy was successfully applied. Refresh page to view updated policy status.";
 		displayMessage(successMessage, "overallapply_error", "SUCCESS");	
 		addon.port.emit("applytip", tip_nickname, tip_type);
 	}
@@ -984,8 +984,9 @@ addon.port.on("uniquetipname", function tipNameDoesntExist(tip_name, tip_type, t
 {
 	var tip_json = createTIPJSON(tip_name, tip_type, tip_expr);
         displayMessage("Successfully created policy!", "policycreate_overall_error", "SUCCESS");
-        clearCreateContents();
+	resetCreate();
         addon.port.emit("policypassed", tip_name, tip_type, tip_json);
+
 });
 
 addon.port.on("receivetipdetails", function receiveTIPDetails(tip_type, tip_expr)

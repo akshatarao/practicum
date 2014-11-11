@@ -1,10 +1,8 @@
-5. View TIP condition in sidebar
-6. View TIP condition upon clicking
 9. Redo all trustmarks according to new format/mapping
 10. Analysis
 11. Test with two sites
 12. Dispose panel if sidebar open, Dispose sidebar if panel on
-
+13. Check if boolean expression evaluates correctly
 ---------------------------------
 1. Reset to Defaults
 2. Download trustmarks

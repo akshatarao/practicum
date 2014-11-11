@@ -149,7 +149,7 @@
 	                                "Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/contactinfo.xml",
         	                        "Name": "Accountability through presentation of contact information",
                 	                "Description" : "Presents contact information for handling grievances",
-					"TIP" : "accountability"
+					"TIP" : "transparency"
 				 }
                         },
 			{
@@ -157,7 +157,7 @@
 	                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/dataactivity.xml",
                 	                "Name" : "Accountability through notification of data activity",
          	                        "Description" : "Notifies users of operations performed on their data",
-					"TIP" : "accountability"
+					"TIP" : "transparency"
 				}
                         },
 			{
@@ -165,7 +165,7 @@
 					"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/transparency/notification/collecteddata.xml",
 	                                "Name" : "Accountability through notification of collected data types",
         	                        "Description" : "Notifies users of types of data collected",
-					"TIP" : "accountability"
+					"TIP" : "transparency"
                                 }
                         },
  			{ 	

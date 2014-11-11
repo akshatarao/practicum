@@ -399,7 +399,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 					else
 					{
 						var icon = new Object();
-        			                var jsonString = '{"32" : "./redshield.jpg"}';
+        			                var jsonString = '{"32" : "./eye-noprivacy.png"}';
 	                        		button.icon  = JSON.parse(jsonString);
 					}
 				}
@@ -408,7 +408,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 					if(!overallFailed)
 					{
 						var icon = new Object();
-			                        var jsonString = '{"32" : "./greenshield.jpg"}';
+			                        var jsonString = '{"32" : "./eye-privacy.png"}';
                         			button.icon  = JSON.parse(jsonString);
 					}
 				}
@@ -419,7 +419,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 		else
 		{
 			var icon = new Object();
-			var jsonString = '{"32" : "./questionmark.png"}';
+			var jsonString = '{"32" : "./eye-qnmark.png"}';
                         button.icon  = JSON.parse(jsonString);
 		}
 	}

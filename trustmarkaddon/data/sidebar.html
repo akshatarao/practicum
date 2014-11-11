@@ -100,24 +100,39 @@
     <div class="tab-links">
 	<div id="trustmark" class="tab-head" style="background:#00407F;color:white;" title="View all passed privacy tenets">Passed</div>
 	<div id="notrustmark" class="tab-head" title="View all failed privacy tenets">Failed</div>
-	<div id="viewtip" class="tab-head" title="View policy details.">View Policy</div> 
+	<div id="viewtip" class="tab-head" title="View policy details.">Settings</div> 
     </div>
     <div class="tab-content">				
 	    <div id="trustmark_wrapper" class="wrapper" style="display:block">
 		<div class="good_principle">
-			<div style="width:200px">Privacy principles <font color="green">satisfied</font></div>
+			<div style="width:200px">Privacy rules <font color="green">satisfied</font></div>
 		</div>
 	    </div>
 	    <div id="notrustmark_wrapper" class="wrapper" style="display:none">
 		<div class="bad_principle">
-			<div style="width:200px">Privacy principles <font color="red">failed</font></div>
+			<div style="width:200px">Privacy rules <font color="red">failed</font></div>
 	    	</div>
 	    </div>
 	    <div id="viewtip_wrapper" class="wrapper" style="display:none">
-		<div style="font-size:16px;font-weight:bold;" id="policy_name">
+		<div style="font-size:15px;font-weight:bold;font-family:Tahoma,Geneva,sans-serif">
+			Currently <font color="blue">active</font> policy
 		</div>
 		<br>
-		<div style="height:500px;overflow-y:auto;font-size:12px;font-weight:normal;background-color:#F0F0F0;border-radius: 2px 2px 2px 2px;border: 1px solid #B8B8B8" id="policy_preview">
+		<br>
+		<div style="font-size:14px;font-weight:bold;">
+			<font color="blue">
+			Policy Name
+			</font>
+		</div>
+		<div style="font-size:12px;" id="policy_name">
+		</div>
+		<br>
+		<div style="font-size:14px;font-weight:bold;font-color:blue;">
+			<font color="blue">
+			Conditional Expression
+			</font>
+		</div>
+		<div style="height:400px;overflow-y:auto;font-size:12px;font-weight:normal;background-color:#F0F0F0;border-radius: 2px 2px 2px 2px;border: 1px solid #B8B8B8" id="policy_preview">
 		</div>
 	    </div>	
     </div>		

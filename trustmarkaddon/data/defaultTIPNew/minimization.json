@@ -1,0 +1,130 @@
+{
+  "TrustInteroperabilityProfile" : 
+	{
+		"id": "minimization_tip",
+		"Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml",
+		"Name" : "Minimization of Data Activity",
+		"PublicationDateTime": "2014-08-21T11:59:59",
+		"Issuer": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+			}
+		},
+	"References": {
+		"TrustmarkDefinitionReferenceList":
+		[
+		{"TrustmarkDefinitionReference": {
+				"@id": "minimization_datadisclosure_optin",
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datadisclosure.xml",
+				"Name": "Minimize Data Disclosure via Opt-in Consent",
+				"Description": "Enables users to choose to disclose their data via opt-in consent"  
+		}},
+		{"TrustmarkDefinitionReference": {
+				"@id": "minimization_datadisclosure_optout",
+				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datadisclosure.xml",
+				"Name": "Minimize Data Disclosure via Opt-out Consent",
+				"Description" : "Enables users to choose not to disclose their data via opt-out consent"
+		}},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datause_optin",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datause.xml",
+				"Name" : "Minimize Data Use via Opt-in consent",
+				"Description": "Enables users to control usage of their data via opt-in consent" 
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datause_optout",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datause.xml",
+                                "Name" : "Minimize Data Use via Opt-out consent",
+				"Description" : "Enables users to deny usage of their data via opt-out consent"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datacollection_optin",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datacollection.xml",
+                                "Name" : "Minimize Data Collection via Opt-in consent",
+				"Description": "Enables users to allow collection of their data via opt-in consent"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datacollection_optout",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datacollection.xml",
+                                "Name" : "Minimize Data Collection via Opt-out consent",
+				"Description" : "Enables users to deny collection of their data via opt-out consent"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_dataretention_optout",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/dataretention.xml",
+                                "Name" : "Minimize Data Retention via Opt-out consent",
+				"Description" : "Enables users to deny retention of their data via opt-out consent"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_dataretention_optin",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/dataretention.xml",
+                                "Name" : "Minimize Data Retention via Opt-in consent",
+				"Description" : "Enables users to allow retention of their data via opt-in consent"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datacollection_specifiedpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/collection.xml",
+                                "Name" : "Minimize Data Collection via Specified Purpose",
+				"Description" : "Specifies the purposes for which user data is collected"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datause_specifiedpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datause.xml",
+                                "Name" : "Minimize Data Use via Specified Purpose",
+				"Description" : "Specifies the uses of collected user data"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datadisclosure_specifiedpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datadisclosure.xml",
+                                "Name" : "Minimize Data Disclosure via Specified Purpose",
+				"Description" : "Specifies the purposes of sharing user data"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_dataretention_specifiedpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/dataretention.xml",
+                                "Name" : "Minimize Data Retention via Specified Purpose",
+				"Description" : "Specifies the purposes for retaining user data"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datacollection_contextualpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/datacollection.xml",
+                                "Name" : "Minimize Data Collection via contextual purpose",
+                                "Description" : "Data collection is intuitive according to context"
+                }},
+                {"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datause_contextualpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/datause.xml",
+                                "Name" : "Minimize Data Use via contextual purpose",
+                                "Description" : "Data use is intuitive according to context"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datadisclosure_contextualpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/datadisclosure.xml",
+                                "Name" : "Minimize Data Disclosure via contextual purpose",
+                                "Description" : "Discloses data for purposes contextual to site's functionality"
+                }},
+                {"TrustmarkDefinitionReference": {
+                                "@id": "minimization_dataretention_contextualpurpose",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/dataretention.xml",
+                                "Name" : "Minimize Data Retention via Contextual Purpose",
+                                "Description" : "Retains data for purposes contextual to site's functionality"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_dataaggregation_linkage",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/dataaggregation.xml",
+                                "Name" : "Minimize Data Aggregation and Linkages Between Transactions",
+				"Description" : "Minimizes data aggregation and linkages across collected data" 
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "minimization_datadisclosure_destinationproperties",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/datadisclosure/destinationproperties.xml",
+                                "Name" : "Minimize Data Disclosure via Destination Properties",
+				"Description" : "Ensures user data is disclosed to verified and accountable parties" 
+                }}]
+	},
+	"TrustExpression": "(http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datadisclosure.xml or http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datadisclosure.xml or (http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datadisclosure.xml and http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/datadisclosure.xml)) and (http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datause.xml or http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datause.xml or (http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datause.xml and http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/datause.xml)) and (http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/datacollection.xml or http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/datacollection.xml or (http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/collection.xml and http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/collection.xml)) and (http://trustmark.gtri.gatech.edu/sampletds/minimization/optin/dataretention.xml or http://trustmark.gtri.gatech.edu/sampletds/minimization/optout/dataretention.xml or (http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/dataretention.xml and http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/dataretention.xml)) and http://trustmark.gtri.gatech.edu/sampletds/minimization/dataaggregation.xml and http://trustmark.gtri.gatech.edu/sampletds/minimization/datadisclosure/destinationproperties.xml"
+	}
+}

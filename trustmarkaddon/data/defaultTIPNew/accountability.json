@@ -1,0 +1,60 @@
+{
+  "TrustInteroperabilityProfile" : 
+	{
+		"id": "accountability_tip",
+		"Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml",
+		"Name" : "Accountability through policy compliance and handling violations",
+		"PublicationDateTime": "2014-08-21T11:59:59",
+		"Issuer": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+			}
+		},
+	"References": {
+
+		"TrustmarkDefinitionReferenceList":
+		[
+		{"TrustmarkDefinitionReference": {
+				"@id": "accountability_track_datamodifications",
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/accountability/tracking/modify.xml",
+				"Name": "Accountability through tracking of modifications to collected user data",
+				"Description": "Tracks modifications of collected user data"
+		}},
+		{"TrustmarkDefinitionReference": {
+				"@id": "accountability_track_dataaccess",
+				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/tracking/access.xml",
+				"Name" : "Accountability through tracking of data/metadata accesses",
+				"Description" : "Tracks accesses made to collected user data/metadata" 
+		}},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "accountability_track_datadisclosure",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/tracking/disclosure.xml",
+                                "Name" : "Accountability through tracking data disclosures",
+				"Description" : "Tracks disclosures of collected user data" 
+                }}		,
+		{"TrustmarkDefinitionReference": {
+                                "@id": "accountability_redress_breachmitigation",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/redress/breachmitigation.xml",
+                                "Name" : "Mitigate Effects of Policy Non-adherence and Breaches",
+				"Description" : "Mitigates damages caused by data breaches or non-adherence to privacy policy"
+		}},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "accountability_databinding_termination",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/databindingtopolicy/termination.xml",
+                                "Name" : "Mitigate Data Binding on Relationship Termination",
+				"Description" : "Deletion of collected user data upon termination of user account"
+                }},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "accountability_databinding_policy",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/accountability/databindingtopolicy/policybinding.xml",
+                                "Name" : "Ensure Binding of Data to Policy under which Data was Collected",
+				"Description" : "Ensures site activity on collected data adheres to privacy policy under which it was collected"
+                }}
+		]
+	},	
+	"TrustExpression": "http://trustmark.gtri.gatech.edu/sampletds/accountability/tracking/access.xml and http://trustmark.gtri.gatech.edu/sampletds/accountability/tracking/modify.xml and http://trustmark.gtri.gatech.edu/sampletds/accountability/tracking/disclosure.xml and http://trustmark.gtri.gatech.edu/sampletds/accountability/redress/breachmitigation.xml and http://trustmark.gtri.gatech.edu/sampletds/accountability/databindingtopolicy/termination.xml and http://trustmark.gtri.gatech.edu/sampletds/accountability/databindingtopolicy/policybinding.xml"
+	}
+}

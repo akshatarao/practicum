@@ -1,0 +1,32 @@
+{ 
+	"Trustmark" : {
+		"Identifier": "http://trustmark.gtri.gatech.edu/sampletrustmarks/bofa/minimization/specifiedpurpose/collection.xml",
+		"TrustmarkDefinitionReference": {
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/collection.xml",
+				"Name": "Minimize Data Collection via Specified Purpose",
+				"Version": "1.0",
+				"Description": "Minimize Data Collection via Specified Purpose"			
+				},
+		"IssueDateTime": "2014-08-21T09:06:00",
+		"StatusURL": "http://trustmark.gtri.gatech.edu/schema/examples/trustmark-status-reports/query?tmid=IDENTIFIER",
+		"Provider": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+				}
+			},
+		"Recipient": {
+			"Identifier": "www.bankofamerica.com",
+			"Name": "Bank of America",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "alice@bankofamerica.com"
+			}
+			
+		}
+
+		}
+}
+

@@ -1,0 +1,51 @@
+{
+  "TrustInteroperabilityProfile" : 
+	{
+		"id": "default_tip",
+		"Identifier": "http://trustmark.gtri.gatech.edu/schema/examples/trust-interoperability-profiles/tip-minimum.xml",
+		"Name" : "Default Site Privacy Policy",
+		"PublicationDateTime": "2014-08-21T11:59:59",
+		"Issuer": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+			}
+		},
+	"References": {
+
+		"TrustmarkDefinitionReferenceList":
+		[
+		{"TrustmarkDefinitionReference": {
+				"@id": "TDRef1",
+				"Identifier": "https://trustmark.gtri.gatech.edu/Some_TD_Identifier"
+		}},
+		{"TrustmarkDefinitionReference": {
+				"@id": "TDRef2",
+				"Identifier" : "trustmark2"
+		}}],
+		"TrustInteroperabilityProfileReferenceList" :
+		[
+			{"TrustInteroperabilityProfileReference": { 
+							"@id": "access_tip",
+							"Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml"}},
+			{"TrustInteroperabilityProfileReference": {
+							"@id": "accountability_tip",
+							"Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml"}},
+			{"TrustInteroperabilityProfileReference": {
+                                                        "@id": "minimization_tip",
+                                                        "Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml"}},
+			{"TrustInteroperabilityProfileReference": {
+                                                        "@id": "transparency_tip",
+                                                        "Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/transparency.xml"}},
+			{"TrustInteroperabilityProfileReference": {
+                                                        "@id": "dataquality_tip",
+                                                        "Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/dataquality.xml"}}
+	
+		]
+
+	},	
+	"TrustExpression": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml and http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/accountability.xml and http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/transparency.xml and http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/dataquality.xml and http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/minimization.xml"
+	}
+}

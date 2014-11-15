@@ -1,0 +1,40 @@
+{
+  "TrustInteroperabilityProfile" : 
+	{
+		"id": "access_tip",
+		"Identifier": "http://trustmark.gtri.gatech.edu/schema/trust-interoperability-profiles/access.xml",
+		"Name" : "Allowing Data Subjects access to their data ",
+		"PublicationDateTime": "2014-08-21T11:59:59",
+		"Issuer": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+			}
+		},
+	"References": {
+		"TrustmarkDefinitionReferenceList":
+		[
+		{"TrustmarkDefinitionReference": {
+				"@id": "activity_inspect_activitydata",
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/access/activitydata/inspect.xml",
+				"Name" : "Access to inspect activity data",
+				"Description" : "Enables users to inspect their online activity data"
+		}},
+		{"TrustmarkDefinitionReference": {
+				"@id": "activity_inspect_personaldata",
+				"Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml",
+				"Name" : "Access to inspect personal data",
+				"Description": "Enables users to inspect their collected personal data"
+		}},
+		{"TrustmarkDefinitionReference": {
+                                "@id": "activity_modify_personaldata",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/modify.xml",
+				"Name": "Access to modify personal data",
+				"Description": "Enables users to modify their collected personal data"
+                }}]
+	},
+	"TrustExpression": "http://trustmark.gtri.gatech.edu/sampletds/access/activitydata/inspect.xml and http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/inspect.xml and http://trustmark.gtri.gatech.edu/sampletds/access/personaldata/modify.xml"
+	}
+}

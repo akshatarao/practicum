@@ -1,0 +1,32 @@
+{ 
+	"Trustmark" : {
+		"Identifier": "http://trustmark.gtri.gatech.edu/sampletrustmarks/facebook/transparency/specifiedpurpose/explicit.xml",
+		"TrustmarkDefinitionReference": {
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/transparency/specifiedpurpose/explicit.xml",
+				"Name": "Transparency through explicit purpose specification",
+				"Version": "1.0",
+				"Description": "Explicitly specifies the purpose of the website"	
+				},
+		"IssueDateTime": "2014-08-21T09:06:00",
+		"StatusURL": "http://trustmark.gtri.gatech.edu/schema/examples/trustmark-status-reports/query?tmid=IDENTIFIER",
+		"Provider": {
+			"Identifier": "http://trustmark.gtri.gatech.edu/",
+			"Name": "GTRI Trustmark Pilot",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "TrustmarkFeedback@gtri.gatech.edu"
+				}
+			},
+		"Recipient": {
+			"Identifier": "www.facebook.com",
+			"Name": "Facebook, Inc",
+			"Contact": {
+				"Type": "PRIMARY",
+				"Email": "alice@facebook.com"
+			}
+			
+		}
+
+		}
+}
+

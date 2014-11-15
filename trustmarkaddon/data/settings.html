@@ -814,6 +814,7 @@ function clearPolicyExpr()
 {
 	custom_policy_expr = "";
 	custom_policy_expr_text = "";
+	custom_policy_expr_brevity = "";
 	custom_policy_tdref_array = [];
 	var policytext_preview = document.getElementById("policy_preview");
 	policytext_preview.innerHTML = "";
@@ -824,22 +825,51 @@ function updateTIPExpr(value, text)
 
 	if(value != text)
 	{
-		text = "\'" + text + "\'"
+		text = "\'" + text + "\'";
+		custom_policy_expr_brevity = custom_policy_expr_brevity.concat(" 1");
 	}
 	else
 	{
 		if(value === '(' || value === ')')
+		{
+			custom_policy_expr_brevity = custom_policy_expr_brevity.concat(" " + value);
 			text = "<font color='blue'><b>"+value+"</b></font>";
+		}
 
 		if(value === 'and')
+		{
 			text = "<b>and</b>";
+			custom_policy_expr_brevity = custom_policy_expr_brevity.concat(" &&");
+		}
 
 		if(value === 'or')
+		{
 			text = "<b>or</b>";
+			custom_policy_expr_brevity = custom_policy_expr_brevity.concat(" ||");
+		}
 	}
+
 	custom_policy_expr_text = custom_policy_expr_text.concat(" " + text);	
 	var policytext_preview = document.getElementById("policy_preview");
 	policytext_preview.innerHTML = custom_policy_expr_text;
+}
+
+function verifyIfPolicyExpressionIsValid()
+{
+	var isValid = true;
+
+	try
+	{
+		eval(custom_policy_expr_brevity);
+	}
+	catch(e)
+	{
+		window.alert("Invalid");
+		isValid = false;
+	}
+
+	return isValid;
+
 }
 
 function updateTrustmarkReferenceList(ruleObject)
@@ -941,6 +971,13 @@ function getTIPExpr()
 	{
 		var errorMessage = "Create a policy conditional expression";
 		displayMessage(errorMessage, "policy_preview_error", "ERROR");
+		tip_expr = "";
+	}
+	else if(!verifyIfPolicyExpressionIsValid())
+	{
+		var errorMessage = "Policy conditional expression is not properly formed";
+		displayMessage(errorMessage, "policy_preview_error", "ERROR");
+		tip_expr = "";
 	}
 	else
 	{
@@ -1041,9 +1078,9 @@ function getBeautifiedTIPExpr(tip_expr)
 	tip_expr = tip_expr.replace(/\) and /gi, "\)<p><b> AND </b></p>");
 	tip_expr = tip_expr.replace(/ and \(/gi, "<p><b> AND </b></p>\(");
 
-	tip_expr = tip_expr.replace(/\) and \(/gi, "\)<p><b> OR </b></p>\(");
-        tip_expr = tip_expr.replace(/\) and /gi, "\)<p><b> OR </b></p>");
-        tip_expr = tip_expr.replace(/ and \(/gi, "<p><b> OR </b></p>\(");
+	tip_expr = tip_expr.replace(/\) or \(/gi, "\)<p><b> OR </b></p>\(");
+        tip_expr = tip_expr.replace(/\) or /gi, "\)<p><b> OR </b></p>");
+        tip_expr = tip_expr.replace(/ or \(/gi, "<p><b> OR </b></p>\(");
 
 	tip_expr = tip_expr.replace(/\' and \'/gi, "\'<p><b> AND </b></p>\'");
 	tip_expr = tip_expr.replace(/\' or \'/gi, "\'<p><b> OR </b></p>\'");

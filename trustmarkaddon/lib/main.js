@@ -18,7 +18,7 @@ var { indexedDB }  = require('sdk/indexed-db');
 //Trustmark Button
 var button = ToggleButton({
   id: "show-panel",
-  label: "Show Panel",
+  label: "Display privacy report card for this website",
   icon: {
     "32": "./eye-qnmark.png"
   },
@@ -26,22 +26,25 @@ var button = ToggleButton({
 });
 
 /**
- *@Purpose: Display trustmarks in the panel
- *@
+ *@brief Display trustmarks in the panel
+ *@param state - togglebutton state
+ *@return none
  */
 function displayTrustmarkPanel(state)
 {
 
-	console.log(JSON.stringify(button.icon));
+	//Check if toggle button has been clicked
 	if(state.checked)
 	{
+		//If yes, display trustmarks
 		panelviewer.displayTrustmarks(button);
 
 	}
 }
 
 /**
- *Get database name
+ *@brief Get database name
+ *@returns Database Name
  */
 function getDBName()
 {
@@ -49,9 +52,8 @@ function getDBName()
 }
 
 /**
- *@Purpose: Get Temp Store Name
- *@Parameters: none
- *@Returns: Temp Store Name
+ *@brief Get Temp Store Name
+ *@return Temp Store Name
  */
 
 function getTempStoreName()
@@ -60,9 +62,9 @@ function getTempStoreName()
 }
 
 /**
- *@Purpose: Create Temp Store
- *@Params: db - Database pointer
- *@Returns: none
+ *@brief Create Temp Store
+ *@param db - Database pointer
+ *@return none
  */
 function createTempStore(db)
 {
@@ -71,19 +73,19 @@ function createTempStore(db)
 	//Check if table exists	
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
+		//Delete table if exists
 		db.deleteObjectStore(objectStoreLabel);
 	}
 	
-	//Delete if it doesn't exist
+	//Create a table with identifier-value mappings
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
-
 	objectStore.createIndex("value", "value", {unique:true});
 
 }
+
 /** 
- *@Purpose: Get Recipient Store Name
- *@Parameters: none
- *@Returns: Recipient object store name.
+ *@brief Get Recipient Store Name
+ *@return Recipient object store name.
  */
 function getRecipientStoreName()
 {
@@ -91,10 +93,9 @@ function getRecipientStoreName()
 }
 
 /**
- *@Purpose: Create Recipient Store
- *@Parameters: db - Database pointer
- *@Returns: none
- *TODO: Check if can return a global recipient Object Store variable 
+ *@brief Create Recipient Store
+ *@param db - Database pointer
+ *@return none
  */
 function createRecipientStore(db)
 {
@@ -110,42 +111,42 @@ function createRecipientStore(db)
 	//Create recipient object store
 	var objectStore = db.createObjectStore(objectStoreLabel, { keyPath: "identifier" });
       	objectStore.createIndex("trustmark_list", "trustmark_list", {unique:false});
-
-
-	objectStore.transaction.onerror = function(event)
-	{
-		console.log("Recipient Object Store - transaction unsuccessful");
-	}
-
-	objectStore.transaction.onsuccess = function(event)
-	{
-		console.log("Recipient Object Store - transaction successful");
-	}
-
 }
 
+/***
+ *@brief - Get Trustmark Definition Store name
+ *@return Trustmark Definition Store Name
+ */
 function getTrustmarkDefStoreName()
 {
 	return "trustmarkdefs";
 }
 
+/****
+ *@brief Create Trustmark Definition Store
+ *@param db - Database pointer
+ *@return none
+ */
 function createTrustmarkDefinitionStore(db)
 {
 	var objectStoreLabel = getTrustmarkDefStoreName();
 	
+	//Delete table if exists
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
 		db.deleteObjectStore(objectStoreLabel);
 	}
 
+	//Create table
 	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
 	objectStore.createIndex("name", "name", {unique:true});
 	objectStore.createIndex("description", "description", {unique:false});
 	objectStore.createIndex("tip_type", "tip_type", {unique:false});
 }
+
 /**
- *@Purpose Retrieve Recipient Trustmark Mapping Store Name
- *@Returns objectStore name
+ *@brief Retrieve Recipient Trustmark Mapping Store Name
+ *@return Recipient Trustmark Mapping objectStore name
  */
 function getRecipientTrustmarkMappingStoreName()
 {
@@ -153,10 +154,9 @@ function getRecipientTrustmarkMappingStoreName()
 }
 
 /**
- * Purpose: Create Recipient Trustmark Mapping Store
- * Parameter: db - database pointer
- * Returns: none
- * TODO: Check if object store pointer can be returned and stored globally 
+ * @brief Create Recipient Trustmark Mapping Store
+ * @param db - database pointer
+ * @return none
  */
 function createRecipientTrustmarkMappingStore(db)
 {
@@ -175,8 +175,8 @@ function createRecipientTrustmarkMappingStore(db)
 }
 
 /**
- *@Purpose - Get trustmark store name
- *@Returns - trustmark store name
+ *@brief  Get trustmark store name
+ *@return  Trustmark store name
  */
 function getTrustmarkStoreName()
 {
@@ -184,9 +184,9 @@ function getTrustmarkStoreName()
 }
 
 /**
- *@Purpose: Create trustmark object store
- *@Parameters: db - Database pointer
- *@Returns: none
+ *@brief Create trustmark object store
+ *@param db - Database pointer
+ *@return none
  */
 function createTrustmarkStore(db)
 {
@@ -205,8 +205,8 @@ function createTrustmarkStore(db)
 }
 
 /**
- *@Purpose - Get the TIP store name
- *@Returns none
+ *@brief  Get the TIP store name
+ *@return TIP object store name
  */
 function getTIPStoreName()
 {
@@ -214,9 +214,9 @@ function getTIPStoreName()
 }
 
 /**
- *@Purpose: Create TIP Store
- *@Parameters: db - Database pointer
- *@Returns: None
+ *@brief Create TIP Store
+ *@param db - Database pointer
+ *@return none
  */
 function createTIPStore(db)
 {
@@ -240,10 +240,11 @@ function createTIPStore(db)
 	objectStore.createIndex("nickname", "nickname", {unique: true});
 
 }
+
 /**
- * Purpose: Create Object Store
- * Parameter: database_pointer - Database pointer
- * Returns: none
+ * @brief Create Object Store
+ * @param database_pointer - Database pointer
+ * @return none
  */
 function createObjectStores(database_pointer)
 {
@@ -257,10 +258,8 @@ function createObjectStores(database_pointer)
 }
 
 /**
- * Purpose: Initialized Database by creating object stores
- * Tables - Recipients
- * 	  - RecipientTrustmarkMapping
- * Returns: none
+ * @brief Initialized Database by creating object stores
+ * @return none
  **/
 function initDB()
 {
@@ -277,7 +276,8 @@ function initDB()
 
 	request.onupgradeneeded = function(event) {
 		var db  = event.target.result;
-
+		
+		//Create all the tables/object stores
 		createObjectStores(db);
  	}
 
@@ -285,9 +285,9 @@ function initDB()
 }
 
 /**
- *@Purpose: Utility Function - Check if string is empty
- *@Parameters: String
- *@Returns: TRUE if string is empty
+ *@brief Utility Function - Check if string is empty
+ *@param str - String
+ *@return TRUE if string is empty
 */
 function isEmpty(str) 
 {
@@ -296,8 +296,8 @@ function isEmpty(str)
 }
 
 /***
- *@Purpose: Load default trustmark definition references in cache
- *@Returns: none
+ *@brief Load default trustmark definition references in cache
+ *@return none
  */
 function getDefaultTrustmarkDefs()
 {
@@ -313,7 +313,7 @@ function getDefaultTrustmarkDefs()
 	{
 		db = event.target.result;
 
-		var configFileJSON = self.data.load("defaultTrustmarkDefinitions/configFileJSON");
+		var configFileJSON = self.data.load("defaultTrustmarkDefinitionsNew/configFileJSON");
 		var configFileJSONObj = JSON.parse(configFileJSON);
 
 		var tdreferencearray = configFileJSONObj.DefaultTrustmarkDefinition.TrustmarkDefinitionList;
@@ -351,7 +351,7 @@ function getDefaultTIP()
 		db = event.target.result;
 		//Read list of tips to be loaded from config file
 
-		var configFileJSON = self.data.load("defaultTIP/configFileJSON");
+		var configFileJSON = self.data.load("defaultTIPNew/configFileJSON");
 		var configFileJSONObj = JSON.parse(configFileJSON);
 
 		var tipreferencearray = configFileJSONObj.DefaultTIP.TIPs.TIPList;
@@ -396,7 +396,7 @@ function getDefaultTrustmarks()
 
         request.onsuccess = function(event)
         {
-		var configFile = self.data.load("defaulttrustmarks/configfile");
+		var configFile = self.data.load("defaulttrustmarksnew/configfile");
 	        var trustmarks = configFile.split("\n");
 
                 console.log("Successfully got a connection to database.");

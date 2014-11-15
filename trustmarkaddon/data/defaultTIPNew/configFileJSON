@@ -1,0 +1,38 @@
+{
+	"DefaultTIP" : 
+	{
+		"Name" : "Default TIP List",
+		"TIPs": {
+			"TIPList":
+			[
+			 { "TIP" : {
+					"Type" : "minimization",
+					"Nickname" : "Default Minimization",
+					"Path": "defaultTIPNew/minimization.json"
+			}},
+			{ "TIP" : {
+                                        "Type" : "accountability",
+                                        "Nickname" : "Default Accountability",
+                                        "Path": "defaultTIPNew/accountability.json"
+                        }},
+			{ "TIP" : {
+                                        "Type" : "access",
+                                        "Nickname" : "Default Access",
+                                        "Path": "defaultTIPNew/access.json"
+                        }},
+			{ "TIP" : {
+                                        "Type" : "transparency",
+                                        "Nickname" : "Default Transparency",
+                                        "Path": "defaultTIPNew/transparency.json"
+                        }},
+			{ "TIP" : {
+                                        "Type" : "dataquality",
+                                        "Nickname" : "Default Data Quality",
+                                        "Path": "defaultTIPNew/dataquality.json"
+                        }}]
+		}
+
+	}
+		
+}			  
+		

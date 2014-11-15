@@ -1,8 +1,17 @@
-9. Redo all trustmarks according to new format/mapping
-10. Analysis
+9. Redo all trustmarks according to new format/mapping 
+10. Analysis - 4 days
 11. Test with two sites
 12. Dispose panel if sidebar open, Dispose sidebar if panel on
-13. Check if boolean expression evaluates correctly
+14. Allow for multiple versions of trustmark definitions - 1 day
+   a. Update trustmark definitions (pull from site)
+   b. Trustmark definitions should have a active, inactive label
+   c. While applying the TIP (panel), check if all the trustmark definitions are active. Else, send a "obsolete" trustmark definitions message that should be shown in the tip panel. 
+   d. While switching a TIP(sidebar), check if all the trustmark definitions are active. Else, send an error message that should be shown in the tip sidebar.
+   e. For create a TIP, get only those trustmark definitions that are active.
+   f. While pulling the trustmark definitions, also pull the new TIPs for each of the principles and apply the same.
+15. Help panel - 1 day
+
+TOTAL: 6 days
 ---------------------------------
 1. Reset to Defaults
 2. Download trustmarks

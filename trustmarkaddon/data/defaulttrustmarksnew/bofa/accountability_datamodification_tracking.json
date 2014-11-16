@@ -2,7 +2,7 @@
 	"Trustmark" : {
 		"Identifier": "http://trustmark.gtri.gatech.edu/sampletrustmarks/bofa/accountability/tracking/modify.xml",
 		"TrustmarkDefinitionReference": {
-				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/bofa/tracking/modify.xml",
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/accountability/tracking/modify.xml",
 				"Name": "Accountability through tracking of user data modifications",
 				"Version": "1.0",
 				"Description": "Tracks modifications to collected user data"			

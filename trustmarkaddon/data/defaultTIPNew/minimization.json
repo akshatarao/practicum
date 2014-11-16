@@ -74,7 +74,7 @@
                                 "@id": "minimization_datause_specifiedpurpose",
                                 "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/datause.xml",
                                 "Name" : "Minimize Data Use via Specified Purpose",
-				"Description" : "Specifies the uses of collected user data"
+				"Description" : "Specifies the usage of collected user data"
                 }},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "minimization_datadisclosure_specifiedpurpose",
@@ -90,7 +90,7 @@
                 }},
 		{"TrustmarkDefinitionReference": {
                                 "@id": "minimization_datacollection_contextualpurpose",
-                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/datacollection.xml",
+                                "Identifier" : "http://trustmark.gtri.gatech.edu/sampletds/minimization/contextualpurpose/collection.xml",
                                 "Name" : "Minimize Data Collection via contextual purpose",
                                 "Description" : "Data collection is intuitive according to context"
                 }},

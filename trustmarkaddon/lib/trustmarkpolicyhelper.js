@@ -340,12 +340,13 @@ function evaluateTrustmarkExpression(trust_expression, trustmark_list)
                  trust_expression = trust_expression.replace(item, 1);
         }
 
-        trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.]*\.xml/g, "0");
+        trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.\-]*\.xml/g, "0");
         trust_expression = trust_expression.replace(/\sand\s/g, "&&");
         trust_expression = trust_expression.replace(/\sor\s/g, "||");
         trust_expression = trust_expression.replace(/\sAND\s/g, "&&");
         trust_expression = trust_expression.replace(/\sOR\s/g, "||");
 
+	console.log("Trust expression : " + trust_expression);
         result = eval("(" + trust_expression + ")");
 
 	return result;
@@ -470,8 +471,8 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 						else
 						{
 							//Simple evaluation of trust expression
-
 							var trust_expression = results.trust_expression;
+
 							var result = evaluateTrustmarkExpression(trust_expression, trustmark_list);
 
 	                        	                if(result)

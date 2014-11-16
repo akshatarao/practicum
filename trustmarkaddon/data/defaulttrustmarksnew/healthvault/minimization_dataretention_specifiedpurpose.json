@@ -1,11 +1,11 @@
 { 
 	"Trustmark" : {
-		"Identifier": "http://trustmark.gtri.gatech.edu/sampletrustmarks/amazon/dataquality/dataaccuracy/datafreshness.xml",
+		"Identifier": "http://trustmark.gtri.gatech.edu/sampletrustmarks/healthvault/minimization/specifiedpurpose/dataretention.xml",
 		"TrustmarkDefinitionReference": {
-				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/dataquality/dataaccuracy/datafreshness.xml",
-				"Name": "Maintain Data Quality through Data Freshness",
+				"Identifier": "http://trustmark.gtri.gatech.edu/sampletds/minimization/specifiedpurpose/dataretention.xml",
+				"Name": "Minimize Data Retention via Specified Purpose",
 				"Version": "1.0",
-				"Description": "Maintain Data Quality through Data Freshness"			
+				"Description": "Specifies the purposes for retaining user data"			
 				},
 		"IssueDateTime": "2014-08-21T09:06:00",
 		"StatusURL": "http://trustmark.gtri.gatech.edu/schema/examples/trustmark-status-reports/query?tmid=IDENTIFIER",
@@ -18,11 +18,11 @@
 				}
 			},
 		"Recipient": {
-			"Identifier": "www.bankofamerica.com",
-			"Name": "Bank of America",
+			"Identifier": "www.healthvault.com",
+			"Name": "HealthVault",
 			"Contact": {
 				"Type": "PRIMARY",
-				"Email": "alice@bankofamerica.com"
+				"Email": "alice@healthvault.com"
 			}
 			
 		}

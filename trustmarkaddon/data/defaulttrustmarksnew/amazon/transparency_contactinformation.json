@@ -19,7 +19,7 @@
 			},
 		"Recipient": {
 			"Identifier": "www.amazon.com",
-			"Name": "Amazon,Inc",
+			"Name": "Amazon",
 			"Contact": {
 				"Type": "PRIMARY",
 				"Email": "alice@amazon.com"

@@ -93,13 +93,13 @@ function onClickListener(event)
 	for(index = 0; index < tipdivs.length; index++)
 	{
 		var divelement = tipdivs[index];
-		if(divelement.id != event.target.id)
+/**		if(divelement.id != event.target.id)
 		{
 			divelement.removeEventListener("click", onClickListener, false);
 			divelement.removeEventListener("mouseover", onMouseOverListener, false);
 			divelement.removeEventListener("mouseout", onMouseOutListener, false);
 			divelement.style.color = "#A7C4C4";
-		}
+		}**/
 
 	}
 		

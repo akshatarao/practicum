@@ -13,6 +13,8 @@ var trustmarkhelper = require("./trustmarkhelper.js");
 var pageloadhandler = require("./pageloadhandler.js");
 var { indexedDB }  = require('sdk/indexed-db');
 
+var settingssidebar;
+var tipsidebar;
 
 var trustmarkpanel = require("sdk/panel").Panel({
 
@@ -49,6 +51,7 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			url: self.data.url("settings.html"),
 			onReady: function(worker)
 			{
+				settingssidebar = sidebar;
 			},
 			onHide : function(worker)
 			{
@@ -56,6 +59,7 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			},
 			onAttach: function(worker)
 			{
+
 
 				worker.port.on("gettipdetails", function(tip_name)
 				{
@@ -105,6 +109,8 @@ var trustmarkpanel = require("sdk/panel").Panel({
 		        onReady: function(worker)
 	        	{
 
+				tipsidebar = sidebar;
+
 				var url = urls.URL(tabs.activeTab.url);
 				var site = url.host;
 				var tip_id = "";
@@ -141,6 +147,7 @@ var trustmarkpanel = require("sdk/panel").Panel({
 			});
 
 			sidebar.show();
+			trustmarkpanel.hide();
 		}
 	} 
 });
@@ -148,6 +155,15 @@ var trustmarkpanel = require("sdk/panel").Panel({
 trustmarkpanel.on("show", function()
 {
 
+	if(settingssidebar)
+	{
+		settingssidebar.dispose();
+	}
+
+	if(tipsidebar)
+	{
+		tipsidebar.dispose();
+	}
 	var url = urls.URL(tabs.activeTab.url);
 	console.log("URL is: " + url);
 	console.log("Button" + JSON.stringify(togglebutton.icon));
@@ -210,12 +226,20 @@ function hideTrustmarks()
 tabs.on('activate', function(tab) {
         console.log('tab is active', tab.url);
 
-        var url = urls.URL(tab.url);
-        var site = url.host;
+	if(tab.url.indexOf("about") === 0)
+        {
+              var icon = new Object();
+              var jsonString = '{"32" : "./eye-qnmark.png"}';
+              togglebutton.icon  = JSON.parse(jsonString);
+        }
+        else
+        {
+               var url = urls.URL(tab.url);
+               var site = url.host;
+               trustmarkpolicyhelper.checkIfRecipientSatisfiesAllActiveTIPs(site,togglebutton);
+         }
+
         pageloadhandler.onPageLoad(site, trustmarkpanel);
-
-	trustmarkpolicyhelper.checkIfRecipientSatisfiesAllActiveTIPs(site,togglebutton);
-
 });
 
 tabs.on('ready', function(tab)
@@ -225,11 +249,21 @@ tabs.on('ready', function(tab)
         if(tab === tabs.activeTab)
         {
                 console.log("Im the active tab" + tab.url);
-                var url = urls.URL(tab.url);
-                var site = url.host;
 
+		if(tab.url.indexOf("about") === 0)
+		{
+			var icon = new Object();
+                        var jsonString = '{"32" : "./eye-qnmark.png"}';
+                        togglebutton.icon  = JSON.parse(jsonString);
+		}
+		else
+                {
+			var url = urls.URL(tab.url);
+              		var site = url.host;
+			trustmarkpolicyhelper.checkIfRecipientSatisfiesAllActiveTIPs(site,togglebutton);
+		}
+		
                 pageloadhandler.onPageLoad(site, trustmarkpanel);
-		trustmarkpolicyhelper.checkIfRecipientSatisfiesAllActiveTIPs(site,togglebutton);
         }
 });
 

@@ -1,3 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>main.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/main.html">main</a></li>
+            
+                <li><a href="../classes/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../classes/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/main.html">main</a></li>
+            
+                <li><a href="../modules/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../modules/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: main.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
 /***
  This module contains the initialization code for the addon
  @module main
@@ -19,14 +117,14 @@
  @requires sdk/ui/button/toggle
 */
 
-var panelviewer = require("./panelviewer.js");
-var trustmarkhelper = require("./trustmarkhelper.js");
-var trustmarkpolicyhelper = require("./trustmarkpolicyhelper.js");
-var urls = require("sdk/url");
-var tabs = require("sdk/tabs");
-var self = require("sdk/self");
-var { ToggleButton } = require('sdk/ui/button/toggle');
-var { indexedDB }  = require('sdk/indexed-db');
+var panelviewer = require(&quot;./panelviewer.js&quot;);
+var trustmarkhelper = require(&quot;./trustmarkhelper.js&quot;);
+var trustmarkpolicyhelper = require(&quot;./trustmarkpolicyhelper.js&quot;);
+var urls = require(&quot;sdk/url&quot;);
+var tabs = require(&quot;sdk/tabs&quot;);
+var self = require(&quot;sdk/self&quot;);
+var { ToggleButton } = require(&#x27;sdk/ui/button/toggle&#x27;);
+var { indexedDB }  = require(&#x27;sdk/indexed-db&#x27;);
 
 //Trustmark Button
 /**
@@ -34,10 +132,10 @@ var { indexedDB }  = require('sdk/indexed-db');
  @attribute button 
 */
 var button = ToggleButton({
-  id: "show-panel",
-  label: "Display privacy report card for this website",
+  id: &quot;show-panel&quot;,
+  label: &quot;Display privacy report card for this website&quot;,
   icon: {
-    "32": "./eye-qnmark.png"
+    &quot;32&quot;: &quot;./eye-qnmark.png&quot;
   },
   onClick: displayTrustmarkPanel
 });
@@ -67,7 +165,7 @@ function displayTrustmarkPanel(state)
  */
 function getDBName()
 {
-	return "trustmarkDB";
+	return &quot;trustmarkDB&quot;;
 }
 
 /** 
@@ -77,7 +175,7 @@ function getDBName()
  */
 function getRecipientStoreName()
 {
-	return "recipients";
+	return &quot;recipients&quot;;
 }
 
 /**
@@ -98,8 +196,8 @@ function createRecipientStore(db)
         }
 
 	//Create recipient object store
-	var objectStore = db.createObjectStore(objectStoreLabel, { keyPath: "identifier" });
-      	objectStore.createIndex("trustmark_list", "trustmark_list", {unique:false});
+	var objectStore = db.createObjectStore(objectStoreLabel, { keyPath: &quot;identifier&quot; });
+      	objectStore.createIndex(&quot;trustmark_list&quot;, &quot;trustmark_list&quot;, {unique:false});
 }
 
 /***
@@ -109,7 +207,7 @@ function createRecipientStore(db)
  */
 function getTrustmarkDefStoreName()
 {
-	return "trustmarkdefs";
+	return &quot;trustmarkdefs&quot;;
 }
 
 /**
@@ -129,10 +227,10 @@ function createTrustmarkDefinitionStore(db)
 	}
 
 	//Create table
-	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "identifier"});
-	objectStore.createIndex("name", "name", {unique:true});
-	objectStore.createIndex("description", "description", {unique:false});
-	objectStore.createIndex("tip_type", "tip_type", {unique:false});
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: &quot;identifier&quot;});
+	objectStore.createIndex(&quot;name&quot;, &quot;name&quot;, {unique:true});
+	objectStore.createIndex(&quot;description&quot;, &quot;description&quot;, {unique:false});
+	objectStore.createIndex(&quot;tip_type&quot;, &quot;tip_type&quot;, {unique:false});
 }
 
 /**
@@ -142,7 +240,7 @@ function createTrustmarkDefinitionStore(db)
  */
 function getRecipientTrustmarkMappingStoreName()
 {
-	return "trustmarkrecipientmapping";
+	return &quot;trustmarkrecipientmapping&quot;;
 }
 
 /**
@@ -162,9 +260,9 @@ function createRecipientTrustmarkMappingStore(db)
 	}
 
 	//Create table
-	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "trustmark_id"});
-	objectStore.createIndex("recipient_id", "recipient_id", {unique: false});
-	objectStore.createIndex("trustmark_def_id", "trustmark_def_id", {unique: false});
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: &quot;trustmark_id&quot;});
+	objectStore.createIndex(&quot;recipient_id&quot;, &quot;recipient_id&quot;, {unique: false});
+	objectStore.createIndex(&quot;trustmark_def_id&quot;, &quot;trustmark_def_id&quot;, {unique: false});
 }
 
 /**
@@ -174,7 +272,7 @@ function createRecipientTrustmarkMappingStore(db)
  */
 function getTrustmarkStoreName()
 {
-	return "trustmarks";
+	return &quot;trustmarks&quot;;
 }
 
 /**
@@ -194,9 +292,9 @@ function createTrustmarkStore(db)
 	}
 
 	//Create table
-	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "trustmark_id"});
-	objectStore.createIndex("trustmark_def_id", "trustmark_def_id", {unique: false});
-	objectStore.createIndex("trustmark_json", "trustmark_json", {unique: true});
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: &quot;trustmark_id&quot;});
+	objectStore.createIndex(&quot;trustmark_def_id&quot;, &quot;trustmark_def_id&quot;, {unique: false});
+	objectStore.createIndex(&quot;trustmark_json&quot;, &quot;trustmark_json&quot;, {unique: true});
 }
 
 /**
@@ -205,7 +303,7 @@ function createTrustmarkStore(db)
  */
 function getTIPStoreName()
 {
-	return "tip";
+	return &quot;tip&quot;;
 }
 
 /**
@@ -221,18 +319,18 @@ function createTIPStore(db)
 	//Delete table if exists
 	if(db.objectStoreNames.contains(objectStoreLabel))
 	{
-		console.log("Deleted tip object store");
+		console.log(&quot;Deleted tip object store&quot;);
 		db.deleteObjectStore(objectStoreLabel);
 	}
 
 	//Create table 
-	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: "tip_id"});
-	objectStore.createIndex("tip_json", "tip_json", {unique:false});
-	objectStore.createIndex("trustmark_list", "trustmark_list", {unique: false});
-	objectStore.createIndex("trust_expression", "trust_expression", {unique: false});
-	objectStore.createIndex("type", "type", {unique: false});
-	objectStore.createIndex("isActive", "isActive", {unique: false});
-	objectStore.createIndex("nickname", "nickname", {unique: true});
+	var objectStore = db.createObjectStore(objectStoreLabel, {keyPath: &quot;tip_id&quot;});
+	objectStore.createIndex(&quot;tip_json&quot;, &quot;tip_json&quot;, {unique:false});
+	objectStore.createIndex(&quot;trustmark_list&quot;, &quot;trustmark_list&quot;, {unique: false});
+	objectStore.createIndex(&quot;trust_expression&quot;, &quot;trust_expression&quot;, {unique: false});
+	objectStore.createIndex(&quot;type&quot;, &quot;type&quot;, {unique: false});
+	objectStore.createIndex(&quot;isActive&quot;, &quot;isActive&quot;, {unique: false});
+	objectStore.createIndex(&quot;nickname&quot;, &quot;nickname&quot;, {unique: true});
 
 }
 
@@ -263,11 +361,11 @@ function initDB()
 	var request = indexedDB.open(dbName,2);
 	
 	request.onerror = function(event) {
-		console.log("An error occurred while accessing trustmark DB:" + event.target.errorCode);
+		console.log(&quot;An error occurred while accessing trustmark DB:&quot; + event.target.errorCode);
 	};
 
 	request.onsuccess = function(event) {
-		console.log("DB successfully initialized.");
+		console.log(&quot;DB successfully initialized.&quot;);
 	}
 
 	request.onupgradeneeded = function(event) {
@@ -299,12 +397,12 @@ function isEmpty(str)
  */
 function getDefaultTrustmarkDefs()
 {
-	var request = indexedDB.open("trustmarkDB", 2);
+	var request = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 	var db;
 
 	request.onerror = function(event)
 	{
-		console.log("An error occurred while opening the database.");
+		console.log(&quot;An error occurred while opening the database.&quot;);
 	}
 
 	request.onsuccess = function(event)
@@ -312,7 +410,7 @@ function getDefaultTrustmarkDefs()
 		db = event.target.result;
 
 		//Load trustmark definitions configuration file
-		var configFileJSON = self.data.load("defaultTrustmarkDefinitionsNew/configFileJSON");
+		var configFileJSON = self.data.load(&quot;defaultTrustmarkDefinitionsNew/configFileJSON&quot;);
 		var configFileJSONObj = JSON.parse(configFileJSON);
 
 		//Load trustmark definiton list
@@ -339,12 +437,12 @@ function getDefaultTrustmarkDefs()
  */
 function getDefaultTIP()
 {
-	var request = indexedDB.open("trustmarkDB", 2);
+	var request = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 	var db;
 
 	request.onerror = function(event)
 	{
-		console.log("An error occurred while opening the database.");
+		console.log(&quot;An error occurred while opening the database.&quot;);
 	}
 
 	request.onsuccess = function(event)
@@ -352,7 +450,7 @@ function getDefaultTIP()
 		db = event.target.result;
 
 		//Load pre-packaged TIP configuration file
-		var configFileJSON = self.data.load("defaultTIPNew/configFileJSON");
+		var configFileJSON = self.data.load(&quot;defaultTIPNew/configFileJSON&quot;);
 		var configFileJSONObj = JSON.parse(configFileJSON);
 
 		var tipreferencearray = configFileJSONObj.DefaultTIP.TIPs.TIPList;
@@ -369,7 +467,7 @@ function getDefaultTIP()
 			var jsonObj = JSON.parse(tipjson);	
 			var tip_id = jsonObj.TrustInteroperabilityProfile.Identifier;
 		
-			var isActive = "1";	
+			var isActive = &quot;1&quot;;	
 			//Insert TIP In Cache	
 			trustmarkpolicyhelper.insertTIPInCache(db, tip_id, tipjson, tip_nickname, tip_type, isActive);
 		}
@@ -384,21 +482,21 @@ function getDefaultTIP()
  */
 function getDefaultTrustmarks()
 {
-	var request = indexedDB.open("trustmarkDB",2);
+	var request = indexedDB.open(&quot;trustmarkDB&quot;,2);
         var db;
 
 
         request.onerror = function(event)
         {
-                console.log("An error occurred while opening the database.");
+                console.log(&quot;An error occurred while opening the database.&quot;);
         }
 
         request.onsuccess = function(event)
         {
-		var configFile = self.data.load("defaulttrustmarksnew/configfile");
-	        var trustmarks = configFile.split("\n");
+		var configFile = self.data.load(&quot;defaulttrustmarksnew/configfile&quot;);
+	        var trustmarks = configFile.split(&quot;\n&quot;);
 
-                console.log("Successfully got a connection to database.");
+                console.log(&quot;Successfully got a connection to database.&quot;);
                 db = event.target.result;
 
 		//Iterate through config file to get trustmarks
@@ -447,3 +545,23 @@ loadPrepackagedData();
 
 //Set Toggle Button variable
 panelviewer.setToggleButton(button);
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

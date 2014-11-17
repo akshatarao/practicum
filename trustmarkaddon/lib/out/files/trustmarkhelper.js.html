@@ -1,4 +1,102 @@
-var { indexedDB }  = require('sdk/indexed-db');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>trustmarkhelper.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/main.html">main</a></li>
+            
+                <li><a href="../classes/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../classes/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/main.html">main</a></li>
+            
+                <li><a href="../modules/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../modules/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: trustmarkhelper.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+var { indexedDB }  = require(&#x27;sdk/indexed-db&#x27;);
 
 /**
  Handles the trustmark, trustmark definitions operations  
@@ -23,14 +121,14 @@ var { indexedDB }  = require('sdk/indexed-db');
  */
 function loadTrustmarkDefinitions(worker, tip_type)
 {
-	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
+	var dbOpenRequest = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 	var db;
 
 	dbOpenRequest.onsuccess = function(event)
 	{
 		db = event.target.result;
 
-		var trustmarkDefinitionObjectStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+		var trustmarkDefinitionObjectStore = db.transaction(&quot;trustmarkdefs&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkdefs&quot;);
 
 		//Open the trustmark definitions
 		var openRequest = trustmarkDefinitionObjectStore.openCursor();
@@ -38,7 +136,7 @@ function loadTrustmarkDefinitions(worker, tip_type)
 
 		openRequest.onerror = function(event)
 		{
-			console.log("An error occurred while openingObjectStore");
+			console.log(&quot;An error occurred while openingObjectStore&quot;);
 		}
 		openRequest.onsuccess = function(event)
 		{
@@ -65,7 +163,7 @@ function loadTrustmarkDefinitions(worker, tip_type)
 			else
 			{
 				//After iterating through all trustmark definitions, emit the trustmark definition list	
-				worker.port.emit("receivetrustmarkdefs", test);
+				worker.port.emit(&quot;receivetrustmarkdefs&quot;, test);
 			}
 		}
 
@@ -77,16 +175,16 @@ function loadTrustmarkDefinitions(worker, tip_type)
  *Convert trustmark list string from array
  *@method getTrustmarkList
  *@param trustmark_array {string array}  Array of trustmark identifiers
- *@return ##TRUSTMARK## delimited string of trustmark IDs
+ *@Returns ##TRUSTMARK## delimited string of trustmark IDs
  */
 function getTrustmarkList(trustmark_array)
 {
-	var trustmark_list = "";
+	var trustmark_list = &quot;&quot;;
 
 	for(var index in trustmark_array)
 	{
 		trustmark_list += trustmark_array[index];
-		trustmark_list += "##TRUSTMARK##";
+		trustmark_list += &quot;##TRUSTMARK##&quot;;
 	}
 
 	return trustmark_list;
@@ -104,13 +202,13 @@ function getTrustmarkList(trustmark_array)
  */
 function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc, td_tip_type)
 {
-	var trustmarkDefObjectStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+	var trustmarkDefObjectStore = db.transaction(&quot;trustmarkdefs&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkdefs&quot;);
 
 	var trustmarkDefRequest = trustmarkDefObjectStore.get(td_identifier);
 	
 	trustmarkDefRequest.onerror = function(event)
 	{
-		console.log("An error occurred while accessing the trustmark definition store");
+		console.log(&quot;An error occurred while accessing the trustmark definition store&quot;);
 	}
 
 	trustmarkDefRequest.onsuccess = function(event)
@@ -124,7 +222,7 @@ function insertTrustmarkDefinitionInCache(db, td_identifier, td_name, td_desc, t
 		}
 		else
 		{
-			console.log("Trustmark Definition already exists: " + td_identifier);
+			console.log(&quot;Trustmark Definition already exists: &quot; + td_identifier);
 		}	
 	}	
 }
@@ -153,13 +251,13 @@ function getRecipientName(trustmark_json_str)
  */
 function addRecipientToCache(db, recipient_id, trustmark_id_val, overwriteTrustmarkList)
 {
-	var recipientObjectStore = db.transaction("recipients", "readwrite").objectStore("recipients");
+	var recipientObjectStore = db.transaction(&quot;recipients&quot;, &quot;readwrite&quot;).objectStore(&quot;recipients&quot;);
 
         var recipientRequest = recipientObjectStore.get(recipient_id);
 
         recipientRequest.onerror = function(event)
         {
-                console.log("An error occurred while accessing the recipient store");
+                console.log(&quot;An error occurred while accessing the recipient store&quot;);
         }
 
         recipientRequest.onsuccess = function(event)
@@ -167,7 +265,7 @@ function addRecipientToCache(db, recipient_id, trustmark_id_val, overwriteTrustm
                 if(recipientRequest.result)
                 {
 		       //Update trustmark id to existing list
-                       //console.log("Recipient " + recipientRequest.result.name + " found.");
+                       //console.log(&quot;Recipient &quot; + recipientRequest.result.name + &quot; found.&quot;);
 
 		       var trustmark_list_val = trustmark_id_val;
 			
@@ -175,20 +273,20 @@ function addRecipientToCache(db, recipient_id, trustmark_id_val, overwriteTrustm
 		       if(!overwriteTrustmarkList)
 		       {
 	                       trustmark_list_val =  recipientRequest.result.trustmark_list;
-        	               trustmark_list_val += "##TRUSTMARK##";
+        	               trustmark_list_val += &quot;##TRUSTMARK##&quot;;
                 	       trustmark_list_val += trustmark_id_val;
 		       }
 	
                        var newRow = { identifier : recipient_id, trustmark_list : trustmark_list_val };  
                        recipientObjectStore.put(newRow);    
-                      //console.log("Trustmark List: " + trustmark_list_val); 
+                      //console.log(&quot;Trustmark List: &quot; + trustmark_list_val); 
                 }
                 else
                 {
                   	//Update trustmark id to list
                         var recipientRow = { identifier : recipient_id, trustmark_list : trustmark_id_val};
                         recipientObjectStore.add(recipientRow);
-                        //console.log("Recipient added : " + recipient_name);
+                        //console.log(&quot;Recipient added : &quot; + recipient_name);
                 }
         }
 
@@ -202,13 +300,13 @@ function addRecipientToCache(db, recipient_id, trustmark_id_val, overwriteTrustm
  */
 function deleteTrustmarkFromCache(db, trustmark_id_val)
 {
-	var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
+	var trustmarkObjectStore = db.transaction(&quot;trustmarks&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarks&quot;);
 
         var trustmarkRequest = trustmarkObjectStore.delete(trustmark_id_val);
 
 	trustmarkRequest.onSuccess = function(event)
 	{
-		console.log("Deletion successful of trustmark from trustmark store: " + trustmark_id_val);
+		console.log(&quot;Deletion successful of trustmark from trustmark store: &quot; + trustmark_id_val);
 	}
 
 }
@@ -223,26 +321,26 @@ function deleteTrustmarkFromCache(db, trustmark_id_val)
 */
 function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustmark_json_val)
 {
-	var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
+	var trustmarkObjectStore = db.transaction(&quot;trustmarks&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarks&quot;);
 
         var trustmarkRequest = trustmarkObjectStore.get(trustmark_id_val);
 
         trustmarkRequest.onerror = function(event)
         {
-                //console.log("An error occurred while accessing the trustmarks store");
+                //console.log(&quot;An error occurred while accessing the trustmarks store&quot;);
         }
 
         trustmarkRequest.onsuccess = function(event)
         {
                 if(trustmarkRequest.result)
                 {
-                        //console.log("Trustmark " + trustmark_id_val + " found.");
+                        //console.log(&quot;Trustmark &quot; + trustmark_id_val + &quot; found.&quot;);
                 }
                 else
                 {
                         var trustmarkRow = { trustmark_id : trustmark_id_val, trustmark_def_id: trustmark_def_id_val, trustmark_json: trustmark_json_val };
                         trustmarkObjectStore.add(trustmarkRow);
-                        //console.log("Trustmark added : " + trustmark_id_val);
+                        //console.log(&quot;Trustmark added : &quot; + trustmark_id_val);
                 }
         }
 
@@ -257,13 +355,13 @@ function addTrustmarkToCache(db, trustmark_id_val, trustmark_def_id_val, trustma
  */
 function deleteTrustmarkMappingFromCache(db, trustmark_id_val)
 {
-	 var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
+	 var trustmarkMappingObjectStore = db.transaction(&quot;trustmarkrecipientmapping&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkrecipientmapping&quot;);
 
 	 var deleteRequest = trustmarkMappingObjectStore.delete(trustmark_id_val);
 	 
 	 deleteRequest.onsuccess = function(event)
 	 {
-		console.log("Trustmark successfully deleted from mapping: " + trustmark_id_val);
+		console.log(&quot;Trustmark successfully deleted from mapping: &quot; + trustmark_id_val);
 
 	 }
 	
@@ -279,13 +377,13 @@ function deleteTrustmarkMappingFromCache(db, trustmark_id_val)
 */
 function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trustmark_def_id_val)
 {
-	var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
+	var trustmarkMappingObjectStore = db.transaction(&quot;trustmarkrecipientmapping&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkrecipientmapping&quot;);
 
         var trustmarkMappingRequest = trustmarkMappingObjectStore.get(trustmark_id_val);
 
         trustmarkMappingRequest.onerror = function(event)
         {
-                //console.log("An error occurred while accessing the trustmark mapping store");
+                //console.log(&quot;An error occurred while accessing the trustmark mapping store&quot;);
         }
 
         trustmarkMappingRequest.onsuccess = function(event)
@@ -293,13 +391,13 @@ function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trus
 		//Ignore if already exists
                 if(trustmarkMappingRequest.result)
                 {
-                        //console.log("Trustmark " + trustmark_id_val + " found.");
+                        //console.log(&quot;Trustmark &quot; + trustmark_id_val + &quot; found.&quot;);
                 }
                 else
                 {
                         var trustmarkMappingRow = { trustmark_id : trustmark_id_val, trustmark_def_id: trustmark_def_id_val, recipient_id: recipient_id_val };
                         trustmarkMappingObjectStore.add(trustmarkMappingRow);
-                        //console.log("Trustmark mapping added : " + trustmark_id_val);
+                        //console.log(&quot;Trustmark mapping added : &quot; + trustmark_id_val);
                 }
         }
 
@@ -314,13 +412,13 @@ function addTrustmarkMappingToCache(db, trustmark_id_val, recipient_id_val, trus
 function retrieveRecipientTrustmarks(recipient_id)
 {
 
-	var dbOpenRequest = indexedDB.open("trustmarkDB",2);
+	var dbOpenRequest = indexedDB.open(&quot;trustmarkDB&quot;,2);
         var db;
 
 
         dbOpenRequest.onerror = function(event)
         {
-                //console.log("An error occurred while opening the database.");
+                //console.log(&quot;An error occurred while opening the database.&quot;);
         }
 
         dbOpenRequest.onsuccess = function(event)
@@ -328,10 +426,10 @@ function retrieveRecipientTrustmarks(recipient_id)
 
 		db = event.target.result;
 	
-	        var trustmarkMappingObjectStore = db.transaction("trustmarkrecipientmapping", "readwrite").objectStore("trustmarkrecipientmapping");
+	        var trustmarkMappingObjectStore = db.transaction(&quot;trustmarkrecipientmapping&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkrecipientmapping&quot;);
 
 		//Get all the rows that match the recipient
-		var index = trustmarkMappingObjectStore.index("recipient_id");
+		var index = trustmarkMappingObjectStore.index(&quot;recipient_id&quot;);
 		var request = index.openCursor(recipient_id);
 
 		var test = [];
@@ -347,7 +445,7 @@ function retrieveRecipientTrustmarks(recipient_id)
 				var trustmark_id = results.trustmark_id;
 
 		
-				var trustmarkObjectStore = db.transaction("trustmarks", "readwrite").objectStore("trustmarks");
+				var trustmarkObjectStore = db.transaction(&quot;trustmarks&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarks&quot;);
 
 				var trustmarkRequest = trustmarkObjectStore.get(trustmark_id);
 
@@ -359,7 +457,7 @@ function retrieveRecipientTrustmarks(recipient_id)
 						var trustmark_json = trustmarkRequest.result.trustmark_json;
 						var trustmark_json_obj = JSON.parse(trustmark_json);
 						var trustmarkname = trustmark_json_obj.Trustmark.TrustmarkDefinitionReference.Name
-						console.log("Trustmark: " + trustmarkname);
+						console.log(&quot;Trustmark: &quot; + trustmarkname);
 						test[i] = trustmarkname;
 						
 						i = i+1;
@@ -372,7 +470,7 @@ function retrieveRecipientTrustmarks(recipient_id)
 
 				trustmarkRequest.onerror = function(event)
 				{
-					//console.log("An error occurred while retrieving the trustmarks");
+					//console.log(&quot;An error occurred while retrieving the trustmarks&quot;);
 				}
 		
 				cursor.continue();
@@ -393,10 +491,10 @@ function retrieveRecipientTrustmarks(recipient_id)
 function addTrustmarkRelationsToCache(db, recipient_id, trustmark_id, trustmark_def_id, trustmark_json)
 {
 
-/*	//console.log("Add trustmark to cache");
-	//console.log("Recipient ID: " + recipient_id);
-	//console.log("Trustmark ID: " + trustmark_id);
-	//console.log("Trustmark Def ID:" + trustmark_def_id);
+/*	//console.log(&quot;Add trustmark to cache&quot;);
+	//console.log(&quot;Recipient ID: &quot; + recipient_id);
+	//console.log(&quot;Trustmark ID: &quot; + trustmark_id);
+	//console.log(&quot;Trustmark Def ID:&quot; + trustmark_def_id);
 */
 	var overwriteTrustmarkList = false;
 	addRecipientToCache(db, recipient_id, trustmark_def_id, false);
@@ -414,3 +512,23 @@ exports.deleteTrustmarkFromCache = deleteTrustmarkFromCache;
 exports.deleteTrustmarkMappingFromCache = deleteTrustmarkMappingFromCache;
 exports.getTrustmarkList = getTrustmarkList;
 exports.addRecipientToCache = addRecipientToCache;
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

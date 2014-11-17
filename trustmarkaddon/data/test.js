@@ -25,11 +25,11 @@ function displayOverallPrinciplesPassed(recipient)
 	if(overallPassed)
 	{
 		overallMessage = "<font color='#0066FF'>" + recipient + "</font> has passed the privacy settings for all the privacy principles.";
-		self.postMessage("overallpassed");		
+		//self.postMessage("overallpassed");		
 	}
 	else
 	{
-		self.postMessage("overallfailed");
+		//self.postMessage("overallfailed");
 	}
 
 	overallmessagediv.innerHTML = overallMessage;

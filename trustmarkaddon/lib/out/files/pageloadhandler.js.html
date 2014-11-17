@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>pageloadhandler.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/main.html">main</a></li>
+            
+                <li><a href="../classes/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../classes/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/main.html">main</a></li>
+            
+                <li><a href="../modules/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../modules/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: pageloadhandler.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * File: pageloader.js
+ * Purpose: Displays page warnings upon page load and activates policy
+ * Created by: ARao
+ */
+
+var urls = require(&quot;sdk/url&quot;);
+var tabs = require(&quot;sdk/tabs&quot;);
+var self = require(&quot;sdk/self&quot;);
+var { indexedDB }  = require(&#x27;sdk/indexed-db&#x27;);
+var trustmarkhelper = require(&quot;./trustmarkhelper.js&quot;);
+
+function printTrustmarkList(trustmarkarray)
+{
+	console.log(&quot;Trustmark array: &quot; + trustmarkarray);
+}
+
+function isEmpty(str)
+{
+	if(str &amp;&amp; str.length &gt; 0)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+function getRecipientTrustmarkArray(trustmark_list)
+{
+	var trustmark_array = trustmark_list.split(&quot;##TRUSTMARK##&quot;);
+	var trustmark_final_array = [];
+
+	for(var index = 0; index &lt; trustmark_array.length; index++)
+	{
+		var trustmark_id = trustmark_array[index];
+
+		if(!isEmpty(trustmark_id))
+		{
+				trustmark_final_array.push(trustmark_id);
+		}	
+		
+	}
+
+        return trustmark_final_array;
+}
+
+/***
+ *@Purpose - Placeholder - Retrieves the IDs of currently active trustmarks for the recipient
+ *@Params - Recipient_ID - Hostname of the recipient
+ *@Returns - Delimiter separated list of currently active trustmark IDs for recipient
+ */
+function getRecipientActiveTrustmarkIDListFromServer(recipient_id)
+{
+
+	
+	var prepackaged_trustmarks_sites = [];
+	prepackaged_trustmarks_sites.push(&quot;www.facebook.com&quot;);
+
+	for(var index in prepackaged_trustmarks_sites)
+	{
+		var site = prepackaged_trustmarks_sites[index];
+
+		if(recipient_id === site)
+			return &quot;DUMMY_TRUSTMARK_IDS&quot;;
+
+	}
+
+	//TODO: Insert web service here to contact the trustmark server
+	return &quot;&quot;;
+}
+
+/***
+ *@Purpose - Get List of inactive trustmarks in Cache
+ *@Param - cacheRecipientTrustmarkArray - Array of recipient trustmark IDs in cache
+ *@Param - serverRecipientTrustmarkArray - Array of server trustmark IDs in server  
+ *@Returns - Array of inactive trustmarks in Cache
+ */
+function getInactiveTrustmarks(cacheRecipientTrustmarkArray, serverRecipientTrustmarkArray)
+{
+   var inactiveTrustmarks = [];
+
+    for(var index = 0; index &lt; cacheRecipientTrustmarkArray.length; index++)
+    {
+	var cacheTrustmark = cacheRecipientTrustmarkArray[index];
+	var found = false;
+
+	for(var index2 = 0; index2 &lt; serverRecipientTrustmarkArray.length; index2++)
+	{
+	    var serverTrustmark = serverRecipientTrustmarkArray[index2];
+	    
+	    if(cacheTrustmark === serverTrustmark)
+	    {
+		found = true;
+	    }
+	}
+
+	if(!found)
+	{
+		inactiveTrustmarks.push(cacheTrustmark);
+	}
+
+    }
+
+    return inactiveTrustmarks;	
+
+}
+
+/****
+ *@Purpose - Get trustmarks that need to be downloaded from server
+ *@Param - cacheRecipientTrustmarkArray - Array of recipient trustmarks present in cache
+ *@Param - serverRecipientTrustmarkArray - Array of server trustmarks present in cache
+ *@Returns - array of trustmarks to be downloaded
+ */
+function getTrustmarksToBeDownloaded(cacheRecipientTrustmarkArray, serverRecipientTrustmarkArray)
+{
+
+   var trustmarksToDownload = [];
+
+    for(var index = 0; index &lt; serverRecipientTrustmarkArray.length; index++)
+    {
+	var serverTrustmark = serverRecipientTrustmarkArray[index];
+	var found = false;
+
+	for(var index2 = 0; index2 &lt; cacheRecipientTrustmarkArray.length; index2++)
+	{
+	    var cacheTrustmark = cacheRecipientTrustmarkArray[index2];
+	    
+	    if(cacheTrustmark === serverTrustmark)
+	    {
+		found = true;
+	    }
+	}
+
+	if(!found)
+	{
+		trustmarksToDownload.push(serverTrustmark);
+	}
+
+    }
+
+    return trustmarksToDownload;	
+
+
+}
+
+
+/*****
+ *@Purpose - Update trustmarks in cache
+ *@Param - recipient_id - Site URL (www.facebook.com)
+ *@Param - recipientTrustmarkArrayInServer - Array of recipient trustmark IDs that are present in cache
+ *@Param - recipientTrustmarkArrayInCache - Array of recipient trustmark IDs that are present in server
+ *@Returns - none
+ */
+function updateTrustmarksInCache(recipient_id, recipientTrustmarkArrayInCache, recipientTrustmarkArrayInServer)
+{
+	console.log(&quot;Updating trustmarks!&quot;);
+	//Get inactive recipient trustmarks that are present in cache
+        var inactivetrustmarks = getInactiveTrustmarks(recipientTrustmarkArrayInCache, recipientTrustmarkArrayInServer);
+	//Delete them from trustmark, trustmarkmapping store	
+	for(var index in inactivetrustmarks)
+	{
+		trustmarkhelper.deleteTrustmarkFromCache(inactivetrustmarks[index]);
+		trustmarkhelper.deleteTrustmarkMappingFromCache(inactivetrustmarks[index]);
+	}
+
+        //Get recipient trustmarks that need to be downloaded from server
+        var trustmarksToBeDownloaded = getTrustmarksToBeDownloaded(recipientTrustmarkArrayInCache, recipientTrustmarkArrayInServer);
+	downloadTrustmarksFromServer(recipient_id, trustmarksToBeDownloaded);
+
+	//Update recipientTrustmarks In recipientStore
+
+}
+
+/***
+ *@Purpose - Download trustmarks from server
+ *@Param - recipient_id - Site URL (www.facebook.com)
+ *@Param - trustmark_id - Trustmark Identifier
+ *@Returns - Trustmark JSON string
+ */
+function downloadTrustmarkFromServer(recipient_id, trustmark_id)
+{
+	var tipjson = &quot;&quot;;
+
+	//TODO: Placeholder for retrieving trustmark from server
+	return tipjson;
+	
+}
+
+/****
+ *@Purpose - Download Trustmarks From Server
+ *@Param - Recipient_id - Site URL (www.facebook.com)
+ *@Param - trustmarksToBeDownloaded - Array of trustmark IDs to be downloaded
+ *@Returns - none
+ */
+function downloadTrustmarksFromServer(recipient_id, trustmarksToBeDownloaded)
+{
+	for(var trustmarkID in trustmarksToBeDownloaded)
+        {
+
+                //Download trustmark json string
+                var trustmark_json = downloadTrustmarkFromServer(recipient_id, trustmarkID);
+
+
+                //Insert trustmark into trustmark store and trustmark mapping store
+                var jsonObj = JSON.parse(trustmark_json);
+                var trustmark_def_id = jsonObj.Trustmark.TrustmarkDefinitionReference.Identifier;
+                trustmarkhelper.addTrustmarkRelationsToCache(db, recipient_id, trustmarkID, trustmark_def_id, trustmark_json);
+        }
+
+
+}
+
+/***
+ *@Purpose - Verifies if Latest Recipient Trustmarks are In Cache
+ *@Param - Recipient_id - Hostname of the Recipient (www.facebook.com)
+ *@Param - RecipientActiveTrustmarkIDsInServer - Active recipient trustmarks
+ *@Returns - none
+ */
+function verifyIfLatestRecipientTrustmarksAreInCache(recipient_id, recipientActiveTrustmarkIDsInServer)
+{
+	//1. Checks if recipient exists in the cache
+	var dbRequest  = indexedDB.open(&quot;trustmarkDB&quot;, 2);
+	var db;
+
+	dbRequest.onsuccess = function(event)
+	{
+		db = event.target.result;
+
+		var recipientObjectStore = db.transaction(&quot;recipients&quot;, &quot;readwrite&quot;).objectStore(&quot;recipients&quot;);
+		var recipientRequest = recipientObjectStore.get(recipient_id);
+
+		
+
+
+		recipientRequest.onsuccess = function(event)
+		{
+
+			var activeTrustmarks = false;
+			var recipientRow = event.target.result;
+			
+
+			if(recipientRow)
+			{
+				var trustmark_list = recipientRow.trustmark_list;
+				var recipientTrustmarkArrayInCache = getRecipientTrustmarkArray(trustmark_list);
+
+				//HACK: As there is no server at the moment, I&#x27;m copying trustmark_array to the recipientActiveTrustmarkArray
+                                //This should be uncommented when server support is added
+				//var recipientTrustmarkArrayInServer = getArray(recipientActiveTrustmarkIDsInServer);
+
+				var recipientTrustmarkArrayInServer = recipientTrustmarkArrayInCache;
+
+				updateTrustmarksInCache(recipient_id, recipientTrustmarkArrayInCache, recipientTrustmarkArrayInServer);
+				
+				var overwriteTrustmarkList = true;
+				var trustmark_list = trustmarkhelper.getTrustmarkList(recipientTrustmarkArrayInServer);
+				trustmarkhelper.addRecipientToCache(db, recipient_id, trustmark_list, overwriteTrustmarkList);
+ 			
+			}
+			else
+			{
+				downloadTrustmarksFromServer(recipientActiveTrustmarkIDsInServer);
+
+				//TODO: When the delimiter for recipient active trustmark ID string is determined,
+				//need to implement getArray to get an array of trustmark IDs
+				//var recipientTrustmarkArrayInServer = getArray(recipientActiveTrustmarkIDsInServer);
+	
+				var recipientTrustmarkArrayInServer = []; //DUMMY
+				var trustmark_list = trustmarkhelper.getTrustmarkList(recipientTrustmarkArrayInServer);
+				var overwriteTrustmarkList = false;
+
+				trustmarkhelper.addRecipientToCache(db, recipient_id, trustmark_list, overwriteTrustmarkList);
+			}
+	
+		}
+
+	}
+
+}
+
+/**
+ * Loads the page with a privacy warning frame 
+ */
+function onPageLoad(recipient_id, trustmarkpanel)
+{
+
+	var recipientActiveTrustmarkIDs = getRecipientActiveTrustmarkIDListFromServer(recipient_id);
+	console.log(&quot;Got Recipient Active Trustmark IDs from Server: &quot; + recipient_id);
+
+	if(!isEmpty(recipientActiveTrustmarkIDs))
+	{
+		verifyIfLatestRecipientTrustmarksAreInCache(recipient_id, recipientActiveTrustmarkIDs);
+		console.log(&quot;Verified If recipient trustmarks are in cache: &quot; + recipient_id);
+	}
+	else
+	{
+		trustmarkpanel.port.emit(&quot;notrustmarks&quot;, recipient_id);
+	}
+}
+
+exports.onPageLoad = onPageLoad;
+exports.printTrustmarkList = printTrustmarkList;
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

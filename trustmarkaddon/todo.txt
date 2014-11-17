@@ -1,5 +1,4 @@
 10. Analysis - 4 days
-12. Dispose panel if sidebar open, Dispose sidebar if panel on
 14. Allow for multiple versions of trustmark definitions - 1 day
    a. Update trustmark definitions (pull from site)
    b. Trustmark definitions should have a active, inactive label

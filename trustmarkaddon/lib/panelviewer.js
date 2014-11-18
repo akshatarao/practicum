@@ -167,47 +167,12 @@ var trustmarkpanel = require("sdk/panel").Panel({
 				var tip_id = "";
 		
 				/**
-				 *Display the trustmarks for the currently active minimization policy
-				 *@event minimization
+				 *Display the trustmarks for the currently active policy for the granular principle specified in the message
 				 */
-				if(message === "minimization")
+				if(message === "minimization" || message === "transparency" || message === "access" || message === "accountability" || message === "transparency")
 				{
-					tip_id = trustmarkpolicyhelper.getCurrentMinimizationPolicy();
+					trustmarkpolicyhelper.displayTrustmarksForCurrentlyActivePolicy(message, site, worker);
 				}
-				/**
-				 *Display the trustmarks for the currently active transparency policy
-				 *@event transparency
-				 */
-				else if(message === "transparency")
-				{
-					tip_id = trustmarkpolicyhelper.getCurrentTransparencyPolicy();
-				}
-				/**
-                                 *Display the trustmarks for the currently active access policy
-				 *@event access
-                                 */
-				else if(message === "access")
-				{
-					tip_id = trustmarkpolicyhelper.getCurrentAccessPolicy();
-				}
-				/**
-                                 *Display the trustmarks for the currently active accountability policy
-				 *@event accountability
-                                 */
-				else if(message === "accountability")
-				{
-					tip_id = trustmarkpolicyhelper.getCurrentAccountabilityPolicy();
-				}
-				/**
-                                 *Display the trustmarks for the currently active data quality policy
-				 *@event dataquality
-                                 */
-				else if(message === "dataquality")
-				{
-					tip_id = trustmarkpolicyhelper.getCurrentDataQualityPolicy();
-				}
-
-	        	        trustmarkpolicyhelper.displayTIPTrustmarks(worker, tip_id, site);
         	       	
         		},
 			onHide: function()

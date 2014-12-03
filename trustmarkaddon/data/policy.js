@@ -7,6 +7,7 @@ var resetDiv = document.getElementById("reset");
  */
 
 /**
+ * Displays Create/View/Apply Policy Settings in tabbed content
  *@class policy
  */
 

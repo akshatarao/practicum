@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>trustmarkhelper</title>
+    <title>data/policy.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -116,50 +116,68 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>trustmarkhelper Module</h1>
-<div class="box clearfix meta">
-    
+                        <h1 class="file-heading">File: data/policy.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+var uploadDiv = document.getElementById(&quot;upload&quot;);
+var applyDiv = document.getElementById(&quot;apply&quot;);
+var resetDiv = document.getElementById(&quot;reset&quot;);
+/**
+ * Displays the settings in tabbed content
+ *@module policy
+ */
 
-    
-        <div class="foundat">
-            Defined in: <a href="../files/lib_trustmarkhelper.js.html#l9"><code>lib&#x2F;trustmarkhelper.js:9</code></a>
-        </div>
-    
+/**
+ * Displays Create/View/Apply Policy Settings in tabbed content
+ *@class policy
+ */
 
-    
-</div>
+/***
+ *On Click Listener for Tabs
+ *@method onClickListener
+ *@param event {Event} Mouse click event
+ */
+function onClickListener(event)
+{
+	
+	var tabdivs = document.getElementsByClassName(&#x27;content&#x27;);
+	var contentelementid = event.target.id +&quot;-content&quot;;
+	window.alert(contentelementid);
+	var contentelement = document.getElementById(contentelementid);
+	contentelement.style.display = &quot;block&quot;;
 
+	//Iterate through the tabs and display contents of the displayed tabs
+	for(index = 0; index &lt; tabdivs.length; index++)
+	{
+		var divelement = tabdivs[index];
 
+		if(divelement.id != event.target.id)
+		{
+			var contentelementid = divelement.id + &quot;-content&quot;;
 
-<div class="box intro">
-    <p>Handles the trustmark, trustmark definitions operations</p>
+			var contentelement = document.getElementById(contentelementid);
+			contentelement.style.display = &quot;none&quot;;
+		}
+	}
 
-</div>
+}
 
+/****
+ *Reset all tabs
+ *@method reset
+ */
+function reset()
+{
 
+        uploadDiv.addEventListener(&quot;click&quot;, onClickListener, false);
+        applyDiv.addEventListener(&quot;click&quot;, onClickListener, false);
+	resetDiv.addEventListener(&quot;click&quot;, onClickListener,false);
+}
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-            <p>This module provides the following classes:</p>
+reset();
 
-            <ul class="module-classes">
-            
-                <li class="module-class">
-                    <a href="../classes/trustmarkhelper.html">
-                        trustmarkhelper
-                    </a>
-                </li>
-            
-            </ul>
-        
-    </div>
-
-    <div class="yui3-u-1-2">
-        
-    </div>
+    </pre>
 </div>
 
                     </div>

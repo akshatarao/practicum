@@ -1,10 +1,11 @@
 /***
  * TIP evaluator for trustmark panel
- * @module
+ * @module test
  */
 
 /********
- *Functions to display TIPs panel content
+ *TIP Evaluator
+ *- Functions to display TIPs panel content
  *- Displays the failed TIPs
  *- Supports click on TIPs and sends message to panel to display TIP sidebar*
  *@class tipevaluator

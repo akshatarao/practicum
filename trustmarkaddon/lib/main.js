@@ -1,9 +1,10 @@
 /***
- This module contains the initialization code for the addon
- @module main
+ * This module contains the initialization code for the addon
+ * @module main
 */
 
 /**
+ * This module contains the initialization code for the addon
  @class main
 */
 

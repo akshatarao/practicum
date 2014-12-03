@@ -4,7 +4,8 @@
  */
 
 /**
- @class pageloadhandler
+ * Handles the download of trustmarks and invocation of TIP evaluation upon webpage load
+  @class pageloadhandler
  */
 var urls = require("sdk/url");
 var tabs = require("sdk/tabs");
@@ -83,6 +84,8 @@ function getRecipientActiveTrustmarkIDListFromServer(recipient_id)
 	
 
 	//TODO: Insert web service here to contact the trustmark server
+
+	//IF no trustmarks were found for the website, return empty string
 	return "";
 }
 

@@ -47,6 +47,14 @@
             
                 <li><a href="../classes/panelviewer.html">panelviewer</a></li>
             
+                <li><a href="../classes/policy.html">policy</a></li>
+            
+                <li><a href="../classes/settingstooltip.html">settingstooltip</a></li>
+            
+                <li><a href="../classes/sidebar.html">sidebar</a></li>
+            
+                <li><a href="../classes/tipevaluator.html">tipevaluator</a></li>
+            
                 <li><a href="../classes/trustmarkhelper.html">trustmarkhelper</a></li>
             
                 <li><a href="../classes/trustmarkpolicyhelper.html">trustmarkpolicyhelper</a></li>
@@ -60,6 +68,14 @@
                 <li><a href="../modules/pageloadhandler.html">pageloadhandler</a></li>
             
                 <li><a href="../modules/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../modules/policy.html">policy</a></li>
+            
+                <li><a href="../modules/settingstooltip.html">settingstooltip</a></li>
+            
+                <li><a href="../modules/sidebar.html">sidebar</a></li>
+            
+                <li><a href="../modules/test.html">test</a></li>
             
                 <li><a href="../modules/trustmarkhelper.html">trustmarkhelper</a></li>
             
@@ -104,10 +120,24 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
+/***
+ * TIP evaluator for trustmark panel
+ * @module test
+ */
+
 /********
- *@Purpose - Functions to display TIPs panel content
- *         - Displays the failed TIPs
- *         - Supports click on TIPs and sends message to panel to display TIP sidebar
+ *TIP Evaluator
+ *- Functions to display TIPs panel content
+ *- Displays the failed TIPs
+ *- Supports click on TIPs and sends message to panel to display TIP sidebar*
+ *@class tipevaluator
+ */
+
+/**
+ * Display if Recipient has passed all privacy settings
+ *@method displayOverallPrinciplesPassed
+ *@param recipient {String} recipient
+ *@return none
  */
 function displayOverallPrinciplesPassed(recipient)
 {
@@ -142,11 +172,19 @@ function displayOverallPrinciplesPassed(recipient)
 
 }
 
+/***
+ *Event Handler for Failed TIP
+ *@event failedtip
+ *@method onFailedTIP
+ *@param tip {String} Failed TIP id
+ *@param recipient {String} site hostname (e.g. www.example.com)
+ *@return none
+ */
 self.port.on(&quot;failedtip&quot;, function onFailedTIP(tip, recipient)
 {
 	var wrapperid = tip + &quot;-wrapper&quot;;
 	var d = document.getElementById(wrapperid);
-	d.style.background = &quot;url(&#x27;red-cross.png&#x27;)&quot;;
+	d.style.background = &quot;url(&#x27;images/red-cross.png&#x27;)&quot;;
 	d.style.color = &quot;gray&quot;;
 	d.style.display = &quot;block&quot;;
 
@@ -154,11 +192,19 @@ self.port.on(&quot;failedtip&quot;, function onFailedTIP(tip, recipient)
 
 });
 
+/****
+ *Event Handler for Passed TIPs
+ *@event passedtip
+ *@method onPassedTIP
+ *@param tip {String} Passed TIP ID
+ *@param recipient {String} site hostname (e.g. www.example.com)
+ *@return none
+ */
 self.port.on(&quot;passedtip&quot;, function onPassedTIP(tip, recipient)
 {
 	var wrapperid = tip + &quot;-wrapper&quot;;
 	var d = document.getElementById(wrapperid);
-	d.style.background = &quot;url(&#x27;green-check.png&#x27;)&quot;;
+	d.style.background = &quot;url(&#x27;images/green-check.png&#x27;)&quot;;
 	d.style.color = &quot;gray&quot;;
         d.style.display = &quot;none&quot;;
 
@@ -173,23 +219,44 @@ var accountabilityDiv = document.getElementById(&quot;accountability&quot;);
 var dataqualityDiv = document.getElementById(&quot;dataquality&quot;);
 var settingsButton = document.getElementById(&quot;settings&quot;);
 
+/***
+ *Mouse Over Listener for TIP 
+ *@method onMouseOverListener
+ *@return none
+ */
 function onMouseOverListener(event)
 {
         var targetDiv = event.target;
 	targetDiv.style.color = &quot;#0066FF&quot;;
 }
 
+/***
+ *Mouse Out Listener for TIP
+ *@method onMouseOutListener
+ *@return none
+ */
 function onMouseOutListener(event)
 {
         var targetDiv = event.target;
 	targetDiv.style.color = &quot;black&quot;;
 }
 
+/**
+ *On Click Listener for TIP Settings
+ *@event settings Triggers settings event
+ *@method onClickListenerForSettings
+ *@return none
+ */
 function onClickListenerForSettings(event)
 {
 	self.postMessage(&quot;settings&quot;);
 }
 
+/***
+ *On Click Listener for TIP
+ *@method onClickListener
+ *@return none
+ */
 function onClickListener(event)
 {
 	self.postMessage(event.target.id);
@@ -211,6 +278,11 @@ function onClickListener(event)
 		
 }
 
+/***
+ *Reset Event Listeners
+ *@method reset
+ *@return none
+ */
 function reset()
 {
 	var tipdivs = document.getElementsByClassName(&#x27;tip-heading&#x27;);
@@ -223,18 +295,31 @@ function reset()
 		tipdivs[index].style.color = &quot;black&quot;;
 		var wrapperid = tipdivs[index].id+&quot;-wrapper&quot;;
 		var wrapper = document.getElementById(wrapperid);
-		wrapper.style.background  = &quot;url(&#x27;rotating.gif&#x27;) no-repeat&quot;;
+		wrapper.style.background  = &quot;url(&#x27;images/rotating.gif&#x27;) no-repeat&quot;;
 	}
 
 	settingsButton.addEventListener(&quot;click&quot;, onClickListenerForSettings, false);
 }
 reset();
 
+/***
+ *Event Handler for Reset Panel
+ *@event resetpanel
+ *@method onResetPanel
+ *@return none
+ */
 self.port.on(&quot;resetpanel&quot;, function onResetPanel()
 {
         reset();
 });
 
+/***
+ *Event Handler for No Trustmarks
+ *@event notrustmarks
+ *@method onNoTrustmarksReceived
+ *@param recipient {String} website hostname (www.example.com)
+ *@return none
+ */
 self.port.on(&quot;notrustmarks&quot;, function onNoTrustmarksReceived(recipient)
 {
 	

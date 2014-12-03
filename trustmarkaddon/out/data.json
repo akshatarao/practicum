@@ -1,17 +1,47 @@
 {
     "project": {},
     "files": {
+        "data/policy.js": {
+            "name": "data/policy.js",
+            "modules": {
+                "policy": 1
+            },
+            "classes": {
+                "policy": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "data/settings.js": {
+            "name": "data/settings.js",
+            "modules": {
+                "settingstooltip": 1
+            },
+            "classes": {
+                "settingstooltip": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "data/sidebar.js": {
             "name": "data/sidebar.js",
-            "modules": {},
-            "classes": {},
+            "modules": {
+                "sidebar": 1
+            },
+            "classes": {
+                "sidebar": 1
+            },
             "fors": {},
             "namespaces": {}
         },
         "data/test.js": {
             "name": "data/test.js",
-            "modules": {},
-            "classes": {},
+            "modules": {
+                "test": 1
+            },
+            "classes": {
+                "tipevaluator": 1
+            },
             "fors": {},
             "namespaces": {}
         },
@@ -79,6 +109,58 @@
         }
     },
     "modules": {
+        "policy": {
+            "name": "policy",
+            "submodules": {},
+            "classes": {
+                "policy": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "data/policy.js",
+            "line": 9,
+            "description": "Displays the settings in tabbed content"
+        },
+        "settingstooltip": {
+            "name": "settingstooltip",
+            "submodules": {},
+            "classes": {
+                "settingstooltip": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "data/settings.js",
+            "line": 6,
+            "description": "Show Tool TIP for settings"
+        },
+        "sidebar": {
+            "name": "sidebar",
+            "submodules": {},
+            "classes": {
+                "sidebar": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "data/sidebar.js",
+            "line": 6,
+            "description": "Trustmarks Sidebar"
+        },
+        "test": {
+            "name": "test",
+            "submodules": {},
+            "classes": {
+                "tipevaluator": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "data/test.js",
+            "line": 6,
+            "description": "TIP evaluator for trustmark panel"
+        },
         "main": {
             "name": "main",
             "submodules": {},
@@ -102,7 +184,8 @@
             "namespaces": {},
             "tag": "module",
             "file": "lib/pageloadhandler.js",
-            "line": 5
+            "line": 6,
+            "description": "Handles the download of trustmarks and invocation of TIP evaluation upon webpage load."
         },
         "panelviewer": {
             "name": "panelviewer",
@@ -145,6 +228,62 @@
         }
     },
     "classes": {
+        "policy": {
+            "name": "policy",
+            "shortname": "policy",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "policy",
+            "namespace": "",
+            "file": "data/policy.js",
+            "line": 9,
+            "description": "Displays Create/View/Apply Policy Settings in tabbed content"
+        },
+        "settingstooltip": {
+            "name": "settingstooltip",
+            "shortname": "settingstooltip",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "settingstooltip",
+            "namespace": "",
+            "file": "data/settings.js",
+            "line": 6,
+            "description": "Displays the settings icon tooltip in the panel"
+        },
+        "sidebar": {
+            "name": "sidebar",
+            "shortname": "sidebar",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "sidebar",
+            "namespace": "",
+            "file": "data/sidebar.js",
+            "line": 6,
+            "description": "1. Displays the trustmarks received/not received by the website\n2. Displays the currently active policy"
+        },
+        "tipevaluator": {
+            "name": "tipevaluator",
+            "shortname": "tipevaluator",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "test",
+            "namespace": "",
+            "file": "data/test.js",
+            "line": 6,
+            "description": "TIP Evaluator\n- Functions to display TIPs panel content\n- Displays the failed TIPs\n- Supports click on TIPs and sends message to panel to display TIP sidebar*"
+        },
         "main": {
             "name": "main",
             "shortname": "main",
@@ -156,7 +295,8 @@
             "module": "main",
             "namespace": "",
             "file": "lib/main.js",
-            "line": 6
+            "line": 6,
+            "description": "This module contains the initialization code for the addon"
         },
         "pageloadhandler": {
             "name": "pageloadhandler",
@@ -169,7 +309,8 @@
             "module": "pageloadhandler",
             "namespace": "",
             "file": "lib/pageloadhandler.js",
-            "line": 5
+            "line": 6,
+            "description": "Handles the download of trustmarks and invocation of TIP evaluation upon webpage load"
         },
         "panelviewer": {
             "name": "panelviewer",
@@ -182,7 +323,8 @@
             "module": "panelviewer",
             "namespace": "",
             "file": "lib/panelviewer.js",
-            "line": 6
+            "line": 6,
+            "description": "This module is responsible for rendering the trustmark addon panel"
         },
         "trustmarkhelper": {
             "name": "trustmarkhelper",
@@ -195,7 +337,8 @@
             "module": "trustmarkhelper",
             "namespace": "",
             "file": "lib/trustmarkhelper.js",
-            "line": 9
+            "line": 9,
+            "description": "This module has functions that deal with trustmark load/store operations"
         },
         "trustmarkpolicyhelper": {
             "name": "trustmarkpolicyhelper",
@@ -208,43 +351,353 @@
             "module": "trustmarkpolicyhelper",
             "namespace": "",
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 6
+            "line": 6,
+            "description": "This module handles the trust interoperability profile operations for the trustmark addon"
         }
     },
     "classitems": [
         {
-            "file": "data/sidebar.js",
-            "line": 1,
-            "purpose": "- Shows failed and passed trustmarks",
-            "class": "main"
+            "file": "data/policy.js",
+            "line": 14,
+            "description": "On Click Listener for Tabs",
+            "itemtype": "method",
+            "name": "onClickListener",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Mouse click event",
+                    "type": "Event"
+                }
+            ],
+            "class": "policy",
+            "module": "policy"
+        },
+        {
+            "file": "data/policy.js",
+            "line": 44,
+            "description": "Reset all tabs",
+            "itemtype": "method",
+            "name": "reset",
+            "class": "policy",
+            "module": "policy"
+        },
+        {
+            "file": "data/settings.js",
+            "line": 11,
+            "description": "Show Settings Tool tip",
+            "itemtype": "method",
+            "name": "showToolTip",
+            "class": "settingstooltip",
+            "module": "settingstooltip"
+        },
+        {
+            "file": "data/settings.js",
+            "line": 21,
+            "description": "Hide Settings Tool tip",
+            "itemtype": "method",
+            "name": "hideToolTip",
+            "class": "settingstooltip",
+            "module": "settingstooltip"
         },
         {
             "file": "data/sidebar.js",
-            "line": 101,
-            "purpose": "- On MouseOver Listener for Tab",
-            "class": "main"
+            "line": 12,
+            "description": "Check if string is empty",
+            "itemtype": "method",
+            "name": "isEmpty",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "string",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "TRUE if string is empty"
+            },
+            "class": "sidebar",
+            "module": "sidebar"
         },
         {
             "file": "data/sidebar.js",
-            "line": 109,
-            "purpose": "- On mouseout listener for tab",
-            "class": "main"
+            "line": 23,
+            "description": "Get Trustmark Set",
+            "itemtype": "method",
+            "name": "getTrustmarkSet",
+            "params": [
+                {
+                    "name": "trustmark_list",
+                    "description": "Trustmark Set",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "sidebar",
+            "module": "sidebar"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 45,
+            "description": "Get HTML TIP Expression",
+            "itemtype": "method",
+            "name": "getBeautifiedTIPExpr",
+            "params": [
+                {
+                    "name": "tip_expr",
+                    "description": "TIP trust expression",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "sidebar",
+            "module": "sidebar"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 69,
+            "description": "Event Handler for 'trustmark' event",
+            "itemtype": "event",
+            "name": "trustmark",
+            "params": [
+                {
+                    "name": "tip_trustmark_list",
+                    "description": "TIP referenced trustmark definitions",
+                    "type": "String"
+                },
+                {
+                    "name": "recipient_trustmark_list",
+                    "description": "Recipient trustmark definitions",
+                    "type": "String"
+                },
+                {
+                    "name": "tip_json",
+                    "description": "TIP JSON string",
+                    "type": "JSON"
+                }
+            ],
+            "class": "sidebar",
+            "module": "sidebar"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 132,
+            "description": "On MouseOver Listener for Tab",
+            "itemtype": "method",
+            "name": "onMouseOverListener",
+            "return": {
+                "description": "none"
+            },
+            "class": "sidebar",
+            "module": "sidebar"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 142,
+            "description": "On mouseout listener for tab",
+            "itemtype": "method",
+            "name": "onMouseOutListener",
+            "return": {
+                "description": "none"
+            },
+            "class": "sidebar",
+            "module": "sidebar"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 155,
+            "description": "On mouse click listener for tab",
+            "itemtype": "method",
+            "name": "onClickListener",
+            "return": {
+                "description": "none"
+            },
+            "class": "sidebar",
+            "module": "sidebar"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 202,
+            "description": "Reset all sidebar tabs",
+            "itemtype": "method",
+            "name": "reset",
+            "return": {
+                "description": "none"
+            },
+            "class": "sidebar",
+            "module": "sidebar"
         },
         {
             "file": "data/test.js",
-            "line": 1,
-            "purpose": "- Functions to display TIPs panel content\n         - Displays the failed TIPs\n         - Supports click on TIPs and sends message to panel to display TIP sidebar",
-            "class": "main"
+            "line": 14,
+            "description": "Display if Recipient has passed all privacy settings",
+            "itemtype": "method",
+            "name": "displayOverallPrinciplesPassed",
+            "params": [
+                {
+                    "name": "recipient",
+                    "description": "recipient",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
         },
         {
             "file": "data/test.js",
-            "line": 96,
+            "line": 53,
+            "description": "Event Handler for Failed TIP",
+            "itemtype": "method",
+            "name": "onFailedTIP",
+            "params": [
+                {
+                    "name": "tip",
+                    "description": "Failed TIP id",
+                    "type": "String"
+                },
+                {
+                    "name": "recipient",
+                    "description": "site hostname (e.g. www.example.com)",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 73,
+            "description": "Event Handler for Passed TIPs",
+            "itemtype": "method",
+            "name": "onPassedTIP",
+            "params": [
+                {
+                    "name": "tip",
+                    "description": "Passed TIP ID",
+                    "type": "String"
+                },
+                {
+                    "name": "recipient",
+                    "description": "site hostname (e.g. www.example.com)",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 100,
+            "description": "Mouse Over Listener for TIP",
+            "itemtype": "method",
+            "name": "onMouseOverListener",
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 111,
+            "description": "Mouse Out Listener for TIP",
+            "itemtype": "method",
+            "name": "onMouseOutListener",
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 122,
+            "description": "On Click Listener for TIP Settings",
+            "itemtype": "method",
+            "name": "onClickListenerForSettings",
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 133,
+            "description": "On Click Listener for TIP",
+            "itemtype": "method",
+            "name": "onClickListener",
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 147,
             "description": "{\n\tdivelement.removeEventListener(\"click\", onClickListener, false);\n\tdivelement.removeEventListener(\"mouseover\", onMouseOverListener, false);\n\tdivelement.removeEventListener(\"mouseout\", onMouseOutListener, false);\n\tdivelement.style.color = \"#A7C4C4\";",
-            "class": "main"
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 159,
+            "description": "Reset Event Listeners",
+            "itemtype": "method",
+            "name": "reset",
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 183,
+            "description": "Event Handler for Reset Panel",
+            "itemtype": "method",
+            "name": "onResetPanel",
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
+        },
+        {
+            "file": "data/test.js",
+            "line": 194,
+            "description": "Event Handler for No Trustmarks",
+            "itemtype": "method",
+            "name": "onNoTrustmarksReceived",
+            "params": [
+                {
+                    "name": "recipient",
+                    "description": "website hostname (www.example.com)",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "tipevaluator",
+            "module": "test"
         },
         {
             "file": "lib/main.js",
-            "line": 11,
+            "line": 12,
             "requires": [
                 "panelviewer",
                 "trustmarkhelper",
@@ -260,7 +713,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 32,
+            "line": 33,
             "description": "This is the toggle button object",
             "itemtype": "attribute",
             "name": "button",
@@ -269,7 +722,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 45,
+            "line": 46,
             "description": "Display trustmarks in the panel",
             "itemtype": "method",
             "name": "displayTrustmarkPanel",
@@ -288,7 +741,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 63,
+            "line": 64,
             "description": "Get database name",
             "itemtype": "method",
             "name": "getDBName",
@@ -300,7 +753,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 73,
+            "line": 74,
             "description": "Get Recipient Store Name",
             "itemtype": "method",
             "name": "getRecipientStoreName",
@@ -312,7 +765,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 83,
+            "line": 84,
             "description": "Create Recipient Store",
             "itemtype": "method",
             "name": "createRecipientStore",
@@ -331,7 +784,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 105,
+            "line": 106,
             "description": "Get Trustmark Definition Store name",
             "itemtype": "method",
             "name": "getTrustmarkDefStoreName",
@@ -343,7 +796,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 115,
+            "line": 116,
             "description": "Create Trustmark Definition Store",
             "itemtype": "method",
             "name": "createTrustmarkDefinitionStore",
@@ -362,7 +815,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 138,
+            "line": 139,
             "description": "Retrieve Recipient Trustmark Mapping Store Name",
             "itemtype": "method",
             "name": "getRecipientTrustmarkMappingStoreName",
@@ -374,7 +827,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 148,
+            "line": 149,
             "description": "Create Recipient Trustmark Mapping Store",
             "itemtype": "method",
             "name": "createRecipientTrustmarkMappingStore",
@@ -393,7 +846,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 170,
+            "line": 171,
             "description": "Get trustmark store name",
             "itemtype": "method",
             "name": "getTrustmarkStoreName",
@@ -405,7 +858,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 180,
+            "line": 181,
             "description": "Create trustmark object store",
             "itemtype": "method",
             "name": "createTrustmarkStore",
@@ -424,7 +877,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 202,
+            "line": 203,
             "description": "Get the TIP store name",
             "return": {
                 "description": "TIP object store name"
@@ -434,7 +887,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 211,
+            "line": 212,
             "description": "Create TIP Store",
             "params": [
                 {
@@ -451,7 +904,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 239,
+            "line": 240,
             "description": "Create all the object stores (tables) required for the trustmark addon",
             "itemtype": "method",
             "name": "createObjectStores",
@@ -470,7 +923,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 255,
+            "line": 256,
             "description": "Initialize the trustmark database",
             "itemtype": "method",
             "name": "initDB",
@@ -482,7 +935,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 283,
+            "line": 284,
             "description": "Check if string is empty",
             "itemtype": "method",
             "name": "isEmpty",
@@ -501,7 +954,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 295,
+            "line": 296,
             "description": "Load pre-packaged trustmark definition references in cache",
             "itemtype": "method",
             "name": "getDefaultTrustmarkDefs",
@@ -513,7 +966,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 335,
+            "line": 336,
             "description": "Load pre-packaged trust interoperability profiles",
             "itemtype": "method",
             "name": "getDefaultTIP",
@@ -525,7 +978,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 380,
+            "line": 381,
             "description": "Read pre packaged trustmarks and load in trustmark database",
             "itemtype": "method",
             "name": "getDefaultTrustmarks",
@@ -537,7 +990,7 @@
         },
         {
             "file": "lib/main.js",
-            "line": 430,
+            "line": 431,
             "description": "Load Prepackaged data (trustmarks, trust interoperability profiles)",
             "itemtype": "method",
             "name": "loadPrepackagedData",
@@ -549,7 +1002,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 15,
+            "line": 17,
             "description": "Utility Function - Check if String is empty",
             "itemtype": "method",
             "name": "isEmpty",
@@ -568,7 +1021,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 31,
+            "line": 33,
             "description": "Get Array of Recipient Trustmarks from List",
             "itemtype": "method",
             "name": "getRecipientTrustmarkArray",
@@ -587,7 +1040,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 56,
+            "line": 58,
             "description": "Placeholder - Retrieves the IDs of currently active trustmarks for the recipient",
             "itemtype": "method",
             "name": "getRecipientActiveTrustmarkIDListFromServer",
@@ -605,7 +1058,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 88,
+            "line": 90,
             "description": "Get List of inactive trustmarks in Cache",
             "itemtype": "method",
             "name": "getInactiveTrustmarks",
@@ -629,7 +1082,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 128,
+            "line": 130,
             "description": "Get trustmarks that need to be downloaded from server",
             "itemtype": "method",
             "name": "getTrustmarksToBeDownloaded",
@@ -653,7 +1106,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 166,
+            "line": 168,
             "description": "Update trustmarks in cache",
             "itemtype": "method",
             "name": "updateTrustmarksInCache",
@@ -682,7 +1135,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 193,
+            "line": 195,
             "description": "PLACEHOLDER : Download trustmarks from server",
             "itemtype": "method",
             "name": "downloadTrustmarkFromServer",
@@ -706,7 +1159,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 209,
+            "line": 211,
             "description": "Download Trustmarks From Server",
             "itemtype": "method",
             "name": "downloadTrustmarksFromServer",
@@ -730,7 +1183,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 234,
+            "line": 236,
             "description": "Verifies if Latest Recipient Trustmarks are In Cache",
             "itemtype": "method",
             "name": "",
@@ -754,7 +1207,7 @@
         },
         {
             "file": "lib/pageloadhandler.js",
-            "line": 298,
+            "line": 300,
             "description": "Loads the page with a privacy warning frame",
             "itemtype": "method",
             "name": "onPageLoad",
@@ -778,7 +1231,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 10,
+            "line": 11,
             "requires": [
                 "sdk/self",
                 "sdk/tabs",
@@ -793,7 +1246,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 31,
+            "line": 32,
             "description": "This is the trustmark panel object",
             "itemtype": "attribute",
             "name": "trustmarkpanel",
@@ -802,7 +1255,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 51,
+            "line": 52,
             "itemtype": "attribute",
             "name": "Trustmarks Sidebar",
             "class": "panelviewer",
@@ -810,7 +1263,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 72,
+            "line": 73,
             "description": "Get the TIP details given the TIP nickname",
             "itemtype": "event",
             "name": "gettipdetails",
@@ -826,7 +1279,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 82,
+            "line": 83,
             "description": "Load trustmark definitions for a granular principle (minimization/transparency...)",
             "itemtype": "event",
             "name": "loadtrustmarkdefs",
@@ -842,7 +1295,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 92,
+            "line": 93,
             "description": "Upload a user defined policy to the trustmark database",
             "itemtype": "event",
             "name": "policypassed",
@@ -867,7 +1320,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 103,
+            "line": 104,
             "description": "Get all the trust interoperability profiles for a specific granular principle",
             "itemtype": "event",
             "name": "gettips",
@@ -883,7 +1336,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 113,
+            "line": 114,
             "description": "Make the chosen trust interoperability profile (policy) as the currently active",
             "itemtype": "event",
             "name": "applytip",
@@ -903,7 +1356,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 124,
+            "line": 125,
             "description": "Verify if the user entered TIP name is unique, if it's spark the policypassed event",
             "itemtype": "event",
             "name": "checkuniquetipname",
@@ -927,7 +1380,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 153,
+            "line": 154,
             "itemtype": "attribute",
             "name": "Settings sidebar",
             "class": "panelviewer",
@@ -935,14 +1388,14 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 169,
+            "line": 170,
             "description": "Display the trustmarks for the currently active policy for the granular principle specified in the message",
             "class": "panelviewer",
             "module": "panelviewer"
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 197,
+            "line": 198,
             "description": "Displays the trustmark addon panel (privacy report card)",
             "itemtype": "event",
             "name": "show",
@@ -951,7 +1404,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 222,
+            "line": 223,
             "description": "For the currently loaded site, check the passing status for every granular principle",
             "itemtype": "method",
             "name": "iterateThroughTIPs",
@@ -970,7 +1423,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 252,
+            "line": 253,
             "description": "Toggle Button that displays the trustmark addon panel",
             "itemtype": "attribute",
             "name": "togglebutton",
@@ -979,7 +1432,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 258,
+            "line": 259,
             "description": "Setter for the toggle button attribute",
             "itemtype": "method",
             "name": "setToggleButton",
@@ -995,7 +1448,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 268,
+            "line": 269,
             "description": "Display the trustmarks in a panel",
             "itemtype": "method",
             "name": "displayTrustmarks",
@@ -1014,7 +1467,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 282,
+            "line": 283,
             "description": "Hide trustmark panel",
             "itemtype": "method",
             "name": "hideTrustmarks",
@@ -1026,7 +1479,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 292,
+            "line": 293,
             "description": "Check if the loaded website passes the privacy settings for all granular principles",
             "itemtype": "event",
             "name": "activate",
@@ -1042,7 +1495,7 @@
         },
         {
             "file": "lib/panelviewer.js",
-            "line": 316,
+            "line": 317,
             "description": "Check if the loaded website passes the privacy settings for all granular principles",
             "itemtype": "event",
             "name": "ready",
@@ -1058,7 +1511,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 13,
+            "line": 14,
             "description": "Load trustmark definitions for a selected granular principle",
             "itemtype": "method",
             "name": "loadTrustmarkDefinitions",
@@ -1079,7 +1532,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 70,
+            "line": 71,
             "description": "Convert trustmark list string from array",
             "itemtype": "method",
             "name": "getTrustmarkList",
@@ -1098,7 +1551,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 91,
+            "line": 92,
             "description": "Insert Trustmark Definition in Cache",
             "itemtype": "method",
             "name": "insertTrustmarkDefinitionInCache",
@@ -1132,7 +1585,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 128,
+            "line": 129,
             "description": "Extract the trustmark recipient name from the Trustmark JSON",
             "itemtype": "method",
             "name": "getRecipientName",
@@ -1151,7 +1604,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 140,
+            "line": 141,
             "description": "Add Recipient to Cache",
             "itemtype": "method",
             "name": "addRecipientToCache",
@@ -1184,7 +1637,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 192,
+            "line": 193,
             "description": "Delete trustmark from cache",
             "params": [
                 {
@@ -1206,7 +1659,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 246,
+            "line": 247,
             "description": "Delete a trustmark recipient mapping from cache",
             "itemtype": "method",
             "name": "deleteTrustmarkMappingFromCache",
@@ -1230,7 +1683,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 303,
+            "line": 304,
             "description": "Retrieve trustmarks for a website from the database",
             "itemtype": "method",
             "name": "retrieveRecipientTrustmarks",
@@ -1249,7 +1702,7 @@
         },
         {
             "file": "lib/trustmarkhelper.js",
-            "line": 379,
+            "line": 380,
             "description": "Add trustmark, trustmark-recipient mapping, recipient to respective object stores in cache",
             "itemtype": "method",
             "name": "addTrustmarkRelationsToCache",
@@ -1285,7 +1738,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 10,
+            "line": 11,
             "requires": [
                 "sdk/indexed-db",
                 "chrome",
@@ -1297,7 +1750,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 21,
+            "line": 22,
             "description": "For a granular principle type, retrieve the list of applicable TIPS",
             "params": [
                 {
@@ -1314,7 +1767,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 75,
+            "line": 76,
             "description": "Check if TIP nickname is unique",
             "itemtype": "method",
             "name": "checkIfTipNameIsUnique",
@@ -1340,7 +1793,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 124,
+            "line": 125,
             "description": "Applies custom defined user policy as the current privacy setting for the selected granular principle",
             "itemtype": "method",
             "name": "applyUserPolicy",
@@ -1364,7 +1817,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 189,
+            "line": 190,
             "description": "Reset all policies to default",
             "itemtype": "method",
             "name": "resetPolicy",
@@ -1376,7 +1829,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 210,
+            "line": 211,
             "description": "Upload user defined policy string to the database",
             "itemtype": "method",
             "name": "uploadUserPolicy2",
@@ -1405,7 +1858,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 241,
+            "line": 242,
             "description": "Utility method - Check if string is empty",
             "itemtype": "method",
             "name": "isEmpty",
@@ -1424,7 +1877,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 253,
+            "line": 254,
             "description": "From a ##TRUSTMARK## delimited trustmark set, get the set of recipient trustmark IDs",
             "itemtype": "method",
             "name": "getRecipientTrustmarkSet",
@@ -1443,7 +1896,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 275,
+            "line": 276,
             "description": "Get TIP JSON string for trustmark list",
             "itemtype": "method",
             "name": "getTIPTrustmarkJSONString",
@@ -1462,7 +1915,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 290,
+            "line": 291,
             "description": "Placeholder: Check if Recipient trustmarks satisfy TIP",
             "itemtype": "method",
             "name": "doesRecipientSatisfyPolicyWebAPICheck",
@@ -1485,7 +1938,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 304,
+            "line": 305,
             "description": "Evaluate trustmark conditional expression for a TIP given recipient trustmarks",
             "itemtype": "method",
             "name": "evaluateTrustmarkExpression",
@@ -1506,7 +1959,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 341,
+            "line": 342,
             "description": "Check If the Recipient satisfies all the currently applied TIPs for all of the 5 granular principles",
             "itemtype": "method",
             "name": "checkIfRecipientSatisfiesAllActiveTIPs",
@@ -1530,7 +1983,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 433,
+            "line": 434,
             "description": "Check if the recipient satisfies a specific tip. Triggers passedtip/failedtip events",
             "itemtype": "method",
             "name": "checkIfRecipientSatisfiesPolicy",
@@ -1564,7 +2017,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 521,
+            "line": 522,
             "description": "Extract TIP trust expression from TIP JSON",
             "itemtype": "method",
             "name": "getTIPTrustExpression",
@@ -1583,7 +2036,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 535,
+            "line": 536,
             "description": "Send the tip trust expression (textual format) and tip type to settings. Triggers 'receivetipdetails' event",
             "itemtype": "method",
             "name": "getTIPExpressionText",
@@ -1607,7 +2060,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 602,
+            "line": 603,
             "description": "Get trustmark definition ID list referenced by a TIP",
             "itemtype": "method",
             "name": "getTrustmarkList",
@@ -1626,7 +2079,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 635,
+            "line": 636,
             "description": "Update TIP trustmark expression with referenced TIP's trust expression",
             "itemtype": "method",
             "name": "updateExpression",
@@ -1655,7 +2108,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 650,
+            "line": 651,
             "description": "Identify type of TIP from its ID \nCan be replaced by a call back to the tip store to get the TIP type",
             "itemtype": "method",
             "name": "getTipType",
@@ -1675,7 +2128,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 674,
+            "line": 675,
             "description": "Get the default tip nickname for a tip",
             "itemtype": "method",
             "name": "getTIPNickname",
@@ -1691,7 +2144,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 685,
+            "line": 686,
             "description": "Add the TIP details (trustmark list,active ..etc) to TIP row",
             "itemtype": "method",
             "name": "addTIPDetailsToTIP",
@@ -1755,7 +2208,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 792,
+            "line": 793,
             "description": "Append trustmark definitions to TIP's trustmark definition listrecursively from referenced tips",
             "itemtype": "method",
             "name": "appendTrustmarksRecursively",
@@ -1804,7 +2257,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 842,
+            "line": 843,
             "description": "Insert TIP in Cache",
             "itemtype": "method",
             "name": "insertTIPInCache",
@@ -1848,7 +2301,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 863,
+            "line": 864,
             "description": "Display the trustmarks for a recipient and TIP\nEmits the 'trustmark' event",
             "itemtype": "method",
             "name": "displayTIPTrustmarks",
@@ -1877,7 +2330,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 944,
+            "line": 945,
             "description": "Displays the trustmarks passed/failed for a currently active policy for a specified granular principle",
             "itemtype": "method",
             "name": "displayTrustmarksForCurrentlyActivePolicy",
@@ -1903,7 +2356,7 @@
         },
         {
             "file": "lib/trustmarkpolicyhelper.js",
-            "line": 1052,
+            "line": 1053,
             "description": "NOTES\n 1. Not handling TIP/Trustmark Updation over time\n 2. Assumption - TIP JSON has been modified to put Trustmarks and Referenced TIPs in an array (for JSON parsing to succeed)\n 3. Assumption - TIP JSON Trustexpression directly has Identifiers instead of idrefs\n 4. Assumption - If TIP is not present in pre-packaged, currently we don't support it. But it could get it from trustmark registry server.\n 5. Assumption - If a TIP references Trustmarks that are not present in the cache, it is retrieved from Trustmark Registry Server\n 6. Trustmark Definition updation is not handled right now",
             "class": "trustmarkpolicyhelper",
             "module": "trustmarkpolicyhelper"
@@ -1939,88 +2392,56 @@
     ],
     "warnings": [
         {
-            "message": "unknown tag: purpose",
-            "line": " data/sidebar.js:1"
-        },
-        {
-            "message": "unknown tag: purpose",
-            "line": " data/sidebar.js:101"
-        },
-        {
-            "message": "unknown tag: purpose",
-            "line": " data/sidebar.js:109"
-        },
-        {
-            "message": "unknown tag: purpose",
-            "line": " data/test.js:1"
-        },
-        {
             "message": "replacing incorrect tag: params with param",
-            "line": " lib/pageloadhandler.js:56"
+            "line": " lib/pageloadhandler.js:58"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " lib/pageloadhandler.js:56"
+            "line": " lib/pageloadhandler.js:58"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " lib/trustmarkpolicyhelper.js:75"
-        },
-        {
-            "message": "Missing item type",
-            "line": " data/sidebar.js:1"
-        },
-        {
-            "message": "Missing item type",
-            "line": " data/sidebar.js:101"
-        },
-        {
-            "message": "Missing item type",
-            "line": " data/sidebar.js:109"
-        },
-        {
-            "message": "Missing item type",
-            "line": " data/test.js:1"
+            "line": " lib/trustmarkpolicyhelper.js:76"
         },
         {
             "message": "Missing item type\n{\n\tdivelement.removeEventListener(\"click\", onClickListener, false);\n\tdivelement.removeEventListener(\"mouseover\", onMouseOverListener, false);\n\tdivelement.removeEventListener(\"mouseout\", onMouseOutListener, false);\n\tdivelement.style.color = \"#A7C4C4\";",
-            "line": " data/test.js:96"
+            "line": " data/test.js:147"
         },
         {
             "message": "Missing item type",
-            "line": " lib/main.js:11"
+            "line": " lib/main.js:12"
         },
         {
             "message": "Missing item type\nGet the TIP store name",
-            "line": " lib/main.js:202"
+            "line": " lib/main.js:203"
         },
         {
             "message": "Missing item type\nCreate TIP Store",
-            "line": " lib/main.js:211"
+            "line": " lib/main.js:212"
         },
         {
             "message": "Missing item type",
-            "line": " lib/panelviewer.js:10"
+            "line": " lib/panelviewer.js:11"
         },
         {
             "message": "Missing item type\nDisplay the trustmarks for the currently active policy for the granular principle specified in the message",
-            "line": " lib/panelviewer.js:169"
+            "line": " lib/panelviewer.js:170"
         },
         {
             "message": "Missing item type\nDelete trustmark from cache",
-            "line": " lib/trustmarkhelper.js:192"
+            "line": " lib/trustmarkhelper.js:193"
         },
         {
             "message": "Missing item type",
-            "line": " lib/trustmarkpolicyhelper.js:10"
+            "line": " lib/trustmarkpolicyhelper.js:11"
         },
         {
             "message": "Missing item type\nFor a granular principle type, retrieve the list of applicable TIPS",
-            "line": " lib/trustmarkpolicyhelper.js:21"
+            "line": " lib/trustmarkpolicyhelper.js:22"
         },
         {
             "message": "Missing item type\nNOTES\n 1. Not handling TIP/Trustmark Updation over time\n 2. Assumption - TIP JSON has been modified to put Trustmarks and Referenced TIPs in an array (for JSON parsing to succeed)\n 3. Assumption - TIP JSON Trustexpression directly has Identifiers instead of idrefs\n 4. Assumption - If TIP is not present in pre-packaged, currently we don't support it. But it could get it from trustmark registry server.\n 5. Assumption - If a TIP references Trustmarks that are not present in the cache, it is retrieved from Trustmark Registry Server\n 6. Trustmark Definition updation is not handled right now",
-            "line": " lib/trustmarkpolicyhelper.js:1052"
+            "line": " lib/trustmarkpolicyhelper.js:1053"
         },
         {
             "message": "Missing item type\nFilename: trustmarkverifier.js\nPurpose: Verifies the digital signature on the trustmark XML\nCreated By: ARao",

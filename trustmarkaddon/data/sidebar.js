@@ -1,10 +1,12 @@
 /***
- * TIP Sidebar
+ * Trustmarks Sidebar
  * @module sidebar
  */
 
 /**
- *@class
+ * 1. Displays the trustmarks received/not received by the website
+ * 2. Displays the currently active policy
+ *@class sidebar
  */
 
 /******

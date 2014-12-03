@@ -4,6 +4,7 @@
  */
 
 /**
+ * This module handles the trust interoperability profile operations for the trustmark addon
  *@class trustmarkpolicyhelper
  */
 
@@ -386,9 +387,22 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 						var tip = cursor.value;
 						if(tip.isActive === "1")
 						{
-							var trust_expression = tip.trust_expression;
 
-							var result = evaluateTrustmarkExpression(trust_expression,trustmark_list);
+							//TODO: Placeholder for inserting TIP Evaluation
+							var evaluateTIPUsingWebAPI = false;
+							var result = false;
+						
+							if(evaluateTIPUsingWebAPI)
+							{
+								result = doesRecipientSatisfyPolicyWebAPICheck(recipient_id, tip.tip_json);
+							}
+							else
+							{
+								var trust_expression = tip.trust_expression;
+
+								result = evaluateTrustmarkExpression(trust_expression,trustmark_list);
+							}
+
 							if(!result)
 								overallFailed = true;
 						}

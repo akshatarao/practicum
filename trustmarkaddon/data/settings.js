@@ -4,6 +4,7 @@
  */
 
 /**
+ *Displays the settings icon tooltip in the panel
  *@class settingstooltip
  */
 

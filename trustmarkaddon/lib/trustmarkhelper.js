@@ -1,13 +1,14 @@
 var { indexedDB }  = require('sdk/indexed-db');
 
 /**
- Handles the trustmark, trustmark definitions operations  
- @module trustmarkhelper
+ * Handles the trustmark, trustmark definitions operations  
+ * @module trustmarkhelper
 */
 
 
 /**
- @class trustmarkhelper
+ *This module has functions that deal with trustmark load/store operations
+ * @class trustmarkhelper
  */
 
 /**

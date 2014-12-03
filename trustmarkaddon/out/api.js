@@ -4,6 +4,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "main",
         "pageloadhandler",
         "panelviewer",
+        "policy",
+        "settingstooltip",
+        "sidebar",
+        "tipevaluator",
         "trustmarkhelper",
         "trustmarkpolicyhelper"
     ],
@@ -11,6 +15,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "main",
         "pageloadhandler",
         "panelviewer",
+        "policy",
+        "settingstooltip",
+        "sidebar",
+        "test",
         "trustmarkhelper",
         "trustmarkpolicyhelper"
     ],
@@ -22,12 +30,33 @@ YUI.add("yuidoc-meta", function(Y) {
         },
         {
             "displayName": "pageloadhandler",
-            "name": "pageloadhandler"
+            "name": "pageloadhandler",
+            "description": "Handles the download of trustmarks and invocation of TIP evaluation upon webpage load."
         },
         {
             "displayName": "panelviewer",
             "name": "panelviewer",
             "description": "This module is responsible for rendering the trustmark addon panel"
+        },
+        {
+            "displayName": "policy",
+            "name": "policy",
+            "description": "Displays the settings in tabbed content"
+        },
+        {
+            "displayName": "settingstooltip",
+            "name": "settingstooltip",
+            "description": "Show Tool TIP for settings"
+        },
+        {
+            "displayName": "sidebar",
+            "name": "sidebar",
+            "description": "Trustmarks Sidebar"
+        },
+        {
+            "displayName": "test",
+            "name": "test",
+            "description": "TIP evaluator for trustmark panel"
         },
         {
             "displayName": "trustmarkhelper",

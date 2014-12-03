@@ -4,7 +4,8 @@
  */
 
 /**
- @class panelviewer
+ * This module is responsible for rendering the trustmark addon panel
+ * @class panelviewer
 */
 
 /**

@@ -1,0 +1,2042 @@
+{
+    "project": {},
+    "files": {
+        "data/sidebar.js": {
+            "name": "data/sidebar.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "data/test.js": {
+            "name": "data/test.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/main.js": {
+            "name": "lib/main.js",
+            "modules": {
+                "main": 1
+            },
+            "classes": {
+                "main": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/pageloadhandler.js": {
+            "name": "lib/pageloadhandler.js",
+            "modules": {
+                "pageloadhandler": 1
+            },
+            "classes": {
+                "pageloadhandler": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/panelviewer.js": {
+            "name": "lib/panelviewer.js",
+            "modules": {
+                "panelviewer": 1
+            },
+            "classes": {
+                "panelviewer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/trustmarkhelper.js": {
+            "name": "lib/trustmarkhelper.js",
+            "modules": {
+                "trustmarkhelper": 1
+            },
+            "classes": {
+                "trustmarkhelper": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/trustmarkpolicyhelper.js": {
+            "name": "lib/trustmarkpolicyhelper.js",
+            "modules": {
+                "trustmarkpolicyhelper": 1
+            },
+            "classes": {
+                "trustmarkpolicyhelper": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/trustmarkverifier.js": {
+            "name": "lib/trustmarkverifier.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "main": {
+            "name": "main",
+            "submodules": {},
+            "classes": {
+                "main": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/main.js",
+            "line": 6,
+            "description": "This module contains the initialization code for the addon"
+        },
+        "pageloadhandler": {
+            "name": "pageloadhandler",
+            "submodules": {},
+            "classes": {
+                "pageloadhandler": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/pageloadhandler.js",
+            "line": 5
+        },
+        "panelviewer": {
+            "name": "panelviewer",
+            "submodules": {},
+            "classes": {
+                "panelviewer": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/panelviewer.js",
+            "line": 6,
+            "description": "This module is responsible for rendering the trustmark addon panel"
+        },
+        "trustmarkhelper": {
+            "name": "trustmarkhelper",
+            "submodules": {},
+            "classes": {
+                "trustmarkhelper": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/trustmarkhelper.js",
+            "line": 9,
+            "description": "Handles the trustmark, trustmark definitions operations"
+        },
+        "trustmarkpolicyhelper": {
+            "name": "trustmarkpolicyhelper",
+            "submodules": {},
+            "classes": {
+                "trustmarkpolicyhelper": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 6,
+            "description": "Handles the trust interoperability profile operations for the trustmark addon"
+        }
+    },
+    "classes": {
+        "main": {
+            "name": "main",
+            "shortname": "main",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "main",
+            "namespace": "",
+            "file": "lib/main.js",
+            "line": 6
+        },
+        "pageloadhandler": {
+            "name": "pageloadhandler",
+            "shortname": "pageloadhandler",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "pageloadhandler",
+            "namespace": "",
+            "file": "lib/pageloadhandler.js",
+            "line": 5
+        },
+        "panelviewer": {
+            "name": "panelviewer",
+            "shortname": "panelviewer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "panelviewer",
+            "namespace": "",
+            "file": "lib/panelviewer.js",
+            "line": 6
+        },
+        "trustmarkhelper": {
+            "name": "trustmarkhelper",
+            "shortname": "trustmarkhelper",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "trustmarkhelper",
+            "namespace": "",
+            "file": "lib/trustmarkhelper.js",
+            "line": 9
+        },
+        "trustmarkpolicyhelper": {
+            "name": "trustmarkpolicyhelper",
+            "shortname": "trustmarkpolicyhelper",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "trustmarkpolicyhelper",
+            "namespace": "",
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 6
+        }
+    },
+    "classitems": [
+        {
+            "file": "data/sidebar.js",
+            "line": 1,
+            "purpose": "- Shows failed and passed trustmarks",
+            "class": "main"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 101,
+            "purpose": "- On MouseOver Listener for Tab",
+            "class": "main"
+        },
+        {
+            "file": "data/sidebar.js",
+            "line": 109,
+            "purpose": "- On mouseout listener for tab",
+            "class": "main"
+        },
+        {
+            "file": "data/test.js",
+            "line": 1,
+            "purpose": "- Functions to display TIPs panel content\n         - Displays the failed TIPs\n         - Supports click on TIPs and sends message to panel to display TIP sidebar",
+            "class": "main"
+        },
+        {
+            "file": "data/test.js",
+            "line": 96,
+            "description": "{\n\tdivelement.removeEventListener(\"click\", onClickListener, false);\n\tdivelement.removeEventListener(\"mouseover\", onMouseOverListener, false);\n\tdivelement.removeEventListener(\"mouseout\", onMouseOutListener, false);\n\tdivelement.style.color = \"#A7C4C4\";",
+            "class": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 11,
+            "requires": [
+                "panelviewer",
+                "trustmarkhelper",
+                "trustmarkpolicyhelper",
+                "sdk/url",
+                "sdk/tabs",
+                "sdk/self",
+                "sdk/indexed-db",
+                "sdk/ui/button/toggle"
+            ],
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 32,
+            "description": "This is the toggle button object",
+            "itemtype": "attribute",
+            "name": "button",
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 45,
+            "description": "Display trustmarks in the panel",
+            "itemtype": "method",
+            "name": "displayTrustmarkPanel",
+            "params": [
+                {
+                    "name": "state",
+                    "description": "togglebutton state",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 63,
+            "description": "Get database name",
+            "itemtype": "method",
+            "name": "getDBName",
+            "return": {
+                "description": "The name of the trustmark addon database"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 73,
+            "description": "Get Recipient Store Name",
+            "itemtype": "method",
+            "name": "getRecipientStoreName",
+            "return": {
+                "description": "Recipient object store name."
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 83,
+            "description": "Create Recipient Store",
+            "itemtype": "method",
+            "name": "createRecipientStore",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Pointer to Trustmark database",
+                    "type": "IndexedDB object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 105,
+            "description": "Get Trustmark Definition Store name",
+            "itemtype": "method",
+            "name": "getTrustmarkDefStoreName",
+            "return": {
+                "description": "Trustmark Definition Store Name"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 115,
+            "description": "Create Trustmark Definition Store",
+            "itemtype": "method",
+            "name": "createTrustmarkDefinitionStore",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Pointer to the trustmark database",
+                    "type": "IndexedDB object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 138,
+            "description": "Retrieve Recipient Trustmark Mapping Store Name",
+            "itemtype": "method",
+            "name": "getRecipientTrustmarkMappingStoreName",
+            "return": {
+                "description": "Recipient Trustmark Mapping objectStore name"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 148,
+            "description": "Create Recipient Trustmark Mapping Store",
+            "itemtype": "method",
+            "name": "createRecipientTrustmarkMappingStore",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "database pointer",
+                    "type": "IndexedDB object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 170,
+            "description": "Get trustmark store name",
+            "itemtype": "method",
+            "name": "getTrustmarkStoreName",
+            "return": {
+                "description": "Trustmark store name"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 180,
+            "description": "Create trustmark object store",
+            "itemtype": "method",
+            "name": "createTrustmarkStore",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Database pointer",
+                    "type": "IndexedDB object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 202,
+            "description": "Get the TIP store name",
+            "return": {
+                "description": "TIP object store name"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 211,
+            "description": "Create TIP Store",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Database pointer",
+                    "type": "IndexedDB pointer"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 239,
+            "description": "Create all the object stores (tables) required for the trustmark addon",
+            "itemtype": "method",
+            "name": "createObjectStores",
+            "params": [
+                {
+                    "name": "database_pointer",
+                    "description": "-  Database pointer",
+                    "type": "IndexedDB object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 255,
+            "description": "Initialize the trustmark database",
+            "itemtype": "method",
+            "name": "initDB",
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 283,
+            "description": "Check if string is empty",
+            "itemtype": "method",
+            "name": "isEmpty",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "string",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "TRUE if string is empty"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 295,
+            "description": "Load pre-packaged trustmark definition references in cache",
+            "itemtype": "method",
+            "name": "getDefaultTrustmarkDefs",
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 335,
+            "description": "Load pre-packaged trust interoperability profiles",
+            "itemtype": "method",
+            "name": "getDefaultTIP",
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 380,
+            "description": "Read pre packaged trustmarks and load in trustmark database",
+            "itemtype": "method",
+            "name": "getDefaultTrustmarks",
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/main.js",
+            "line": 430,
+            "description": "Load Prepackaged data (trustmarks, trust interoperability profiles)",
+            "itemtype": "method",
+            "name": "loadPrepackagedData",
+            "return": {
+                "description": "none"
+            },
+            "class": "main",
+            "module": "main"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 15,
+            "description": "Utility Function - Check if String is empty",
+            "itemtype": "method",
+            "name": "isEmpty",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "string",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "TRUE if blank string"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 31,
+            "description": "Get Array of Recipient Trustmarks from List",
+            "itemtype": "method",
+            "name": "getRecipientTrustmarkArray",
+            "params": [
+                {
+                    "name": "trustmark_list",
+                    "description": "##TRUSTMARK## delimited string of trustmark IDs",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Array of recipient trustmark IDs"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 56,
+            "description": "Placeholder - Retrieves the IDs of currently active trustmarks for the recipient",
+            "itemtype": "method",
+            "name": "getRecipientActiveTrustmarkIDListFromServer",
+            "params": [
+                {
+                    "name": "-",
+                    "description": "Recipient_ID - Hostname of the recipient"
+                }
+            ],
+            "return": {
+                "description": "- Delimiter separated list of currently active trustmark IDs for recipient"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 88,
+            "description": "Get List of inactive trustmarks in Cache",
+            "itemtype": "method",
+            "name": "getInactiveTrustmarks",
+            "params": [
+                {
+                    "name": "cacheRecipientTrustmarkArray",
+                    "description": "Array of recipient trustmark IDs in cache",
+                    "type": "String array"
+                },
+                {
+                    "name": "serverRecipientTrustmarkArray",
+                    "description": "Array of server trustmark IDs in server",
+                    "type": "String array"
+                }
+            ],
+            "return": {
+                "description": "Array of inactive trustmarks in Cache"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 128,
+            "description": "Get trustmarks that need to be downloaded from server",
+            "itemtype": "method",
+            "name": "getTrustmarksToBeDownloaded",
+            "params": [
+                {
+                    "name": "cacheRecipientTrustmarkArray",
+                    "description": "Array of recipient trustmarks present in cache",
+                    "type": "String array"
+                },
+                {
+                    "name": "serverRecipientTrustmarkArray",
+                    "description": "Array of server trustmarks present in cache",
+                    "type": "String array"
+                }
+            ],
+            "return": {
+                "description": "Array of trustmarks to be downloaded"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 166,
+            "description": "Update trustmarks in cache",
+            "itemtype": "method",
+            "name": "updateTrustmarksInCache",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "Site URL (www.facebook.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "recipientTrustmarkArrayInServer",
+                    "description": "Array of recipient trustmark IDs that are present in cache",
+                    "type": "String array"
+                },
+                {
+                    "name": "recipientTrustmarkArrayInCache",
+                    "description": "Array of recipient trustmark IDs that are present in server",
+                    "type": "String array"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 193,
+            "description": "PLACEHOLDER : Download trustmarks from server",
+            "itemtype": "method",
+            "name": "downloadTrustmarkFromServer",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "Site URL (www.example.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "trustmark_id",
+                    "description": "Trustmark Identifier",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Trustmark JSON string"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 209,
+            "description": "Download Trustmarks From Server",
+            "itemtype": "method",
+            "name": "downloadTrustmarksFromServer",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "Recipient_id - Site URL (www.example.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "trustmarksToBeDownloaded",
+                    "description": "Array of trustmark IDs to be downloaded",
+                    "type": "String array"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 234,
+            "description": "Verifies if Latest Recipient Trustmarks are In Cache",
+            "itemtype": "method",
+            "name": "",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "Hostname of the recipient (www.example.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "recipientActiveTrustmarkIDsInServer",
+                    "description": "Active recipient trustmarks",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/pageloadhandler.js",
+            "line": 298,
+            "description": "Loads the page with a privacy warning frame",
+            "itemtype": "method",
+            "name": "onPageLoad",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "website host name (www.example.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "trustmarkpanel",
+                    "description": "Trustmark addon panel",
+                    "type": "Panel object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "pageloadhandler",
+            "module": "pageloadhandler"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 10,
+            "requires": [
+                "sdk/self",
+                "sdk/tabs",
+                "sdk/url",
+                "trustmarkpolicyhelper",
+                "trustmarkhelper",
+                "pageloadhandler",
+                "sdk/indexed-db"
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 31,
+            "description": "This is the trustmark panel object",
+            "itemtype": "attribute",
+            "name": "trustmarkpanel",
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 51,
+            "itemtype": "attribute",
+            "name": "Trustmarks Sidebar",
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 72,
+            "description": "Get the TIP details given the TIP nickname",
+            "itemtype": "event",
+            "name": "gettipdetails",
+            "params": [
+                {
+                    "name": "tip_name",
+                    "description": "tip name",
+                    "type": "String"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 82,
+            "description": "Load trustmark definitions for a granular principle (minimization/transparency...)",
+            "itemtype": "event",
+            "name": "loadtrustmarkdefs",
+            "params": [
+                {
+                    "name": "tip_type",
+                    "description": "Granular principle",
+                    "type": "Minimization|transparency|accountability|access|dataquality"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 92,
+            "description": "Upload a user defined policy to the trustmark database",
+            "itemtype": "event",
+            "name": "policypassed",
+            "params": [
+                {
+                    "name": "-",
+                    "description": "policyName  Policy nickname",
+                    "type": "String"
+                },
+                {
+                    "name": "-",
+                    "description": "policyType  Granular principle",
+                    "type": "Minimization|transparency|accountability|access|dataquality"
+                },
+                {
+                    "name": "-",
+                    "description": "tip_json - TIP JSON"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 103,
+            "description": "Get all the trust interoperability profiles for a specific granular principle",
+            "itemtype": "event",
+            "name": "gettips",
+            "params": [
+                {
+                    "name": "policyType",
+                    "description": "Granular principle",
+                    "type": "Minimization|transparency|accountability|access|dataquality"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 113,
+            "description": "Make the chosen trust interoperability profile (policy) as the currently active",
+            "itemtype": "event",
+            "name": "applytip",
+            "params": [
+                {
+                    "name": "tip_nickname",
+                    "description": "TIP Nickname"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Granular principle",
+                    "type": "Minimization|transparency|accountability|access|dataquality"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 124,
+            "description": "Verify if the user entered TIP name is unique, if it's spark the policypassed event",
+            "itemtype": "event",
+            "name": "checkuniquetipname",
+            "params": [
+                {
+                    "name": "tip_name",
+                    "description": "TIP Nickname"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Granular principle",
+                    "type": "Minimization|transparency|accountability|access|dataquality"
+                },
+                {
+                    "name": "tip_expr",
+                    "description": "TIP trust expression"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 153,
+            "itemtype": "attribute",
+            "name": "Settings sidebar",
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 169,
+            "description": "Display the trustmarks for the currently active policy for the granular principle specified in the message",
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 197,
+            "description": "Displays the trustmark addon panel (privacy report card)",
+            "itemtype": "event",
+            "name": "show",
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 222,
+            "description": "For the currently loaded site, check the passing status for every granular principle",
+            "itemtype": "method",
+            "name": "iterateThroughTIPs",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "hostname of the currently loaded website",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 252,
+            "description": "Toggle Button that displays the trustmark addon panel",
+            "itemtype": "attribute",
+            "name": "togglebutton",
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 258,
+            "description": "Setter for the toggle button attribute",
+            "itemtype": "method",
+            "name": "setToggleButton",
+            "params": [
+                {
+                    "name": "button",
+                    "description": "Toggle button for trustmark panel",
+                    "type": "ToggleButton"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 268,
+            "description": "Display the trustmarks in a panel",
+            "itemtype": "method",
+            "name": "displayTrustmarks",
+            "params": [
+                {
+                    "name": "button",
+                    "description": "toggle button",
+                    "type": "ToggleButton"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 282,
+            "description": "Hide trustmark panel",
+            "itemtype": "method",
+            "name": "hideTrustmarks",
+            "return": {
+                "description": "none"
+            },
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 292,
+            "description": "Check if the loaded website passes the privacy settings for all granular principles",
+            "itemtype": "event",
+            "name": "activate",
+            "params": [
+                {
+                    "name": "tab",
+                    "description": "Browser Tab",
+                    "type": "Tab"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/panelviewer.js",
+            "line": 316,
+            "description": "Check if the loaded website passes the privacy settings for all granular principles",
+            "itemtype": "event",
+            "name": "ready",
+            "params": [
+                {
+                    "name": "tab",
+                    "description": "Browser Tab",
+                    "type": "Tab"
+                }
+            ],
+            "class": "panelviewer",
+            "module": "panelviewer"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 13,
+            "description": "Load trustmark definitions for a selected granular principle",
+            "itemtype": "method",
+            "name": "loadTrustmarkDefinitions",
+            "params": [
+                {
+                    "name": "worker",
+                    "description": "Settings sidebar",
+                    "type": "Worker"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Granular principle",
+                    "type": "Minimization|transparency|access|accountability|dataquality"
+                }
+            ],
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 70,
+            "description": "Convert trustmark list string from array",
+            "itemtype": "method",
+            "name": "getTrustmarkList",
+            "params": [
+                {
+                    "name": "trustmark_array",
+                    "description": "Array of trustmark identifiers",
+                    "type": "String array"
+                }
+            ],
+            "return": {
+                "description": "##TRUSTMARK## delimited string of trustmark IDs"
+            },
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 91,
+            "description": "Insert Trustmark Definition in Cache",
+            "itemtype": "method",
+            "name": "insertTrustmarkDefinitionInCache",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Pointer to trustmark database",
+                    "type": "Pointer"
+                },
+                {
+                    "name": "td_identifier",
+                    "description": "Trustmark Definition ID",
+                    "type": "String"
+                },
+                {
+                    "name": "td_name",
+                    "description": "Trustmark Definition Name",
+                    "type": "String"
+                },
+                {
+                    "name": "td_desc",
+                    "description": "Trustmark Description",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 128,
+            "description": "Extract the trustmark recipient name from the Trustmark JSON",
+            "itemtype": "method",
+            "name": "getRecipientName",
+            "params": [
+                {
+                    "name": "trustmark_json_str",
+                    "description": "Trustmark JSON String",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "recipient name"
+            },
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 140,
+            "description": "Add Recipient to Cache",
+            "itemtype": "method",
+            "name": "addRecipientToCache",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "indexedDB pointer",
+                    "type": "Pointer"
+                },
+                {
+                    "name": "recipient_id",
+                    "description": "website",
+                    "type": "String"
+                },
+                {
+                    "name": "trustmark_json",
+                    "description": "Trustmark JSON string",
+                    "type": "JSON string"
+                },
+                {
+                    "name": "overwriteTrustmarkList",
+                    "description": "- If true, overwrites the existing trustmark list for a recipient with the new trustmark_id_val"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 192,
+            "description": "Delete trustmark from cache",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Pointer to the trustmark database",
+                    "type": "Pointer"
+                },
+                {
+                    "name": "trustmark_id_val",
+                    "description": "Trustmark ID",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 246,
+            "description": "Delete a trustmark recipient mapping from cache",
+            "itemtype": "method",
+            "name": "deleteTrustmarkMappingFromCache",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Pointer to trustmark database",
+                    "type": "Pointer"
+                },
+                {
+                    "name": "trustmark_id_val",
+                    "description": "Trustmark ID",
+                    "type": "Pointer"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 303,
+            "description": "Retrieve trustmarks for a website from the database",
+            "itemtype": "method",
+            "name": "retrieveRecipientTrustmarks",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "website hostname",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Array of IDs of the recipient trustmarks"
+            },
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkhelper.js",
+            "line": 379,
+            "description": "Add trustmark, trustmark-recipient mapping, recipient to respective object stores in cache",
+            "itemtype": "method",
+            "name": "addTrustmarkRelationsToCache",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Pointer to the trustmark database",
+                    "type": "Pointer"
+                },
+                {
+                    "name": "recipient_id",
+                    "description": "ID of the recipient",
+                    "type": "String"
+                },
+                {
+                    "name": "trustmark_id",
+                    "description": "Trustmark ID",
+                    "type": "String"
+                },
+                {
+                    "name": "trustmark_def_id",
+                    "description": "Trustmark Definition ID",
+                    "type": "String"
+                },
+                {
+                    "name": "trustmark_json",
+                    "description": "Trustmark JSON",
+                    "type": "JSON string"
+                }
+            ],
+            "class": "trustmarkhelper",
+            "module": "trustmarkhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 10,
+            "requires": [
+                "sdk/indexed-db",
+                "chrome",
+                "sdk/self",
+                "osfile.jsm"
+            ],
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 21,
+            "description": "For a granular principle type, retrieve the list of applicable TIPS",
+            "params": [
+                {
+                    "name": "tip_type",
+                    "description": "Granular Principle",
+                    "type": "Minimization|accountability|access|transparency|dataquality"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 75,
+            "description": "Check if TIP nickname is unique",
+            "itemtype": "method",
+            "name": "checkIfTipNameIsUnique",
+            "params": [
+                {
+                    "name": "-",
+                    "description": "tip_name - TIP Name"
+                },
+                {
+                    "name": "-",
+                    "description": "tip_type - TIP Type"
+                },
+                {
+                    "name": "-",
+                    "description": "tip_expr - TIP Trust Expression"
+                }
+            ],
+            "return": {
+                "description": "- Emits uniquetipname/duplicatetipname messages"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 124,
+            "description": "Applies custom defined user policy as the current privacy setting for the selected granular principle",
+            "itemtype": "method",
+            "name": "applyUserPolicy",
+            "params": [
+                {
+                    "name": "tip_nickname",
+                    "description": "TIP Custom Name",
+                    "type": "String"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "TIP Type",
+                    "type": "Minimization|accountability|access|transparency|dataquality"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 189,
+            "description": "Reset all policies to default",
+            "itemtype": "method",
+            "name": "resetPolicy",
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 210,
+            "description": "Upload user defined policy string to the database",
+            "itemtype": "method",
+            "name": "uploadUserPolicy2",
+            "params": [
+                {
+                    "name": "tip_json_str",
+                    "description": "TIP JSON",
+                    "type": "JSON string"
+                },
+                {
+                    "name": "tip_nickname",
+                    "description": "TIP Nickname",
+                    "type": "String"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Granular Principle",
+                    "type": "Minimization|accountability|access|transparency|dataquality"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 241,
+            "description": "Utility method - Check if string is empty",
+            "itemtype": "method",
+            "name": "isEmpty",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "string",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "TRUE if string is empty"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 253,
+            "description": "From a ##TRUSTMARK## delimited trustmark set, get the set of recipient trustmark IDs",
+            "itemtype": "method",
+            "name": "getRecipientTrustmarkSet",
+            "params": [
+                {
+                    "name": "trustmark_list",
+                    "description": "##TRUSTMARK## delimited string of trustmark IDs",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Set of Trustmark IDs"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 275,
+            "description": "Get TIP JSON string for trustmark list",
+            "itemtype": "method",
+            "name": "getTIPTrustmarkJSONString",
+            "params": [
+                {
+                    "name": "trustmark_list",
+                    "description": "Trustmark in JSON string",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Trustmarks that map to a TIP in JSON format"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 290,
+            "description": "Placeholder: Check if Recipient trustmarks satisfy TIP",
+            "itemtype": "method",
+            "name": "doesRecipientSatisfyPolicyWebAPICheck",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "Site hostname (www.facebook.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "tip_json",
+                    "description": "TIP JSON"
+                }
+            ],
+            "return": {
+                "description": "TRUE if recipient satisfies policy"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 304,
+            "description": "Evaluate trustmark conditional expression for a TIP given recipient trustmarks",
+            "itemtype": "method",
+            "name": "evaluateTrustmarkExpression",
+            "params": [
+                {
+                    "name": "trust_expression",
+                    "description": "Conditional expression of trustmark IDs that must be satisified for the TIP to pass",
+                    "type": "Boolean String"
+                },
+                {
+                    "name": "trustmark_list",
+                    "description": "##TRUSTMARK## delimited Trustmark ID string for recipient",
+                    "type": "String"
+                }
+            ],
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 341,
+            "description": "Check If the Recipient satisfies all the currently applied TIPs for all of the 5 granular principles",
+            "itemtype": "method",
+            "name": "checkIfRecipientSatisfiesAllActiveTIPs",
+            "params": [
+                {
+                    "name": "recipient_id",
+                    "description": "website hostname (www.example.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "button",
+                    "description": "toggle button to change the privacy status icon",
+                    "type": "ToggleButton"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 433,
+            "description": "Check if the recipient satisfies a specific tip. Triggers passedtip/failedtip events",
+            "itemtype": "method",
+            "name": "checkIfRecipientSatisfiesPolicy",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Pointer to the trustmark database",
+                    "type": "IndexedDB pointer"
+                },
+                {
+                    "name": "recipient_id",
+                    "description": "hostname of the website (www.example.com)",
+                    "type": "String"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Granular Principle",
+                    "type": "Minimization|access|accountability|transparency|dataquality"
+                },
+                {
+                    "name": "trustmarkpanel",
+                    "description": "Trustmark Panel",
+                    "type": "Panel object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 521,
+            "description": "Extract TIP trust expression from TIP JSON",
+            "itemtype": "method",
+            "name": "getTIPTrustExpression",
+            "params": [
+                {
+                    "name": "tip_json",
+                    "description": "TIP JSON",
+                    "type": "JSON string"
+                }
+            ],
+            "return": {
+                "description": "Trust expression for the TIP"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 535,
+            "description": "Send the tip trust expression (textual format) and tip type to settings. Triggers 'receivetipdetails' event",
+            "itemtype": "method",
+            "name": "getTIPExpressionText",
+            "params": [
+                {
+                    "name": "tip_name",
+                    "description": "TIP Nickname",
+                    "type": "String"
+                },
+                {
+                    "name": "worker",
+                    "description": "settings sidebar worker",
+                    "type": "Sidebar eventhandler"
+                }
+            ],
+            "return": {
+                "description": "Emits receivetipdetails message with tip type and trust expression"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 602,
+            "description": "Get trustmark definition ID list referenced by a TIP",
+            "itemtype": "method",
+            "name": "getTrustmarkList",
+            "params": [
+                {
+                    "name": "tip_json",
+                    "description": "TIP JSON",
+                    "type": "JSON string"
+                }
+            ],
+            "return": {
+                "description": "Trustmark Definition IDs list separated by ##TRUSTMARK##"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 635,
+            "description": "Update TIP trustmark expression with referenced TIP's trust expression",
+            "itemtype": "method",
+            "name": "updateExpression",
+            "params": [
+                {
+                    "name": "existing_condition",
+                    "description": "Current trust expression for TIP",
+                    "type": "Boolean expression"
+                },
+                {
+                    "name": "referenced_tip_id",
+                    "description": "Referenced TIP Identifier",
+                    "type": "String"
+                },
+                {
+                    "name": "referenced_tip_condition",
+                    "description": "Referenced TIP Trust expression",
+                    "type": "Boolean expression"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 650,
+            "description": "Identify type of TIP from its ID \nCan be replaced by a call back to the tip store to get the TIP type",
+            "itemtype": "method",
+            "name": "getTipType",
+            "params": [
+                {
+                    "name": "tip_id",
+                    "description": "TIP Identifier",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "tip_type  Granular Principle",
+                "type": "Minimization|accountability|access|dataquality|transparency)"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 674,
+            "description": "Get the default tip nickname for a tip",
+            "itemtype": "method",
+            "name": "getTIPNickname",
+            "params": [
+                {
+                    "name": "policy_type",
+                    "description": "Granular Principle",
+                    "type": "Minimization|accountability|access|dataquality|transparency"
+                }
+            ],
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 685,
+            "description": "Add the TIP details (trustmark list,active ..etc) to TIP row",
+            "itemtype": "method",
+            "name": "addTIPDetailsToTIP",
+            "params": [
+                {
+                    "name": "tipObjectStore",
+                    "description": "TIP Object Store",
+                    "type": "IndexedDB store"
+                },
+                {
+                    "name": "tip_id",
+                    "description": "TIP Identifier",
+                    "type": "String"
+                },
+                {
+                    "name": "tip_json",
+                    "description": "TIP JSON",
+                    "type": "JSON String"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Granular Principle",
+                    "type": "Minimization|access|accountability|transparency|dataquality"
+                },
+                {
+                    "name": "tip_nickname",
+                    "description": "TIP Nickname",
+                    "type": "String"
+                },
+                {
+                    "name": "isActive",
+                    "description": "is TIP Currently Applied",
+                    "type": "1/0"
+                },
+                {
+                    "name": "trustmark",
+                    "description": "Trustmark Definition List that will be appended to TIP's trustmark definition list",
+                    "type": "String"
+                },
+                {
+                    "name": "trustexpression",
+                    "description": "Trust Expression of the TIP (new insert) or Referenced TIP for Update",
+                    "type": "String"
+                },
+                {
+                    "name": "tipreferencearray",
+                    "description": "Array of TIP IDs referred by the TIP",
+                    "type": "String array"
+                },
+                {
+                    "name": "currentindex",
+                    "description": "Index of currently referred TIP in tipreferencearray whose trustmarks will be appended to TIP's trustmark list in the next call",
+                    "type": "Integer"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 792,
+            "description": "Append trustmark definitions to TIP's trustmark definition listrecursively from referenced tips",
+            "itemtype": "method",
+            "name": "appendTrustmarksRecursively",
+            "params": [
+                {
+                    "name": "tipreferencearray",
+                    "description": "TIP Reference array",
+                    "type": "String array"
+                },
+                {
+                    "name": "currentindex",
+                    "description": "Index of the referenced tip among list of referenced tips",
+                    "type": "Integer"
+                },
+                {
+                    "name": "tip_json",
+                    "description": "JSON string of the TIP",
+                    "type": "JSON string"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Granular Principle",
+                    "type": "Minimization|access|accountability|transparency|dataquality"
+                },
+                {
+                    "name": "tip_nickname",
+                    "description": "TIP Nickname",
+                    "type": "String"
+                },
+                {
+                    "name": "isActive",
+                    "description": "Is TIP currently applied",
+                    "type": "1/0"
+                },
+                {
+                    "name": "TIPObjectStore",
+                    "description": "TIP Object Store",
+                    "type": "IndexedDB object store"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 842,
+            "description": "Insert TIP in Cache",
+            "itemtype": "method",
+            "name": "insertTIPInCache",
+            "params": [
+                {
+                    "name": "db",
+                    "description": "Database pointer",
+                    "type": "IndexedDB pointer"
+                },
+                {
+                    "name": "tip_id",
+                    "description": "TIP Identifier",
+                    "type": "IndexedDB pointer"
+                },
+                {
+                    "name": "tip_json",
+                    "description": "TIP JSON",
+                    "type": "JSON string"
+                },
+                {
+                    "name": "tip_type",
+                    "description": "Specific granular principle",
+                    "type": "Minimization|transparency|accountability|access|dataquality"
+                },
+                {
+                    "name": "tip_nickname",
+                    "description": "TIP Nickname",
+                    "type": "String"
+                },
+                {
+                    "name": "isActive",
+                    "description": "Is TIP Active",
+                    "type": "1/0"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 863,
+            "description": "Display the trustmarks for a recipient and TIP\nEmits the 'trustmark' event",
+            "itemtype": "method",
+            "name": "displayTIPTrustmarks",
+            "params": [
+                {
+                    "name": "tip_key",
+                    "description": "TIP Identifier",
+                    "type": "String"
+                },
+                {
+                    "name": "recipient_id",
+                    "description": "hostname of the recipient website",
+                    "type": "String"
+                },
+                {
+                    "name": "worker",
+                    "description": "panel eventhandler and transmitter",
+                    "type": "Panel object"
+                }
+            ],
+            "return": {
+                "description": "none"
+            },
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 944,
+            "description": "Displays the trustmarks passed/failed for a currently active policy for a specified granular principle",
+            "itemtype": "method",
+            "name": "displayTrustmarksForCurrentlyActivePolicy",
+            "params": [
+                {
+                    "name": "tip_type",
+                    "description": "Granular Principle",
+                    "type": "Minimization|access|accountability|transparency|dataquality"
+                },
+                {
+                    "name": "recipient_id",
+                    "description": "website host name (www.example.com}",
+                    "type": "String"
+                },
+                {
+                    "name": "worker",
+                    "description": "panel event handler/trigger",
+                    "type": "Panel object"
+                }
+            ],
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkpolicyhelper.js",
+            "line": 1052,
+            "description": "NOTES\n 1. Not handling TIP/Trustmark Updation over time\n 2. Assumption - TIP JSON has been modified to put Trustmarks and Referenced TIPs in an array (for JSON parsing to succeed)\n 3. Assumption - TIP JSON Trustexpression directly has Identifiers instead of idrefs\n 4. Assumption - If TIP is not present in pre-packaged, currently we don't support it. But it could get it from trustmark registry server.\n 5. Assumption - If a TIP references Trustmarks that are not present in the cache, it is retrieved from Trustmark Registry Server\n 6. Trustmark Definition updation is not handled right now",
+            "class": "trustmarkpolicyhelper",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkverifier.js",
+            "line": 1,
+            "description": "Filename: trustmarkverifier.js\nPurpose: Verifies the digital signature on the trustmark XML\nCreated By: ARao",
+            "class": "",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkverifier.js",
+            "line": 8,
+            "description": "Retrieves the Trustmark Registry Server Signing Certificate",
+            "class": "",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkverifier.js",
+            "line": 16,
+            "description": "Verify the digital signature of the trustmark\nParams: trustmark_xml - Trustmark XML\n\t   server_certificate - Server Certificate",
+            "class": "",
+            "module": "trustmarkpolicyhelper"
+        },
+        {
+            "file": "lib/trustmarkverifier.js",
+            "line": 26,
+            "description": "Verify if the trustmark is valid",
+            "class": "",
+            "module": "trustmarkpolicyhelper"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: purpose",
+            "line": " data/sidebar.js:1"
+        },
+        {
+            "message": "unknown tag: purpose",
+            "line": " data/sidebar.js:101"
+        },
+        {
+            "message": "unknown tag: purpose",
+            "line": " data/sidebar.js:109"
+        },
+        {
+            "message": "unknown tag: purpose",
+            "line": " data/test.js:1"
+        },
+        {
+            "message": "replacing incorrect tag: params with param",
+            "line": " lib/pageloadhandler.js:56"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/pageloadhandler.js:56"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib/trustmarkpolicyhelper.js:75"
+        },
+        {
+            "message": "Missing item type",
+            "line": " data/sidebar.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " data/sidebar.js:101"
+        },
+        {
+            "message": "Missing item type",
+            "line": " data/sidebar.js:109"
+        },
+        {
+            "message": "Missing item type",
+            "line": " data/test.js:1"
+        },
+        {
+            "message": "Missing item type\n{\n\tdivelement.removeEventListener(\"click\", onClickListener, false);\n\tdivelement.removeEventListener(\"mouseover\", onMouseOverListener, false);\n\tdivelement.removeEventListener(\"mouseout\", onMouseOutListener, false);\n\tdivelement.style.color = \"#A7C4C4\";",
+            "line": " data/test.js:96"
+        },
+        {
+            "message": "Missing item type",
+            "line": " lib/main.js:11"
+        },
+        {
+            "message": "Missing item type\nGet the TIP store name",
+            "line": " lib/main.js:202"
+        },
+        {
+            "message": "Missing item type\nCreate TIP Store",
+            "line": " lib/main.js:211"
+        },
+        {
+            "message": "Missing item type",
+            "line": " lib/panelviewer.js:10"
+        },
+        {
+            "message": "Missing item type\nDisplay the trustmarks for the currently active policy for the granular principle specified in the message",
+            "line": " lib/panelviewer.js:169"
+        },
+        {
+            "message": "Missing item type\nDelete trustmark from cache",
+            "line": " lib/trustmarkhelper.js:192"
+        },
+        {
+            "message": "Missing item type",
+            "line": " lib/trustmarkpolicyhelper.js:10"
+        },
+        {
+            "message": "Missing item type\nFor a granular principle type, retrieve the list of applicable TIPS",
+            "line": " lib/trustmarkpolicyhelper.js:21"
+        },
+        {
+            "message": "Missing item type\nNOTES\n 1. Not handling TIP/Trustmark Updation over time\n 2. Assumption - TIP JSON has been modified to put Trustmarks and Referenced TIPs in an array (for JSON parsing to succeed)\n 3. Assumption - TIP JSON Trustexpression directly has Identifiers instead of idrefs\n 4. Assumption - If TIP is not present in pre-packaged, currently we don't support it. But it could get it from trustmark registry server.\n 5. Assumption - If a TIP references Trustmarks that are not present in the cache, it is retrieved from Trustmark Registry Server\n 6. Trustmark Definition updation is not handled right now",
+            "line": " lib/trustmarkpolicyhelper.js:1052"
+        },
+        {
+            "message": "Missing item type\nFilename: trustmarkverifier.js\nPurpose: Verifies the digital signature on the trustmark XML\nCreated By: ARao",
+            "line": " lib/trustmarkverifier.js:1"
+        },
+        {
+            "message": "Missing item type\nRetrieves the Trustmark Registry Server Signing Certificate",
+            "line": " lib/trustmarkverifier.js:8"
+        },
+        {
+            "message": "Missing item type\nVerify the digital signature of the trustmark\nParams: trustmark_xml - Trustmark XML\n\t   server_certificate - Server Certificate",
+            "line": " lib/trustmarkverifier.js:16"
+        },
+        {
+            "message": "Missing item type\nVerify if the trustmark is valid",
+            "line": " lib/trustmarkverifier.js:26"
+        }
+    ]
+}

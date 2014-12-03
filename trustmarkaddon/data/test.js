@@ -1,7 +1,20 @@
+/***
+ * TIP evaluator for trustmark panel
+ * @module
+ */
+
 /********
- *@Purpose - Functions to display TIPs panel content
- *         - Displays the failed TIPs
- *         - Supports click on TIPs and sends message to panel to display TIP sidebar
+ *Functions to display TIPs panel content
+ *- Displays the failed TIPs
+ *- Supports click on TIPs and sends message to panel to display TIP sidebar*
+ *@class tipevaluator
+ */
+
+/**
+ * Display if Recipient has passed all privacy settings
+ *@method displayOverallPrinciplesPassed
+ *@param recipient {String} recipient
+ *@return none
  */
 function displayOverallPrinciplesPassed(recipient)
 {
@@ -36,11 +49,19 @@ function displayOverallPrinciplesPassed(recipient)
 
 }
 
+/***
+ *Event Handler for Failed TIP
+ *@event failedtip
+ *@method onFailedTIP
+ *@param tip {String} Failed TIP id
+ *@param recipient {String} site hostname (e.g. www.example.com)
+ *@return none
+ */
 self.port.on("failedtip", function onFailedTIP(tip, recipient)
 {
 	var wrapperid = tip + "-wrapper";
 	var d = document.getElementById(wrapperid);
-	d.style.background = "url('red-cross.png')";
+	d.style.background = "url('images/red-cross.png')";
 	d.style.color = "gray";
 	d.style.display = "block";
 
@@ -48,11 +69,19 @@ self.port.on("failedtip", function onFailedTIP(tip, recipient)
 
 });
 
+/****
+ *Event Handler for Passed TIPs
+ *@event passedtip
+ *@method onPassedTIP
+ *@param tip {String} Passed TIP ID
+ *@param recipient {String} site hostname (e.g. www.example.com)
+ *@return none
+ */
 self.port.on("passedtip", function onPassedTIP(tip, recipient)
 {
 	var wrapperid = tip + "-wrapper";
 	var d = document.getElementById(wrapperid);
-	d.style.background = "url('green-check.png')";
+	d.style.background = "url('images/green-check.png')";
 	d.style.color = "gray";
         d.style.display = "none";
 
@@ -67,23 +96,44 @@ var accountabilityDiv = document.getElementById("accountability");
 var dataqualityDiv = document.getElementById("dataquality");
 var settingsButton = document.getElementById("settings");
 
+/***
+ *Mouse Over Listener for TIP 
+ *@method onMouseOverListener
+ *@return none
+ */
 function onMouseOverListener(event)
 {
         var targetDiv = event.target;
 	targetDiv.style.color = "#0066FF";
 }
 
+/***
+ *Mouse Out Listener for TIP
+ *@method onMouseOutListener
+ *@return none
+ */
 function onMouseOutListener(event)
 {
         var targetDiv = event.target;
 	targetDiv.style.color = "black";
 }
 
+/**
+ *On Click Listener for TIP Settings
+ *@event settings Triggers settings event
+ *@method onClickListenerForSettings
+ *@return none
+ */
 function onClickListenerForSettings(event)
 {
 	self.postMessage("settings");
 }
 
+/***
+ *On Click Listener for TIP
+ *@method onClickListener
+ *@return none
+ */
 function onClickListener(event)
 {
 	self.postMessage(event.target.id);
@@ -105,6 +155,11 @@ function onClickListener(event)
 		
 }
 
+/***
+ *Reset Event Listeners
+ *@method reset
+ *@return none
+ */
 function reset()
 {
 	var tipdivs = document.getElementsByClassName('tip-heading');
@@ -117,18 +172,31 @@ function reset()
 		tipdivs[index].style.color = "black";
 		var wrapperid = tipdivs[index].id+"-wrapper";
 		var wrapper = document.getElementById(wrapperid);
-		wrapper.style.background  = "url('rotating.gif') no-repeat";
+		wrapper.style.background  = "url('images/rotating.gif') no-repeat";
 	}
 
 	settingsButton.addEventListener("click", onClickListenerForSettings, false);
 }
 reset();
 
+/***
+ *Event Handler for Reset Panel
+ *@event resetpanel
+ *@method onResetPanel
+ *@return none
+ */
 self.port.on("resetpanel", function onResetPanel()
 {
         reset();
 });
 
+/***
+ *Event Handler for No Trustmarks
+ *@event notrustmarks
+ *@method onNoTrustmarksReceived
+ *@param recipient {String} website hostname (www.example.com)
+ *@return none
+ */
 self.port.on("notrustmarks", function onNoTrustmarksReceived(recipient)
 {
 	

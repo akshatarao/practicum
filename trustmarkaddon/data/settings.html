@@ -87,7 +87,7 @@
     </div>
    <div class="tab-content">
    	 <div id="upload-content" class="content2" style="display:none">
-       		 <img src="upload-icon.jpg" height="80" width="100">
+       		 <img src="images/upload-icon.jpg" height="80" width="100">
 		 <br>
 		 <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
 			<i><font color="#00407F">&nbsp;&nbsp;Upload</font></i> your privacy settings
@@ -126,7 +126,7 @@
 	 <div id="apply-content"  class="content" style="display:block">
 
   		 <div style="height:90px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
-                      <img src="change-button.jpg" height="100" width="100"> 
+                      <img src="images/change-button.jpg" height="100" width="100"> 
 		      <br> 
 		      <i><font color="#00407F">&nbsp;&nbsp;Change</font></i> your privacy settings
                  </div>
@@ -163,7 +163,7 @@
                 </div>
 	 </div>
 	 <div id="create-content" class="content" style="display:none">
-		<img src="create.png" height="60" width="60">
+		<img src="images/create.png" height="60" width="60">
                 <div style="height:50px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
                         <i><font color="#00407F">&nbsp;&nbsp;Define</font></i> your own privacy standards
                 </div>
@@ -225,7 +225,7 @@
 		<div class="errormessage" id="policycreate_overall_error"></div>
 	 </div>
 	<div id="view-content" class="content" style="display:none">
-		<img src="view_icon.png" height="80" width="80">
+		<img src="images/view_icon.png" height="80" width="80">
 		<div style="height:30px;font-size:18px;font-weight:bold;display:table-row;font-family:Tahoma,Geneva,sans-serif">
                       <i><font color="#00407F">&nbsp;&nbsp;View</font></i> a privacy ruleset
                 </div>
@@ -258,7 +258,10 @@ var custom_policy_expr_text = "";
 var custom_policy_tdref_array = [];
 
 /***
- *@Purpose - On MouseOver Listener for Tab
+ *Highlights the tab on mouse over
+ *@method onMouseOverListener
+ *@param event {Event} Mouse Over event
+ *@return none
  */
 function onMouseOverListener(event)
 {
@@ -266,7 +269,10 @@ function onMouseOverListener(event)
 }
 
 /**
- *@Purpose - On mouseout listener for tab
+ *Stops tab highlight on mouse out
+ *@method onMouseOutListener
+ *@param event {Event} Mouse Out event
+ *@return none
  */
 function onMouseOutListener(event)
 {
@@ -277,11 +283,16 @@ function onMouseOutListener(event)
 }
 
 /**
- *@Purpose - Show Tabbed Content
+ *Displays the tab contents upon click
+ *@method onClickListener
+ *@param event {Event} Mouse Click event
+ *@return none
+ *@event Triggers the view policy event
  */
 function onClickListener(event)
 {
 
+	//Resets all tabs
 	clearMessages();
 	resetApply();
 	resetUpload();
@@ -290,13 +301,16 @@ function onClickListener(event)
 
 	var tabheaddivs = document.getElementsByClassName('tab-head');
 
+	//Displays content of the tab
 	for(index = 0; index < tabheaddivs.length; index++)
 	{
 		var divelement = tabheaddivs[index];
 
+		//Highlight the selected tab
 		if(divelement.id === event.target.id)
 		{
 
+			//If tab selected is View Policy, then emits the policy
 			if(divelement.id === "view")
 			{
 				addon.port.emit("gettips", "all");
@@ -305,14 +319,14 @@ function onClickListener(event)
 			divelement.style.background = "#00407F";
 			divelement.style.color = "white";
 		}
-		else
+		else //Dim other tabs
 		{
 			divelement.style.background = "#3D4040";
 			divelement.style.color = "#CCD5D5"; 
 		}	
 	}
 
-
+	//Display tab content for selected tab, hide other content
         var tabdivs = document.getElementsByClassName('content');
         var contentelementid = event.target.id +"-content";
 
@@ -333,6 +347,11 @@ function onClickListener(event)
 
 }
 
+/***
+ *Clear the contents of the Create Policy tab
+ *@method clearCreateContents
+ *@return none
+ */
 function clearCreateContents()
 {
 	clearPolicyExpr();
@@ -344,8 +363,11 @@ function clearCreateContents()
         policy_type.selectedIndex = 0;
 
 }
+
 /***
- *@Purpose - Reset Create Form fields
+ *Reset Create Form fields
+ *@method resetCreate
+ *@return none
  */
 function resetCreate()
 {
@@ -363,13 +385,16 @@ function resetCreate()
 }
 
 /**
- *@Purpose - Reset apply form fields
+ *Reset apply form fields
+ *@method resetApply
+ *@return none
  */
 function resetApply()
 {
 	var e = document.getElementById("policy_nickname_apply");
         var size = e.length;
-        
+
+	//Remove all previously loaded select options        
         while( size > 1)
         {
                e.remove(size-1);
@@ -379,8 +404,11 @@ function resetApply()
 	e = document.getElementById("policy_type_apply");
         e.selectedIndex = 0;
 }
+
 /**
- *@Purpose - Reset Listeners for all divs
+ *Reset Listeners for all apply,create,view divs
+ *@method reset
+ *@return none
  */
 function reset()
 {
@@ -402,7 +430,10 @@ function reset()
 }
 
 /**
- *@Purpose - Clear Error messages for div_id
+ *Clear Error messages for div_id
+ *@method clearMessage
+ *@param error_div_id {String} DIV id for the error div
+ *@return none
  */
 function clearMessage(error_div_id)
 {
@@ -411,7 +442,9 @@ function clearMessage(error_div_id)
 }
 
 /**
- *@Purpose - Clear error messages for all error divs
+ *Clear error messages for all error divs
+ *@method clearMessages
+ *@return none
  */
 function clearMessages()
 {
@@ -425,7 +458,10 @@ function clearMessages()
 }
 
 /**
- *@Purpose - Verify Policy Name is Unique
+ *Verify Policy Name is Unique
+ *@method verifyPolicyNameisNew
+ *@param policyName {String} policy name
+ *@return True if policy name is unique
  */
 function verifyPolicyNameNew(policyName)
 {
@@ -434,9 +470,10 @@ function verifyPolicyNameNew(policyName)
 }
 
 /**
- *@Purpose - Verifies if Policy Name is Valid
- *@Param - policyName
- *@Returns - true/false
+ *Verifies if Policy Name is Valid
+ *@method verifyPolicyNameIsValid
+ *@param policyName {String} policy name
+ *@return TRUE if policy name is valid
  */
 function verifyPolicyNameIsValid(policyName)
 {
@@ -451,11 +488,12 @@ function verifyPolicyNameIsValid(policyName)
 }
 
 /**
- *@Purpose - Show error message
- *@Param - errorMessage - Error Message
- *@Param - div_id - Div Identifier
- *@Param - type - error/success
- *@Returns none
+ *Show message in div
+ *@method displayMessage
+ *@param message {String} Message
+ *@param div_id {String} Div Identifier
+ *@Param type {error/success} Message type
+ *@return none
  */
 function displayMessage(message,div_id,type)
 {
@@ -469,8 +507,10 @@ function displayMessage(message,div_id,type)
 		messageDiv.style.color = "green";
 }
 /**
- *@Purpose - Is File Selected
- *@Returns - true/false
+ *Verify if file is selected
+ *@method verifyIfFileSelected
+ *@param filePath {String} path of file to be uploaded
+ *@return TRUE if file is selected
  */
 function verifyIfFileSelected(filePath)
 {
@@ -489,8 +529,10 @@ function verifyIfFileSelected(filePath)
 }
 
 /**
- *@Purpose - Verifies if a policy type was selected
- *@Returns true/false
+ *Verifies if a policy type was selected
+ *@method verifyPolicyTypeSelected
+ *@param privacyprinciple {String} Privacy principle chosen
+ *@return TRUE if privacy principle chosen
  */
 function verifyPolicyTypeSelected(privacyprinciple)
 {
@@ -503,7 +545,9 @@ function verifyPolicyTypeSelected(privacyprinciple)
 }
 
 /**
- *@Purpose - Get Policy Name
+ *Get Policy Name from div
+ *@method getPolicyName
+ *@return policy name
  */
 function getPolicyName()
 {
@@ -527,7 +571,9 @@ function getPolicyName()
 }
 
 /**
- *@Purpose - Get Policy Type
+ *Get Policy Type selected by the user
+ *@method getPolicyType
+ *@return none
  */
 function getPolicyType()
 {
@@ -549,7 +595,9 @@ function getPolicyType()
 }
 
 /**
- *@Purpose - Get Policy File
+ *Get Policy File selected by user
+ *@method getPolicyFile
+ *@return file path of the selected policy file
  */
 function getPolicyFile()
 {
@@ -568,9 +616,10 @@ function getPolicyFile()
 }
 
 /**
- *@Purpose - Check if string is empty
- *@Param  - string
- *@Returns - true/false
+ * Check if string is empty
+ *@method isEmpty
+ *@param {String} string
+ *@return true if string is empty
  */
 function isEmpty(str)
 {
@@ -582,6 +631,11 @@ function isEmpty(str)
 	return stringEmpty;
 }
 
+/**
+ *Reset upload div
+ *@method resetUpload
+ *@return none
+ */
 function resetUpload()
 {
 	var policyname = document.getElementById("policy_name");
@@ -594,8 +648,12 @@ function resetUpload()
 	policy_file.value = "";	
 
 }
+
 /**
- *@Purpose - Upload TIP
+ *Upload user input policy file
+ *@method uploadTIP
+ *@event policypassed Emits the 'policypassed' (policy was successfully created) event
+ *@return none
  */	
 function uploadTIP()
 {
@@ -626,6 +684,12 @@ function uploadTIP()
 	}
 }
 
+/**
+ *Send TIP Type
+ *@method sendTIPType
+ *@event gettips Emits the gettips event for the selected tip type
+ *@return none
+ */
 function sendTIPType()
 {
 	var e = document.getElementById("policy_type_apply");
@@ -651,6 +715,12 @@ function sendTIPType()
 	}
 }
 
+/***
+ *Send TIP Type for Trustmarks
+ *@method sendTIPTypeForTrustmarks
+ *@event loadtrustmarkdefs Emits the 'loadtrustmarkdefs' Load trustmark definitions for selected tip type event
+ *@return none
+ */
 function sendTIPTypeForTrustmarks()
 {
 	var e = document.getElementById("policy_type_create");
@@ -679,6 +749,12 @@ function sendTIPTypeForTrustmarks()
 
 }
 
+/***
+ *Load trustmark Definitions in the select options
+ *@event receivetrustmarkdefs Receives trustmark definitions event
+ *@param td_arraymap {array} Array of trustmark definition details arrays
+ *@returns none
+ */
 addon.port.on("receivetrustmarkdefs", function onTrustmarkDefinitionLoad(td_arraymap) {
 	var e = document.getElementById("trustmarkdefs");
 
@@ -705,6 +781,13 @@ addon.port.on("receivetrustmarkdefs", function onTrustmarkDefinitionLoad(td_arra
 	}
 });
 
+/***
+ *Loads the policies for each tip type
+ *@method onTipReceive
+ *@event tipreceive Receives the TIPs that match for a given tip_type
+ *@param tip_array {array} Array of all TIPs for each tip_type {minimization|access|accountability|dataquality|transparency}
+ *@return none 
+ */
 addon.port.on("tipreceive", function onTipReceive(tip_array, tip_type)
 {
 	//For the View Tab
@@ -739,8 +822,9 @@ addon.port.on("tipreceive", function onTipReceive(tip_array, tip_type)
 });
 
 /**
- *@Purpose - Check if policy nickname was selected
- *@Returns: none
+ *Check if policy nickname was selected
+ *@method checkPolicyNicknameEntered
+ *@return none
  */
 function checkPolicyNicknameEntered()
 {
@@ -757,6 +841,11 @@ function checkPolicyNicknameEntered()
 	}
 }
 
+/**
+ *Gets the type of policy that needs to be applied (minimization|access...)
+ *@method getPolicyTypeForApply
+ *@return none
+ */
 function getPolicyTypeForApply()
 {
 	var e = document.getElementById("policy_type_apply");
@@ -774,6 +863,11 @@ function getPolicyTypeForApply()
 	}
 }	
 
+/***
+ *Get policy nickname for the policy to be applied
+ *@method getPolicyNicknameForApply
+ *@return none
+ */
 function getPolicyNicknameForApply()
 {
 	var e = document.getElementById("policy_nickname_apply");
@@ -791,6 +885,12 @@ function getPolicyNicknameForApply()
 	}
 }
 
+/**
+ *Applies the selected policy
+ *@method applyTIP
+ *@event applytip Emits the 'applytip' event that indicates that the tip was applied
+ *@return none
+ */
 function applyTIP()
 {
 	var tip_type = getPolicyTypeForApply();
@@ -810,6 +910,11 @@ function applyTIP()
 	}
 }
 
+/**
+ *Clear Policy Expression that was created
+ *@method clearPolicyExpr
+ *@return none
+ */
 function clearPolicyExpr()
 {
 	custom_policy_expr = "";
@@ -819,6 +924,14 @@ function clearPolicyExpr()
 	var policytext_preview = document.getElementById("policy_preview");
 	policytext_preview.innerHTML = "";
 }
+
+/***
+ *Updates the TIP Expression with the newly added conditions
+ *@method updateTIPExpr
+ *@param value {String} Trustmark Definition ID/AND/OR/(/)
+ *@param text {String} Textual description of trustmark /AND/OR/(/)
+ *@return none
+ */
 function updateTIPExpr(value, text)
 {
 	custom_policy_expr = custom_policy_expr.concat(" " + value);
@@ -854,6 +967,11 @@ function updateTIPExpr(value, text)
 	policytext_preview.innerHTML = custom_policy_expr_text;
 }
 
+/***
+ *Verifies if the created policy expression is a valid boolean expression
+ *@method verifyIfPolicyExpressionIsValid
+ *@return none
+ */
 function verifyIfPolicyExpressionIsValid()
 {
 	var isValid = true;
@@ -872,6 +990,12 @@ function verifyIfPolicyExpressionIsValid()
 
 }
 
+/***
+ *Update the trustmark references list in the trustmark JSON
+ *@method updateTrustmarkReferenceList 
+ *@param ruleObject {JSON object} trustmark definition reference
+ *@return none
+ */
 function updateTrustmarkReferenceList(ruleObject)
 {
 	var tdreference = new Object();
@@ -880,6 +1004,12 @@ function updateTrustmarkReferenceList(ruleObject)
 	custom_policy_tdref_array.push(tdreference);
 	
 }
+
+/***
+ *Update TIP Expression in TIP JSON with Trustmark Definition IDs
+ *@method updateTIPExprWithTrustmark
+ *@return none
+ */
 function updateTIPExprWithTrustmark()
 {
 	var e = document.getElementById("trustmarkdefs");
@@ -897,7 +1027,13 @@ function updateTIPExprWithTrustmark()
 	updateTrustmarkReferenceList(ruleObject);
 }
 
-
+/***
+ *Create a TIP JSON
+ *@method createTIPJSON
+ *@param tip_name {String} TIP Name
+ *@param tip_type {minimization|access|dataquality|accountability|transparency} Type of TIP
+ *@param tip_expr {Boolean condition} TIP Trust expression
+ */
 function createTIPJSON(tip_name,tip_type,tip_expr)
 {
 	var id = tip_name.replace(/\s+/g,'');
@@ -926,6 +1062,11 @@ function createTIPJSON(tip_name,tip_type,tip_expr)
 	return JSON.stringify(TIP);
 }
 
+/**
+ *Get the TIP Nickname to create a TIP
+ *@method getTIPNameForCreate
+ *@return none
+ */
 function getTIPNameForCreate()
 {
 	var tip_name = document.getElementById("policy_name_create").value;
@@ -945,6 +1086,11 @@ function getTIPNameForCreate()
 	return tip_name;		
 }
 
+/***
+ *Get TIP Type for Create
+ *@method getTIPTypeForCreate
+ *@return none
+ */
 function getTIPTypeForCreate()
 {
 	var e = document.getElementById("policy_type_create");
@@ -963,6 +1109,11 @@ function getTIPTypeForCreate()
 	return e.options[e.selectedIndex].value;
 }
 
+/***
+ *Get TIP trust expression
+ *@method getTIPExpr
+ *@return none
+ */
 function getTIPExpr()
 {
 	var tip_expr = document.getElementById("policy_preview").innerHTML;
@@ -988,6 +1139,11 @@ function getTIPExpr()
 	return tip_expr;
 }
 
+/****
+ *Create TIP
+ *@method createTIP
+ *@return none
+ */
 function createTIP()
 {
 	var tip_name = getTIPNameForCreate();
@@ -1007,6 +1163,12 @@ function createTIP()
 	
 }
 
+/***
+ *Event Handler that check if duplicate tip exists
+ *@method tipNameExists
+ *@event duplicatetipname Check if a tip exists with the same name
+ *@return none
+ */
 addon.port.on("duplicatetipname", function tipNameExists()
 {
 	var tipNameErrorMessage = "Policy name already exists."
@@ -1017,6 +1179,13 @@ addon.port.on("duplicatetipname", function tipNameExists()
 	
 });
 
+/**
+ *Event Handler for unique tip name. Creates TIP
+ *@method tipNameDoesntExist
+ *@param tip_name {String} TIP Name
+ *@param tip_type {minimization|access|dataquality|accountability|transparency} Type of TIP
+ *@param tip_expr {String} TIP Trust expression
+ */
 addon.port.on("uniquetipname", function tipNameDoesntExist(tip_name, tip_type, tip_expr)
 {
 	var tip_json = createTIPJSON(tip_name, tip_type, tip_expr);
@@ -1026,6 +1195,13 @@ addon.port.on("uniquetipname", function tipNameDoesntExist(tip_name, tip_type, t
 
 });
 
+/***
+ *Receive TIP Details 
+ *@method receivetipdetails
+ *@param tip_type {minimization|access|dataquality|accountability|transparency} Type of TIP
+ *@param tip_expr {String} TIP Trust expression
+ *@return none
+ */
 addon.port.on("receivetipdetails", function receiveTIPDetails(tip_type, tip_expr)
 {
 	var policy_type;
@@ -1065,6 +1241,14 @@ addon.port.on("receivetipdetails", function receiveTIPDetails(tip_type, tip_expr
 	policy_expr_header.style.display = "block";
 });
 
+/**
+ *Replace substring
+ *@method replace
+ *@param str {String} String
+ *@param index {index} index of string
+ *@param newstr {String} string to be replaced
+ *@return none
+ */
 function replace(str,index,newstr) {
     
     if(index > str.length-1) 
@@ -1072,6 +1256,13 @@ function replace(str,index,newstr) {
     
     return str.substr(0,index) + newstr + str.substr(index+1);
 }
+
+/**
+ *Get TIP Trust Expression in Textual Format
+ *@method getBeautifiedTIPExpr
+ *@param tip_expr {String} TIP Trust expression
+ *@return none
+ */
 function getBeautifiedTIPExpr(tip_expr)
 {
 	tip_expr = tip_expr.replace(/\) and \(/gi, "\)<p><b> AND </b></p>\(");
@@ -1090,6 +1281,11 @@ function getBeautifiedTIPExpr(tip_expr)
 	return tip_expr;
 }
 
+/**
+ *Reset View Tab
+ *@method resetView
+ *@return none
+ */
 function resetView()
 {
 	var policy_type = document.getElementById("policy_type_view");
@@ -1107,6 +1303,11 @@ function resetView()
 
 }
 
+/**
+ *Show a TIP's details
+ *@method showTIPDetails
+ *@return none
+ */
 function showTIPDetails()
 {
 	var e = document.getElementById("policy_nickname_view");
@@ -1125,7 +1326,3 @@ reset();
 
 </script>
 
-<! --Create
- 6. Better settings image
- 8. If second sidebar opens, dispose the first one (close all sidebars when icon clicked)
- --->

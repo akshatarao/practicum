@@ -1,12 +1,29 @@
+/***
+ * TIP Sidebar
+ * @module sidebar
+ */
+
+/**
+ *@class
+ */
+
 /******
- *@Purpose - Shows failed and passed trustmarks
- *
+ *Check if string is empty
+ *@method isEmpty
+ *@param str {String} string
+ *@return TRUE if string is empty
  */
 function isEmpty(str)
 {
 	return (!str || 0 === str.length);
 }
 
+/***
+ *Get Trustmark Set
+ *@method getTrustmarkSet
+ *@param trustmark_list {String} Trustmark Set
+ *@return none
+ */
 function getTrustmarkSet(trustmark_list)
 {
 	var trustmarkarray = trustmark_list.split("##TRUSTMARK##");
@@ -23,6 +40,12 @@ function getTrustmarkSet(trustmark_list)
 	return trustmarkSet;
 }
 
+/***
+ *Get HTML TIP Expression
+ *@method getBeautifiedTIPExpr
+ *@param tip_expr {String} TIP trust expression
+ *@return none
+ */
 function getBeautifiedTIPExpr(tip_expr)
 {
         tip_expr = tip_expr.replace(/\) and \(/gi, "\)<p><b> AND </b></p>\(");
@@ -41,7 +64,13 @@ function getBeautifiedTIPExpr(tip_expr)
         return tip_expr;
 }
 
-
+/**
+ *Event Handler for 'trustmark' event
+ *@event trustmark
+ *@param tip_trustmark_list {String} TIP referenced trustmark definitions
+ *@param recipient_trustmark_list {String} Recipient trustmark definitions
+ *@param tip_json {JSON} TIP JSON string
+ */
 addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list, tip_json, site_url, trustexpression, tip_name) {
 
 	var tip_trustmark_set = tip_trustmark_list;
@@ -99,7 +128,9 @@ addon.port.on("trustmark", function(tip_trustmark_list, recipient_trustmark_list
 });
 
 /***
- *@Purpose - On MouseOver Listener for Tab
+ *On MouseOver Listener for Tab
+ *@method onMouseOverListener
+ *@return none
  */
 function onMouseOverListener(event)
 {
@@ -107,7 +138,9 @@ function onMouseOverListener(event)
 }
 
 /**
- *@Purpose - On mouseout listener for tab
+ *On mouseout listener for tab
+ *@method onMouseOutListener
+ *@return none
  */
 function onMouseOutListener(event)
 {
@@ -117,6 +150,11 @@ function onMouseOutListener(event)
         }
 }
 
+/**
+ *On mouse click listener for tab
+ *@method onClickListener
+ *@return none
+ */
 function onClickListener(event)
 {
 	var tabheaddivs = document.getElementsByClassName('tab-head');
@@ -159,6 +197,11 @@ function onClickListener(event)
 
 }
 
+/**
+ *Reset all sidebar tabs
+ *@method reset
+ *@return none
+ */
 function reset()
 {           
         var tabdivs = document.getElementsByClassName('tab-head');
@@ -173,4 +216,3 @@ function reset()
 }
 
 reset();
-//TODO: Click to view policy

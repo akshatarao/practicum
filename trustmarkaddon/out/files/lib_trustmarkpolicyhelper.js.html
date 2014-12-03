@@ -1,3 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/trustmarkpolicyhelper.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/main.html">main</a></li>
+            
+                <li><a href="../classes/pageloadhandler.html">pageloadhandler</a></li>
+            
+                <li><a href="../classes/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../classes/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+                <li><a href="../classes/trustmarkpolicyhelper.html">trustmarkpolicyhelper</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/main.html">main</a></li>
+            
+                <li><a href="../modules/pageloadhandler.html">pageloadhandler</a></li>
+            
+                <li><a href="../modules/panelviewer.html">panelviewer</a></li>
+            
+                <li><a href="../modules/trustmarkhelper.html">trustmarkhelper</a></li>
+            
+                <li><a href="../modules/trustmarkpolicyhelper.html">trustmarkpolicyhelper</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: lib/trustmarkpolicyhelper.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
 /**
  * Handles the trust interoperability profile operations for the trustmark addon
  * @module trustmarkpolicyhelper
@@ -13,10 +119,10 @@
  *@requires sdk/self
  *@requires osfile.jsm
  */
-var { indexedDB } = require('sdk/indexed-db');
-const {Cu} = require("chrome");
-const {TextEncoder, TextDecoder, OS} = Cu.import("resource://gre/modules/osfile.jsm", {});
-var self = require("sdk/self");
+var { indexedDB } = require(&#x27;sdk/indexed-db&#x27;);
+const {Cu} = require(&quot;chrome&quot;);
+const {TextEncoder, TextDecoder, OS} = Cu.import(&quot;resource://gre/modules/osfile.jsm&quot;, {});
+var self = require(&quot;sdk/self&quot;);
 
 /***
  *For a granular principle type, retrieve the list of applicable TIPS
@@ -25,23 +131,23 @@ var self = require("sdk/self");
  */
 function getTIPNicknameList(tip_type, worker)
 {
-	var request = indexedDB.open("trustmarkDB",2);
+	var request = indexedDB.open(&quot;trustmarkDB&quot;,2);
 	var db;
 
 	request.onsuccess = function(event)
 	{
 		db = event.target.result;
-		var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+		var tipObjectStore = db.transaction(&quot;tip&quot;, &quot;readwrite&quot;).objectStore(&quot;tip&quot;);
 		var policyRequest;
 
 		//If we require all the TIPS irrespective of granular principle
-		if(tip_type === "all")
+		if(tip_type === &quot;all&quot;)
 		{
 			policyRequest = tipObjectStore.openCursor();
 		}
 		else//For a specific granular principle
 		{
-			var policyIndex = tipObjectStore.index("type");
+			var policyIndex = tipObjectStore.index(&quot;type&quot;);
 			policyRequest = policyIndex.openCursor(tip_type);
 		}
 
@@ -62,7 +168,7 @@ function getTIPNicknameList(tip_type, worker)
 			else
 			{
 				//Receive TIPs
-				worker.port.emit("tipreceive", tip_array, tip_type);
+				worker.port.emit(&quot;tipreceive&quot;, tip_array, tip_type);
 			}
 		}
 
@@ -82,12 +188,12 @@ function getTIPNicknameList(tip_type, worker)
  */
 function checkIfTipNameIsUnique(worker, tip_name, tip_type, tip_expr)
 {
-	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
+	var dbOpenRequest = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 
         dbOpenRequest.onsuccess = function(event)
         {
                 db = event.target.result;
-		var tipObjectStore = db.transaction("tip").objectStore("tip");
+		var tipObjectStore = db.transaction(&quot;tip&quot;).objectStore(&quot;tip&quot;);
 		var tipRequest = tipObjectStore.openCursor();
                 var overallFailed = false;
 
@@ -103,7 +209,7 @@ function checkIfTipNameIsUnique(worker, tip_name, tip_type, tip_expr)
 				if(tip.nickname === tip_name)
 				{
 					//If yes, then trigger the duplicatetipname event and stop iterating
-					worker.port.emit("duplicatetipname");	
+					worker.port.emit(&quot;duplicatetipname&quot;);	
 				}
 				else
 				{
@@ -114,7 +220,7 @@ function checkIfTipNameIsUnique(worker, tip_name, tip_type, tip_expr)
 			   else
 			   {
 				//If no matched records found, trigger the uniquetipname event
-				worker.port.emit("uniquetipname", tip_name, tip_type, tip_expr);
+				worker.port.emit(&quot;uniquetipname&quot;, tip_name, tip_type, tip_expr);
 			   }	
 		}
 	}
@@ -130,16 +236,16 @@ function checkIfTipNameIsUnique(worker, tip_name, tip_type, tip_expr)
  ********************************************/
 function applyUserPolicy(tip_nickname, tip_type)
 {
-	var request = indexedDB.open("trustmarkDB", 2);
+	var request = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 	var db;
 
 	request.onsuccess = function(event)
 	{
 		db = event.target.result;
 
-		var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+		var tipObjectStore = db.transaction(&quot;tip&quot;, &quot;readwrite&quot;).objectStore(&quot;tip&quot;);
 
-		var policyIndex = tipObjectStore.index("type");
+		var policyIndex = tipObjectStore.index(&quot;type&quot;);
 		var policyRequest = policyIndex.openCursor(tip_type);
 
 		policyRequest.onsuccess = function(event)
@@ -155,27 +261,27 @@ function applyUserPolicy(tip_nickname, tip_type)
 				//Change the selected tip status to active
 				if(nickname === tip_nickname)
 				{
-					isActive = "1";
+					isActive = &quot;1&quot;;
 					
-					//console.log("Update to active:" + tip.tip_id);
+					//console.log(&quot;Update to active:&quot; + tip.tip_id);
 				}
 				else//Mark other tips for the selected granular principle as inactive
 				{	
-					isActive = "0";
-					//console.log("Update to inActive: " + tip.tip_id);
+					isActive = &quot;0&quot;;
+					//console.log(&quot;Update to inActive: &quot; + tip.tip_id);
 				}
 
-				var newRow = { "tip_id" : tip.tip_id, "tip_json" : tip.tip_json, "trustmark_list" : tip.trustmark_list, "trust_expression" : tip.trust_expression, "type" : tip.type, "isActive" : isActive, "nickname" : tip.nickname};
+				var newRow = { &quot;tip_id&quot; : tip.tip_id, &quot;tip_json&quot; : tip.tip_json, &quot;trustmark_list&quot; : tip.trustmark_list, &quot;trust_expression&quot; : tip.trust_expression, &quot;type&quot; : tip.type, &quot;isActive&quot; : isActive, &quot;nickname&quot; : tip.nickname};
 				var updateRequest = tipObjectStore.put(newRow);
 
 				updateRequest.onsuccess = function(event)
 				{
-					console.log("Active policy changed successfully");
+					console.log(&quot;Active policy changed successfully&quot;);
 				}
 
 				updateRequest.onerror = function(event)
 				{
-					console.log("An error occurred while applying active policy");
+					console.log(&quot;An error occurred while applying active policy&quot;);
 				}
 
 				cursor.continue();
@@ -193,7 +299,7 @@ function applyUserPolicy(tip_nickname, tip_type)
  ******************/
 function resetPolicy()
 {
-	var configFileJSON = self.data.load("defaultTIPNew/configFileJSON");
+	var configFileJSON = self.data.load(&quot;defaultTIP/configFileJSON&quot;);
 	var configFileJSONObj = JSON.parse(configFileJSON);
         var tipreferencearray = configFileJSONObj.DefaultTIP.TIPs.TIPList;
 
@@ -217,12 +323,12 @@ function resetPolicy()
  */
 function uploadUserPolicy2(tip_json_str, tip_nickname, tip_type)
 {
-	var request = indexedDB.open("trustmarkDB", 2);
+	var request = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 	var db;
 
 	request.onerror = function(event)
 	{
-		console.log("An error occurred while opening the database");
+		console.log(&quot;An error occurred while opening the database&quot;);
 	}
 	
 	request.onsuccess = function(event)
@@ -231,7 +337,7 @@ function uploadUserPolicy2(tip_json_str, tip_nickname, tip_type)
 
 		var tip_json = JSON.parse(tip_json_str);
 	        var tip_id = tip_json.TrustInteroperabilityProfile.Identifier;
-                var isActive = "0";
+                var isActive = &quot;0&quot;;
 
                 insertTIPInCache(db, tip_id, tip_json_str, tip_nickname, tip_type, isActive)
 	
@@ -258,7 +364,7 @@ function isEmpty(str)
  */
 function getRecipientTrustmarkSet(trustmark_list)
 {
-	var trustmarkarray = trustmark_list.split("##TRUSTMARK##");
+	var trustmarkarray = trustmark_list.split(&quot;##TRUSTMARK##&quot;);
 	var trustmarkSet = new Set();
 
 	for(var index in trustmarkarray)
@@ -281,8 +387,8 @@ function getRecipientTrustmarkSet(trustmark_list)
 function getTIPTrustmarkJSONString(trustmark_list)
 {
 	var removeLeadingComma = trustmark_list.substring(1);
-	var jsonString = "{ \"trustmarks\" : [" + removeLeadingComma + "]}";
-	//console.log("JSON String: " + jsonString);
+	var jsonString = &quot;{ \&quot;trustmarks\&quot; : [&quot; + removeLeadingComma + &quot;]}&quot;;
+	//console.log(&quot;JSON String: &quot; + jsonString);
 	JSON.parse(jsonString);
 	return jsonString;
 }
@@ -320,20 +426,20 @@ function evaluateTrustmarkExpression(trust_expression, trustmark_list)
 
 	//Replace the trustmarks that the recipient does not own with 0
 	//NOTE: Assumption - The trustmark ID format is of the form http://trustmark.*/*/*.xml
-        trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.\-]*\.xml/g, "0");
+        trust_expression = trust_expression.replace(/http:\/\/trustmark[a-z\/\.\-]*\.xml/g, &quot;0&quot;);
 
-	//Replace all AND with &&
-        trust_expression = trust_expression.replace(/\sand\s/gi, "&&");
+	//Replace all AND with &amp;&amp;
+        trust_expression = trust_expression.replace(/\sand\s/gi, &quot;&amp;&amp;&quot;);
 
 	//Replace all OR with ||
-        trust_expression = trust_expression.replace(/\sor\s/gi, "||");
-//        trust_expression = trust_expression.replace(/\sAND\s/g, "&&");
-//        trust_expression = trust_expression.replace(/\sOR\s/g, "||");
+        trust_expression = trust_expression.replace(/\sor\s/gi, &quot;||&quot;);
+//        trust_expression = trust_expression.replace(/\sAND\s/g, &quot;&amp;&amp;&quot;);
+//        trust_expression = trust_expression.replace(/\sOR\s/g, &quot;||&quot;);
 
-//	console.log("Trust expression : " + trust_expression);
+//	console.log(&quot;Trust expression : &quot; + trust_expression);
   
 	//Evaluate the trust expression
-	result = eval("(" + trust_expression + ")");
+	result = eval(&quot;(&quot; + trust_expression + &quot;)&quot;);
 
 	return result;
 }
@@ -347,12 +453,12 @@ function evaluateTrustmarkExpression(trust_expression, trustmark_list)
  */
 function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 {
-	var dbOpenRequest = indexedDB.open("trustmarkDB", 2);
+	var dbOpenRequest = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 
 	dbOpenRequest.onsuccess = function(event)
 	{
 		db = event.target.result;
-		var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
+		var recipientObjectStore = db.transaction(&quot;recipients&quot;).objectStore(&quot;recipients&quot;);
 
 		//Get the row for the recipient from the recipient object store
 		var recipientRequest = recipientObjectStore.get(recipient_id);
@@ -369,7 +475,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 				//Get the recipient trustmark list
 				var trustmark_list = recipient.trustmark_list;
 
-				var tipObjectStore = db.transaction("tip").objectStore("tip");
+				var tipObjectStore = db.transaction(&quot;tip&quot;).objectStore(&quot;tip&quot;);
 
 				var tipRequest = tipObjectStore.openCursor();
 				var overallFailed = false;
@@ -384,7 +490,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 
 						//If the tip has been currently applied
 						var tip = cursor.value;
-						if(tip.isActive === "1")
+						if(tip.isActive === &quot;1&quot;)
 						{
 							var trust_expression = tip.trust_expression;
 
@@ -401,7 +507,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 						else//If tip has failed, change the icon to NEGATIVE privacy
 						{
 							var icon = new Object();
-        			             	   	var jsonString = '{"32" : "./eye-noprivacy.png"}';
+        			             	   	var jsonString = &#x27;{&quot;32&quot; : &quot;./eye-noprivacy.png&quot;}&#x27;;
 	                        			button.icon  = JSON.parse(jsonString);
 						}
 					}
@@ -411,7 +517,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 						if(!overallFailed)
 						{
 							var icon = new Object();
-			                        	var jsonString = '{"32" : "./eye-privacy.png"}';
+			                        	var jsonString = &#x27;{&quot;32&quot; : &quot;./eye-privacy.png&quot;}&#x27;;
                         				button.icon  = JSON.parse(jsonString);
 						}
 					}
@@ -422,7 +528,7 @@ function checkIfRecipientSatisfiesAllActiveTIPs(recipient_id, button)
 			else//If recipient was not found in cache, then privacy policy of website has not yet been reviewed
 			{
 				var icon = new Object();
-				var jsonString = '{"32" : "./eye-qnmark.png"}';
+				var jsonString = &#x27;{&quot;32&quot; : &quot;./eye-qnmark.png&quot;}&#x27;;
 	                        button.icon  = JSON.parse(jsonString);
 			}
 		}
@@ -443,13 +549,13 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 {
 	var tip_divname = tip_type;
 
-	var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
+	var recipientObjectStore = db.transaction(&quot;recipients&quot;).objectStore(&quot;recipients&quot;);
 	var recipientRequest = recipientObjectStore.get(recipient_id);
 
 	//Get the recipient from the recipient object store
 	recipientRequest.onerror = function(event)
 	{
-		console.log("An error occurred while accessing the recipient store");
+		console.log(&quot;An error occurred while accessing the recipient store&quot;);
 	}
 	recipientRequest.onsuccess = function(event)
 	{
@@ -460,9 +566,9 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 		
 
 			//Get the tips from the tip store
-			var tipObjectStore = db.transaction("tip").objectStore("tip");
+			var tipObjectStore = db.transaction(&quot;tip&quot;).objectStore(&quot;tip&quot;);
 
-			var policyIndex = tipObjectStore.index("type");
+			var policyIndex = tipObjectStore.index(&quot;type&quot;);
 			var policyRequest = policyIndex.openCursor(tip_type);
 
 			policyRequest.onsuccess = function(event)
@@ -474,7 +580,7 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 		                         var isActive = results.isActive;
 
 					//If the tip is active
-                 		         if(isActive === "1")
+                 		         if(isActive === &quot;1&quot;)
                        			 {
 
 						var overallEvaluationViaWebAPI = false;
@@ -495,14 +601,14 @@ function checkIfRecipientSatisfiesPolicy(db, recipient_id, tip_type, trustmarkpa
 	                        	                if(result)
         	                        	        {
 								//Trigger passedtip event
-                	                        	        trustmarkpanel.port.emit("passedtip", tip_divname, recipient_id);
-                        	                        	console.log("The recipient has matched policy");
+                	                        	        trustmarkpanel.port.emit(&quot;passedtip&quot;, tip_divname, recipient_id);
+                        	                        	console.log(&quot;The recipient has matched policy&quot;);
                                 	        	}
 	                                	        else
         	                                	{
 								//Trigger failed tip event
-                	                                	trustmarkpanel.port.emit("failedtip", tip_divname, recipient_id);
-                     		   	                        console.log("The recipient has not matched policy");
+                	                                	trustmarkpanel.port.emit(&quot;failedtip&quot;, tip_divname, recipient_id);
+                     		   	                        console.log(&quot;The recipient has not matched policy&quot;);
                                 		        }
 
 						 }
@@ -533,7 +639,7 @@ function getTIPTrustExpression(tip_json)
 }
 
 /*****
- *Send the tip trust expression (textual format) and tip type to settings. Triggers 'receivetipdetails' event
+ *Send the tip trust expression (textual format) and tip type to settings. Triggers &#x27;receivetipdetails&#x27; event
  *@method getTIPExpressionText
  *@param tip_name {String} TIP Nickname
  *@Param worker {sidebar eventhandler} settings sidebar worker
@@ -541,7 +647,7 @@ function getTIPTrustExpression(tip_json)
  */
 function getTIPExpressionText(tip_name, worker)
 {
-	var dbRequest = indexedDB.open("trustmarkDB", 2);
+	var dbRequest = indexedDB.open(&quot;trustmarkDB&quot;, 2);
 
 	var db;
 
@@ -549,10 +655,10 @@ function getTIPExpressionText(tip_name, worker)
 	{	
 		db = event.target.result;
 
-		var tipObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+		var tipObjectStore = db.transaction(&quot;tip&quot;, &quot;readwrite&quot;).objectStore(&quot;tip&quot;);
 
 		//Get the tip for the matching nickname
-		var tipIndex = tipObjectStore.index("nickname")
+		var tipIndex = tipObjectStore.index(&quot;nickname&quot;)
 		var tipRequest = tipIndex.openCursor(tip_name);	
 
 		tipRequest.onsuccess = function(event)
@@ -570,7 +676,7 @@ function getTIPExpressionText(tip_name, worker)
 					var trustexpression = tipRow.trust_expression;
 
 					//Get list of all trustmark definitions
-					var trustmarkdefsStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+					var trustmarkdefsStore = db.transaction(&quot;trustmarkdefs&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkdefs&quot;);
 					var openRequest = trustmarkdefsStore.openCursor()
 					
 					openRequest.onsuccess = function(event)
@@ -580,7 +686,7 @@ function getTIPExpressionText(tip_name, worker)
 						{
 							//Replace trustmark definition ID with trustmark definition description
 							var td = trustmarkdefcursor.value;
-							trustexpression = trustexpression.replace(td.identifier, "'" +td.description + "'");	
+							trustexpression = trustexpression.replace(td.identifier, &quot;&#x27;&quot; +td.description + &quot;&#x27;&quot;);	
 
 							trustmarkdefcursor.continue();
 						}
@@ -588,7 +694,7 @@ function getTIPExpressionText(tip_name, worker)
 						{
 
 							//After iterating through all trustmark definitions, trigger receivetipdetails event that sends the trust expression
-							worker.port.emit("receivetipdetails", tipRow.type, trustexpression);
+							worker.port.emit(&quot;receivetipdetails&quot;, tipRow.type, trustexpression);
 						}	
 					}	
 				}
@@ -608,8 +714,8 @@ function getTIPExpressionText(tip_name, worker)
 function getTrustmarkList(tip_json)
 {
 
-    var trustmarkList = "";
-    var trustmarkseparator = ",";
+    var trustmarkList = &quot;&quot;;
+    var trustmarkseparator = &quot;,&quot;;
 
     var JSONObj = JSON.parse(tip_json);
     var trustmarkreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustmarkDefinitionReferenceList;
@@ -622,7 +728,7 @@ function getTrustmarkList(tip_json)
 	//Append Trustmark ID
         var referenceID = reference.TrustmarkDefinitionReference.Identifier;
 	var referenceName = reference.TrustmarkDefinitionReference.Description;      
-	var trustmarkSet = "{ \"trustmark_id\": \"" + referenceID + "\"" + "," + "\"trustmark_name\": \"" + referenceName + "\"}" 
+	var trustmarkSet = &quot;{ \&quot;trustmark_id\&quot;: \&quot;&quot; + referenceID + &quot;\&quot;&quot; + &quot;,&quot; + &quot;\&quot;trustmark_name\&quot;: \&quot;&quot; + referenceName + &quot;\&quot;}&quot; 
  
 	trustmarkList += trustmarkseparator;
 	trustmarkList += trustmarkSet;
@@ -633,7 +739,7 @@ function getTrustmarkList(tip_json)
 }
 
 /**
- *Update TIP trustmark expression with referenced TIP's trust expression
+ *Update TIP trustmark expression with referenced TIP&#x27;s trust expression
  *@method updateExpression
  *@param existing_condition {Boolean expression} Current trust expression for TIP
  *@param referenced_tip_id {String} Referenced TIP Identifier
@@ -642,7 +748,7 @@ function getTrustmarkList(tip_json)
  */
 function updateExpression(existing_condition, referenced_tip_id, referenced_tip_condition)
 {
-	existing_condition = existing_condition.replace(referenced_tip_id, "(" + referenced_tip_condition + ")");
+	existing_condition = existing_condition.replace(referenced_tip_id, &quot;(&quot; + referenced_tip_condition + &quot;)&quot;);
 	
 	return existing_condition;
 }
@@ -656,7 +762,7 @@ function updateExpression(existing_condition, referenced_tip_id, referenced_tip_
  */
 function getTipType(tip_id)
 {
-	var policyTypeArr = [ "minimization", "transparency", "access", "accountability", "dataquality"];
+	var policyTypeArr = [ &quot;minimization&quot;, &quot;transparency&quot;, &quot;access&quot;, &quot;accountability&quot;, &quot;dataquality&quot;];
 
 	for(var index in policyTypeArr)
 	{
@@ -664,7 +770,7 @@ function getTipType(tip_id)
 		
 		var typearr = tip_id.match(policyType);
 	
-		if(typearr && typearr.length > 0)
+		if(typearr &amp;&amp; typearr.length &gt; 0)
 		{
 			return policyType;
 		}
@@ -678,7 +784,7 @@ function getTipType(tip_id)
  */
 function getTIPNickname(policy_type)
 {
-	return policy_type + "-default";
+	return policy_type + &quot;-default&quot;;
 }
 
 
@@ -691,10 +797,10 @@ function getTIPNickname(policy_type)
  *@param tip_type {minimization|access|accountability|transparency|dataquality} Granular Principle
  *@param tip_nickname {String} TIP Nickname
  *@param isActive {1/0} is TIP Currently Applied
- *@param trustmark {String}  Trustmark Definition List that will be appended to TIP's trustmark definition list
+ *@param trustmark {String}  Trustmark Definition List that will be appended to TIP&#x27;s trustmark definition list
  *@param trustexpression {String} Trust Expression of the TIP (new insert) or Referenced TIP for Update
  *@param tipreferencearray {String array} Array of TIP IDs referred by the TIP
- *@param currentindex {integer} Index of currently referred TIP in tipreferencearray whose trustmarks will be appended to TIP's trustmark list in the next call
+ *@param currentindex {integer} Index of currently referred TIP in tipreferencearray whose trustmarks will be appended to TIP&#x27;s trustmark list in the next call
  *@return none		
  */
 function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nickname, isActive, trustmark, trustexpression, tipreferencearray, currentindex)
@@ -714,7 +820,7 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 			var trustmarklist = event.target.result.trustmark_list;
 
 			//Append new set of trustmarks to trustmark list
-			trustmarklist += "##TRUSTMARK##";
+			trustmarklist += &quot;##TRUSTMARK##&quot;;
 			trustmarklist += trustmark;
 
 			//Update tip trust expression with referenced tip expression
@@ -724,18 +830,18 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 
 			existing_expression = updateExpression(existing_expression, referenced_tip_ID, referenced_tip_expression);		
 		
-			//console.log("Found referenced tip condition: " + referenced_tip_expression);
-			//console.log("Existing condition: " + existing_expression);		
+			//console.log(&quot;Found referenced tip condition: &quot; + referenced_tip_expression);
+			//console.log(&quot;Existing condition: &quot; + existing_expression);		
 	
 			//Update tip with new trustmark list
 
-			var newRow = { "tip_id" : tip_id, "tip_json": tip_json , "trustmark_list": trustmarklist, "trust_expression" : existing_expression, "type": tip_type, "isActive": isActive, "nickname" : tip_nickname};
+			var newRow = { &quot;tip_id&quot; : tip_id, &quot;tip_json&quot;: tip_json , &quot;trustmark_list&quot;: trustmarklist, &quot;trust_expression&quot; : existing_expression, &quot;type&quot;: tip_type, &quot;isActive&quot;: isActive, &quot;nickname&quot; : tip_nickname};
 			
 			var updateRequest = tipObjectStore.put(newRow);	
 
 			updateRequest.onsuccess = function(event)
 			{
-			//	console.log("The trustmark list was updated successfully for " + tip_id);
+			//	console.log(&quot;The trustmark list was updated successfully for &quot; + tip_id);
 
 				var getRequest = tipObjectStore.get(tip_id);
 
@@ -752,20 +858,20 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 
 			updateRequest.onerror = function(event)
 			{
-				console.log("The trustmark list could not be updated for " + tip_id);
+				console.log(&quot;The trustmark list could not be updated for &quot; + tip_id);
 			}
 		}
 		else
 		{
 			//TIP does not previously exist in cache
 			//Insert TIP into cache
-			var newRow  = { "tip_id" : tip_id, "tip_json": tip_json, "trustmark_list": trustmark, "trust_expression": trustexpression, "type":tip_type, "isActive": isActive, "nickname":tip_nickname};
+			var newRow  = { &quot;tip_id&quot; : tip_id, &quot;tip_json&quot;: tip_json, &quot;trustmark_list&quot;: trustmark, &quot;trust_expression&quot;: trustexpression, &quot;type&quot;:tip_type, &quot;isActive&quot;: isActive, &quot;nickname&quot;:tip_nickname};
 
 			var addRequest = tipObjectStore.add(newRow);
 			
 			addRequest.onsuccess = function(event)
 			{
-				//console.log("The trustmark list was successfully added for " + tip_id);
+				//console.log(&quot;The trustmark list was successfully added for &quot; + tip_id);
 
 				var JSONObj = JSON.parse(tip_json);
 			        var tipreferencearray = JSONObj.TrustInteroperabilityProfile.References.TrustInteroperabilityProfileReferenceList;
@@ -774,14 +880,14 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
     					appendTrustmarksRecursively(tipreferencearray, 0, tip_id, tip_json, tip_type, tip_nickname, isActive, tipObjectStore);
 				}
 				
-//				console.log("TIP added!" + tip_nickname);
+//				console.log(&quot;TIP added!&quot; + tip_nickname);
 
 			}
 
 
 			addRequest.onerror = function(event)
 			{
-				console.log("The tip could not be added for " + tip_id);
+				console.log(&quot;The tip could not be added for &quot; + tip_id);
 			}	 
 		}	
 		
@@ -790,7 +896,7 @@ function addTIPDetailsToTIP(tipObjectStore, tip_id, tip_json, tip_type, tip_nick
 }
 
 /**
- *Append trustmark definitions to TIP's trustmark definition listrecursively from referenced tips
+ *Append trustmark definitions to TIP&#x27;s trustmark definition listrecursively from referenced tips
  *@method appendTrustmarksRecursively
  *@param tipreferencearray {String array} TIP Reference array
  *@param currentindex {integer} Index of the referenced tip among list of referenced tips
@@ -821,7 +927,7 @@ function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, ti
 	     //If referenced tip exists	in cache, process its trustmarks
              if(event.target.result)
              {
-		  //Get referenced tip's trustmarks	
+		  //Get referenced tip&#x27;s trustmarks	
                   var referenced_tip_json = event.target.result.tip_json;
                   var referenced_trustmark_list = getTrustmarkList(referenced_tip_json);
 		  var referenced_tip_trustexpression = getTIPTrustExpression(referenced_tip_json);	
@@ -829,12 +935,12 @@ function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, ti
 		  //Forward the index to the next tip to be processed			
 		  currentindex = currentindex+1;
 		
-		  //Append the referenced tip's trustmark list to tip's trustmark list	
+		  //Append the referenced tip&#x27;s trustmark list to tip&#x27;s trustmark list	
                   addTIPDetailsToTIP(TIPObjectStore, tip_id, tip_json, tip_type, tip_nickname, isActive, referenced_trustmark_list, referenced_tip_trustexpression, tipreferencearray, currentindex); 
 	     }
 	     else
              {
-                        console.log("ERROR: Referenced TIP is not in cache " + referenced_tip_ID);
+                        console.log(&quot;ERROR: Referenced TIP is not in cache &quot; + referenced_tip_ID);
              }
 	 }	  		
 }
@@ -852,7 +958,7 @@ function appendTrustmarksRecursively(tipreferencearray, currentindex, tip_id, ti
  */
 function insertTIPInCache(db, tip_id, tip_json, tip_nickname, tip_type, isActive)
 {
-    var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+    var TIPObjectStore = db.transaction(&quot;tip&quot;, &quot;readwrite&quot;).objectStore(&quot;tip&quot;);
 
     var trustmarklist = getTrustmarkList(tip_json);
     var trust_expression = getTIPTrustExpression(tip_json);	
@@ -862,7 +968,7 @@ function insertTIPInCache(db, tip_id, tip_json, tip_nickname, tip_type, isActive
 
 /***
  *Display the trustmarks for a recipient and TIP
- *Emits the 'trustmark' event
+ *Emits the &#x27;trustmark&#x27; event
  *@method displayTIPTrustmarks
  *@param tip_key {String} TIP Identifier
  *@param recipient_id {String} hostname of the recipient website
@@ -874,13 +980,13 @@ function displayTIPTrustmarks(db, worker, tip_key, recipient_id)
 
 
 		//Open TIP object store
-		var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
+		var TIPObjectStore = db.transaction(&quot;tip&quot;, &quot;readwrite&quot;).objectStore(&quot;tip&quot;);
 		//Get the tip key
 		var tipRequest = TIPObjectStore.get(tip_key);
 
 		tipRequest.onerror = function(event)
 		{
-			console.log("An error occurred while accesssing the tip store");
+			console.log(&quot;An error occurred while accesssing the tip store&quot;);
 		}
 
 		tipRequest.onsuccess = function(event)
@@ -898,13 +1004,13 @@ function displayTIPTrustmarks(db, worker, tip_key, recipient_id)
 				var tip_name = tip.nickname;
 
 				//Get the recipient trustmark list
-				var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
+				var recipientObjectStore = db.transaction(&quot;recipients&quot;).objectStore(&quot;recipients&quot;);
 
 				var recipientRequest = recipientObjectStore.get(recipient_id);
 
 				recipientRequest.onerror = function(event)
 				{
-					console.log("An error occurred while accessing the recipient store");
+					console.log(&quot;An error occurred while accessing the recipient store&quot;);
 				}
 
 				recipientRequest.onsuccess = function(event)
@@ -914,7 +1020,7 @@ function displayTIPTrustmarks(db, worker, tip_key, recipient_id)
 
 					//Get the description of all the trustmark definitions
 					//Create a list of trustmark definition with the descriptions
-                                        var trustmarkdefsStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+                                        var trustmarkdefsStore = db.transaction(&quot;trustmarkdefs&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkdefs&quot;);
                                         var openRequest = trustmarkdefsStore.openCursor();
 
                                         openRequest.onsuccess = function(event)
@@ -924,14 +1030,14 @@ function displayTIPTrustmarks(db, worker, tip_key, recipient_id)
                                                 if(trustmarkdefcursor)
                                                 {
                                                         var td = trustmarkdefcursor.value;
-                                                        trustexpression = trustexpression.replace(td.identifier, "'" +td.description + "'");
+                                                        trustexpression = trustexpression.replace(td.identifier, &quot;&#x27;&quot; +td.description + &quot;&#x27;&quot;);
 							trustmarkdefcursor.continue();
 
 						}
 						else
 						{
 							//Emit the trustmark event
-							worker.port.emit("trustmark", tip_trustmark_json, recipient_trustmark_list, tip_json, recipient_id, trustexpression, tip_name);
+							worker.port.emit(&quot;trustmark&quot;, tip_trustmark_json, recipient_trustmark_list, tip_json, recipient_id, trustexpression, tip_name);
 
 						}
 					}
@@ -950,12 +1056,12 @@ function displayTIPTrustmarks(db, worker, tip_key, recipient_id)
  */
 function displayTrustmarksForCurrentlyActivePolicy(tip_type, recipient_id, worker)
 {
-	var request  = indexedDB.open("trustmarkDB", 2);
+	var request  = indexedDB.open(&quot;trustmarkDB&quot;, 2);
         var db;
 
         request.onerror = function(event)
         {
-                console.log("An error occurred while opening the database.");
+                console.log(&quot;An error occurred while opening the database.&quot;);
         }
 
         request.onsuccess = function(event)
@@ -963,8 +1069,8 @@ function displayTrustmarksForCurrentlyActivePolicy(tip_type, recipient_id, worke
                 db = event.target.result;
 
 		//Access the TIP object store and get all the tips for the specified granular principle
-		var TIPObjectStore = db.transaction("tip", "readwrite").objectStore("tip");
-		var policyIndex = TIPObjectStore.index("type");
+		var TIPObjectStore = db.transaction(&quot;tip&quot;, &quot;readwrite&quot;).objectStore(&quot;tip&quot;);
+		var policyIndex = TIPObjectStore.index(&quot;type&quot;);
 
 		var policyRequest = policyIndex.openCursor(tip_type);
 
@@ -977,7 +1083,7 @@ function displayTrustmarksForCurrentlyActivePolicy(tip_type, recipient_id, worke
 				var tip = cursor.value;
 
 				//Is TIP Active?
-				if(tip.isActive === "1")
+				if(tip.isActive === &quot;1&quot;)
 				{
 
 					var tip_trustmark_list = tip.trustmark_list;
@@ -986,13 +1092,13 @@ function displayTrustmarksForCurrentlyActivePolicy(tip_type, recipient_id, worke
                                		var tip_name = tip.nickname;
 
 					//Get the recipient trustmark list
-	                                var recipientObjectStore = db.transaction("recipients").objectStore("recipients");
+	                                var recipientObjectStore = db.transaction(&quot;recipients&quot;).objectStore(&quot;recipients&quot;);
 
         	                        var recipientRequest = recipientObjectStore.get(recipient_id);
 
                 	                recipientRequest.onerror = function(event)
                         	        {
-                                	        console.log("An error occurred while accessing the recipient store");
+                                	        console.log(&quot;An error occurred while accessing the recipient store&quot;);
                                 	}
 
 	                                recipientRequest.onsuccess = function(event)
@@ -1002,7 +1108,7 @@ function displayTrustmarksForCurrentlyActivePolicy(tip_type, recipient_id, worke
 
                                 	        //Get the description of all the trustmark definitions
                                         	//Create a list of trustmark definition with the descriptions
-                                        	var trustmarkdefsStore = db.transaction("trustmarkdefs", "readwrite").objectStore("trustmarkdefs");
+                                        	var trustmarkdefsStore = db.transaction(&quot;trustmarkdefs&quot;, &quot;readwrite&quot;).objectStore(&quot;trustmarkdefs&quot;);
 	                                        var openRequest = trustmarkdefsStore.openCursor();
 
         	                                openRequest.onsuccess = function(event)
@@ -1012,14 +1118,14 @@ function displayTrustmarksForCurrentlyActivePolicy(tip_type, recipient_id, worke
 	                                                if(trustmarkdefcursor)
         	                                        {
                 	                                        var td = trustmarkdefcursor.value;
-                        	                                trustexpression = trustexpression.replace(td.identifier, "'" +td.description + "'");
+                        	                                trustexpression = trustexpression.replace(td.identifier, &quot;&#x27;&quot; +td.description + &quot;&#x27;&quot;);
                                 	                        trustmarkdefcursor.continue();
 
                                         	        }
                                                 	else
                                                 	{
                                                         	//Emit the trustmark event
-        	                                                worker.port.emit("trustmark", tip_trustmark_json, recipient_trustmark_list, tip_json, recipient_id, trustexpression, tip_name);
+        	                                                worker.port.emit(&quot;trustmark&quot;, tip_trustmark_json, recipient_trustmark_list, tip_json, recipient_id, trustexpression, tip_name);
 
 							}	
 						}
@@ -1054,7 +1160,27 @@ exports.displayTrustmarksForCurrentlyActivePolicy = displayTrustmarksForCurrentl
  1. Not handling TIP/Trustmark Updation over time
  2. Assumption - TIP JSON has been modified to put Trustmarks and Referenced TIPs in an array (for JSON parsing to succeed)
  3. Assumption - TIP JSON Trustexpression directly has Identifiers instead of idrefs
- 4. Assumption - If TIP is not present in pre-packaged, currently we don't support it. But it could get it from trustmark registry server.
+ 4. Assumption - If TIP is not present in pre-packaged, currently we don&#x27;t support it. But it could get it from trustmark registry server.
  5. Assumption - If a TIP references Trustmarks that are not present in the cache, it is retrieved from Trustmark Registry Server
  6. Trustmark Definition updation is not handled right now
 **/
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

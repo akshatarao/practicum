@@ -1,7 +1,12 @@
 *****************************************************************
-*This code is property of Georgia Tech Research Institute
+*This code is property of Georgia Institute of Technology
 *Written by: Akshata Rao
 *****************************************************************
+DISCLAIMER
+----------------
+This is an academic project created as part of the CS 6266 Information Security Practicum course at Georgia Institute of Technology.
+
+All pre-packaged trustmarks that have been provided to websites are for representational purposes only. They were assigned using the website's privacy policy as a guideline. However, no actual examination of a website's privacy policy has been conducted to assign these trustmarks to the website.
 
 DESCRIPTION
 -------------------
@@ -13,6 +18,7 @@ TECHNOLOGIES USED
 ------------------------
 Languages used: HTML, Javascript
 Database: Indexed DB
+Mozilla Addon SDK
 
 WEBSITES SUPPORTED
 ------------------
@@ -23,6 +29,21 @@ b. Amazon (www.amazon.com)
 c. HealthVault (www.healthvault.com)
 d. Bank of America (www.bankofamerica.com)
 e. Udacity (www.udacity.com)
+
+INSTALLATION
+--------------
+1. In your Mozilla Firefox browser, navigate to Addons->Settings->Install Addon From File.
+2. Select the trustmarkaddon.xpi file.
+
+DEVELOPMENT GUIDELINES
+-----------------------
+This project has been developed using the Mozilla Addon SDK.
+https://developer.mozilla.org/en-US/Add-ons/SDK
+
+Installation instructions for the SDK can be found at https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation
+
+The browser addon can be packaged using 'cfx xpi' command.
+
 
 MODULES
 --------------------
@@ -77,6 +98,12 @@ Files: data/sidebar.html data/sidebar.js
 
 This module encloses the operations for displaying the trustmarks received/not received by a website in the trustmarks sidebar. It also displays the currently active TIP.
  
+9. Pre-packaged Trustmarks and Trustmark Interoperability Profiles
+*******************************************************************
+Files: data/defaultTrustmarksNew, data/defaultTrustmarkDefinitionsNew, data/defaultTIPNew
+
+These folders enclose the pre-packaged trustmarks,trust interoperability profiles.
+
 PLACEHOLDERS
 ---------------------------
 
